@@ -63,13 +63,14 @@
   - [x] Lint (`npm run lint`), typecheck (`tsc --noEmit`), static build (`npm run build`) passing, screenshots captured at 1280px and 360px
   - *Key Decisions:* Eliminated any fake bill lookups or unconfirmed accreditations; enforced strict unconfirmed badges; verified all 11 static routes pre-render to HTML without client runtime reliance.
 
-- [ ] **Phase 5: Footer, Mobile Bottom Bar, Motion & Polish**
-  - [ ] Deep-teal footer with wordmark, structured contact details, verified navigation
-  - [ ] Mobile bottom action bar (Call, WhatsApp) with safe-area padding and WCAG 2.2 focus avoidance
-  - [ ] Controlled CSS motion (staggered load reveal, row hovers, button press) respecting `prefers-reduced-motion`
-  - [ ] Double-ring accessible focus indicators, custom selection, print stylesheet
-  - [ ] SEO: JSON-LD (`MedicalBusiness`/`LocalBusiness` with verified facts only), Open Graph, sitemap, robots
-  - [ ] Lint, typecheck, static build & screenshots
+- [x] **Phase 5: Footer, Mobile Bottom Bar, Motion & Polish**
+  - [x] Deep-teal footer (`#022325`) with large wordmark, structured contact details, verified navigation, and medical disclaimer
+  - [x] Mobile bottom action bar (Call, WhatsApp, Tests) with safe-area padding and WCAG 2.2 focus avoidance (hides automatically when inputs are focused)
+  - [x] Controlled CSS motion (`editorialRise` keyframes with cubic-bezier timing and stagger utilities) respecting `prefers-reduced-motion`
+  - [x] Double-ring accessible focus indicators, custom selection, print stylesheet
+  - [x] SEO: JSON-LD (`MedicalBusiness`/`LocalBusiness` with verified facts only), Open Graph, sitemap (`/sitemap.xml`), robots (`/robots.txt`)
+  - [x] Lint (`npm run lint`), typecheck (`tsc --noEmit`), static build (`npm run build`) passing, screenshots captured at 1280px and 360px
+  - *Key Decisions:* Implemented active focus listener on document to ensure mobile bottom bar never obscures input fields, satisfying WCAG 2.2 Success Criterion 2.4.11 / 2.4.12; generated static sitemap and robots routes.
 
 - [ ] **Phase 6: Verification, Critique & Audit**
   - [ ] Multi-resolution screenshots: 360px, 768px, 1280px, 1920px

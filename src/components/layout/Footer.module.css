@@ -1,0 +1,123 @@
+.footer {
+  background-color: var(--teal-950);
+  color: var(--ink-inv-primary);
+  padding: clamp(3.5rem, 6vw, 5.5rem) 0 var(--space-8);
+  border-top: 1px solid var(--teal-800);
+  margin-top: auto;
+  position: relative;
+}
+
+.topBrandRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: var(--space-8);
+  border-bottom: 1px solid var(--ink-inv-hairline);
+  margin-bottom: var(--space-8);
+  flex-wrap: wrap;
+  gap: var(--space-6);
+}
+
+.brandWordmark {
+  font-family: var(--font-serif-google), var(--font-serif);
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  color: var(--ink-inv-primary);
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-2);
+}
+
+.brandSub {
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--teal-300);
+  font-weight: 600;
+}
+
+.columnsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+  margin-bottom: var(--space-10);
+}
+
+@media (min-width: 640px) {
+  .columnsGrid {
+    grid-template-columns: 1.5fr 1fr 1fr;
+  }
+}
+
+.colTitle {
+  font-family: var(--font-sans-google), var(--font-sans);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal-300);
+  font-weight: 700;
+  margin-bottom: var(--space-3);
+}
+
+.colText {
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--ink-inv-secondary);
+  max-width: 38ch;
+}
+
+.navList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.navLink {
+  font-size: var(--text-sm);
+  color: var(--ink-inv-secondary);
+  text-decoration: none;
+  transition: color var(--duration-fast) ease;
+}
+
+.navLink:hover {
+  color: #ffffff;
+}
+
+.phoneList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.phoneLink {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  font-variant-numeric: tabular-nums;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.phoneLink:hover {
+  color: var(--teal-300);
+}
+
+.bottomLegalRow {
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--ink-inv-hairline);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-size: var(--text-xs);
+  color: var(--ink-inv-muted);
+}
+
+.disclaimerText {
+  max-width: 65ch;
+  line-height: 1.5;
+}

@@ -36,6 +36,12 @@ body {
   overflow-x: hidden;
 }
 
+@media (max-width: 767px) {
+  body {
+    padding-bottom: 68px;
+  }
+}
+
 /* Custom Text Selection */
 ::selection {
   background-color: var(--teal-200);
@@ -149,6 +155,34 @@ button {
 
 .band-deep-teal :focus-visible {
   box-shadow: var(--focus-ring-inv);
+}
+
+/* Controlled Editorial Motion */
+@keyframes editorialRise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-reveal {
+  animation: editorialRise var(--duration-reveal) var(--ease-editorial) both;
+}
+
+.animate-delay-1 {
+  animation-delay: 80ms;
+}
+
+.animate-delay-2 {
+  animation-delay: 160ms;
+}
+
+.animate-delay-3 {
+  animation-delay: 240ms;
 }
 
 /* Motion Preferences */

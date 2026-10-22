@@ -4,6 +4,8 @@ import '@/styles/global.css';
 import { LanguageProvider } from '@/i18n/LanguageProvider';
 import { BasketProvider } from '@/components/tests/BasketContext';
 import { SkipLink } from '@/components/layout/SkipLink';
+import { Footer } from '@/components/layout/Footer';
+import { MobileBottomBar } from '@/components/layout/MobileBottomBar';
 import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
@@ -116,7 +118,9 @@ export default function RootLayout({
             <SkipLink />
             <div id="root-layout" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
               {children}
+              <Footer />
             </div>
+            <MobileBottomBar />
           </BasketProvider>
         </LanguageProvider>
       </body>

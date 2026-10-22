@@ -83,3 +83,12 @@
 .viewLink:hover {
   color: #ffffff;
 }
+
+.viewLink span {
+  display: inline-block;
+  transition: transform var(--duration-fast) var(--ease-editorial);
+}
+
+.viewLink:hover span {
+  transform: translateX(4px);
+}
