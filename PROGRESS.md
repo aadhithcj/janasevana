@@ -37,16 +37,17 @@
   - [x] Lint (`npm run lint`), typecheck (`tsc --noEmit`), static build (`npm run build`) passing, screenshots captured at 1280px and 360px
   - *Key Decisions:* Tailored fluid clamp for Malayalam text to ensure above-the-fold visibility on 360px mobile viewports; verified zero layout shift during header condensation; confirmed Escape-key and focus trap accessibility on MobileMenu.
 
-- [ ] **Phase 3: Tests Directory & Basket**
-  - [ ] Ruled row typography (test name in display serif, department, sample type, prep status)
-  - [ ] Verified starter tests (Haematology, Biochemistry, Serology, Clinical Pathology)
-  - [ ] Smart search with synonym mapping ("sugar", "liver", "urine", "blood count", etc.)
-  - [ ] Category tabs with hairline indicators
-  - [ ] Basket with `useReducer` state management
-  - [ ] WhatsApp message builder generating pre-filled encoded `https://wa.me/919188490413` link
-  - [ ] Considered empty state ("No match. Call us and we'll help")
-  - [ ] Mobile responsive stacking
-  - [ ] Lint, typecheck, static build & screenshots
+- [x] **Phase 3: Tests Directory & Basket**
+  - [x] Ruled row typography (test name in display serif, department, sample type, prep status)
+  - [x] Verified starter tests (Haematology, Biochemistry, Serology, Clinical Pathology) with zero invented prices or TATs
+  - [x] Smart search with synonym mapping ("sugar", "liver", "urine", "blood count", etc.)
+  - [x] Category tabs with counts and hairline indicators
+  - [x] Basket with `useReducer` state management, persisting selected investigations
+  - [x] WhatsApp message builder generating pre-filled encoded `https://wa.me/919188490413` link with clear disclaimer
+  - [x] Considered empty state ("No match. Call us and we'll help") with direct call and WhatsApp actions
+  - [x] Mobile responsive stacking verified at 360px
+  - [x] Lint (`npm run lint`), typecheck (`tsc --noEmit`), static build (`npm run build`) passing, screenshots captured at 1280px and 360px
+  - *Key Decisions:* Implemented accessible feed landmark, expandable analyte subcomponents, persistent floating summary bar, and minimal patient data collection for WhatsApp booking.
 
 - [ ] **Phase 4: Remaining Sections & Dedicated Pages**
   - [ ] Departments section: full-bleed deep-teal band with oversized numerals

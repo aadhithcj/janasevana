@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { fontClassNames } from '@/styles/fonts';
 import '@/styles/global.css';
 import { LanguageProvider } from '@/i18n/LanguageProvider';
+import { BasketProvider } from '@/components/tests/BasketContext';
 import { SkipLink } from '@/components/layout/SkipLink';
 import { siteConfig } from '@/config/site';
 
@@ -111,10 +112,12 @@ export default function RootLayout({
       </head>
       <body>
         <LanguageProvider>
-          <SkipLink />
-          <div id="root-layout" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-            {children}
-          </div>
+          <BasketProvider>
+            <SkipLink />
+            <div id="root-layout" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+              {children}
+            </div>
+          </BasketProvider>
         </LanguageProvider>
       </body>
     </html>
