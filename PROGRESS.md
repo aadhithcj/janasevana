@@ -25,15 +25,17 @@
   - [x] Lint (`npm run lint`), typecheck (`tsc --noEmit`), static build (`npm run build`) passing, screenshots captured at 1280px and 360px
   - *Key Decisions:* Extracted official brand assets with transparent alpha; verified First Load JS total is 87.3 KB (well below 200KB budget); established strict ConfirmationStatus system.
 
-- [ ] **Phase 2: Header & Hero**
-  - [ ] Slim hairline header with official logo mark and wordmark
-  - [ ] Quiet underline-on-hover navigation and segmented EN | മലയാളം language toggle
-  - [ ] Condensing sticky header on scroll without layout shift
-  - [ ] Asymmetrical Hero: massive editorial headline, direct plain language
-  - [ ] Signature `SpecimenLabel` component (SVG barcode strip, perforated edge, ruled lines, no patient data)
-  - [ ] Thin ruled info strip with address, phones, opening hours (with honest confirmation status)
-  - [ ] Mobile-first check: address, phones, primary CTAs visible above fold at 360px
-  - [ ] Lint, typecheck, static build & screenshots
+- [x] **Phase 2: Header & Hero**
+  - [x] Slim hairline header with official logo mark and wordmark
+  - [x] Quiet underline-on-hover navigation and segmented EN | മലയാളം language toggle
+  - [x] Condensing sticky header on scroll without layout shift
+  - [x] Accessible MobileMenu drawer with focus trap, Escape to close, focus return, and scroll lock
+  - [x] Asymmetrical Hero: massive editorial headline, direct plain language
+  - [x] Signature `SpecimenLabel` component (SVG barcode strip, perforated edge, ruled lines, no patient data)
+  - [x] Thin ruled info strip with address, phones, opening hours (with honest confirmation status)
+  - [x] Mobile-first check: address, phones, primary CTAs visible above fold at 360px in both EN and മലയാളം
+  - [x] Lint (`npm run lint`), typecheck (`tsc --noEmit`), static build (`npm run build`) passing, screenshots captured at 1280px and 360px
+  - *Key Decisions:* Tailored fluid clamp for Malayalam text to ensure above-the-fold visibility on 360px mobile viewports; verified zero layout shift during header condensation; confirmed Escape-key and focus trap accessibility on MobileMenu.
 
 - [ ] **Phase 3: Tests Directory & Basket**
   - [ ] Ruled row typography (test name in display serif, department, sample type, prep status)

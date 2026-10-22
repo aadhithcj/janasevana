@@ -24,6 +24,19 @@ export function isConfirmed<T>(
   return item.status === 'CONFIRMED';
 }
 
+export function getFallbackMessage<T>(
+  item: ConfirmationStatus<T>,
+  lang: 'en' | 'ml' = 'en'
+): string {
+  if (item.status === 'TODO_CONFIRM') {
+    return lang === 'ml' ? item.fallbackMessageMl : item.fallbackMessageEn;
+  }
+  return '';
+}
+
+export const googleMapsSearchUrl =
+  'https://www.google.com/maps/search/?api=1&query=Janasevana+Lab+Kattungal+Building+Kaichoondy+Jn+Alappuzha';
+
 export const siteConfig = {
   // VERIFIED FACTS (Exact verified data)
   name: 'Janasevana Lab',
@@ -37,7 +50,7 @@ export const siteConfig = {
     district: 'Alappuzha',
     state: 'Kerala',
     country: 'India',
-    pincode: '688007', // Kaichoondy area postal code
+    pincode: '688007',
     full: 'Kattungal Building, Kaichoondy Jn., Alappuzha, Kerala',
     fullMl: 'കാട്ടുങ്കൽ ബിൽഡിംഗ്, കൈചൂണ്ടി ജംഗ്ഷൻ, ആലപ്പുഴ, കേരളം',
   },
@@ -61,7 +74,7 @@ export const siteConfig = {
 
   email: 'Janasevanalab313@gmail.com',
 
-  siteUrl: 'https://janasevanalab.com', // Base canonical domain
+  siteUrl: 'https://janasevanalab.com',
 
   // UNCONFIRMED ITEMS (Typed markers - helpers enforce honest fallback)
   tagline: {
@@ -86,8 +99,6 @@ export const siteConfig = {
     note: 'Exact Google Maps Plus Code / Place ID pending owner confirmation.',
     fallbackMessageEn: 'Directions to Kattungal Building, Kaichoondy Jn., Alappuzha',
     fallbackMessageMl: 'കാട്ടുങ്കൽ ബിൽഡിംഗ്, കൈചൂണ്ടി ജംഗ്ഷൻ, ആലപ്പുഴ',
-    // Safe standard search query URL
-    searchUrl: 'https://www.google.com/maps/search/?api=1&query=Janasevana+Lab+Kattungal+Building+Kaichoondy+Jn+Alappuzha',
   } as ConfirmationStatus<string>,
 
   homeCollection: {
