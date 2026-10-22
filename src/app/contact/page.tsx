@@ -20,6 +20,7 @@ export default function ContactPage() {
             eyebrow="Direct Enquiries"
             title={t.contactPage.title}
             subtitle={t.contactPage.subtitle}
+            level="h1"
           />
         </div>
 

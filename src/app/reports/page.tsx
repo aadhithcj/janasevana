@@ -20,6 +20,7 @@ export default function ReportsPage() {
             eyebrow="Diagnostic Results"
             title={t.reportsPage.title}
             subtitle={t.reportsPage.subtitle}
+            level="h1"
           />
 
           {/* Real Delivery Explanation (No fake lookup form!) */}

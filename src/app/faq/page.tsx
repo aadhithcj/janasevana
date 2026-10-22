@@ -20,6 +20,7 @@ export default function FAQPage() {
             eyebrow="Patient Guidance"
             title={t.faqPage.title}
             subtitle={t.faqPage.subtitle}
+            level="h1"
           />
 
           <div

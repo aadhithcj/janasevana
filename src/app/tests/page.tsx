@@ -27,6 +27,7 @@ export default function TestsPage() {
       <main id="main-content" style={{ padding: 'clamp(2rem, 5vw, 4.5rem) 0 8rem' }}>
         <div className="container">
           <SectionHeading
+            level="h1"
             number="01"
             eyebrow="Clinical Investigations"
             title={t.testsPage.title}

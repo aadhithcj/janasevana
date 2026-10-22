@@ -21,6 +21,7 @@ export default function AboutPage() {
             eyebrow="Institution & Purpose"
             title={t.aboutPage.title}
             subtitle={t.aboutPage.subtitle}
+            level="h1"
           />
 
           {/* Narrative Content */}

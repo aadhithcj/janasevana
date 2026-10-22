@@ -17,6 +17,7 @@ export default function HomeCollectionPage() {
       <main id="main-content" style={{ padding: 'clamp(2.5rem, 5vw, 5rem) 0 8rem' }}>
         <div className="container">
           <SectionHeading
+            level="h1"
             number="01"
             eyebrow="Doorstep Phlebotomy"
             title={t.homeCollectionPage.title}
