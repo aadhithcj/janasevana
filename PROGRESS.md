@@ -7,7 +7,7 @@
 
 ## Progress Checklist
 
-- [ ] **Step 0: Setup & Brand Discovery**
+- [x] **Step 0: Setup & Brand Discovery**
   - [x] Load `frontend-design` skill (`C:\Users\aadhi\.agents\skills\frontend-design\SKILL.md`)
   - [x] Inspect `brand/` directory: Discovered official logo in `Screenshot 2026-10-23 015243.png`
   - [x] Extract brand palette: Primary Teal `#048E92`, Charcoal `#434448`
@@ -49,17 +49,19 @@
   - [x] Lint (`npm run lint`), typecheck (`tsc --noEmit`), static build (`npm run build`) passing, screenshots captured at 1280px and 360px
   - *Key Decisions:* Implemented accessible feed landmark, expandable analyte subcomponents, persistent floating summary bar, and minimal patient data collection for WhatsApp booking.
 
-- [ ] **Phase 4: Remaining Sections & Dedicated Pages**
-  - [ ] Departments section: full-bleed deep-teal band with oversized numerals
-  - [ ] Process section: ruled timeline (collect, test, report) with verified facts
-  - [ ] Team section: editorial credit list, duotone-teal portrait slots, confirmed roles
-  - [ ] Location & Contact panel: letterhead-style panel, tap-to-call tabular numbers, directions link
-  - [ ] Reports page: honest delivery process (call/WhatsApp) + number-free report reading guide
-  - [ ] Home Collection page: honest confirmation status, call/WhatsApp direct booking
-  - [ ] About page: laboratory background, ethical standards, local community service
-  - [ ] FAQ page: safe clinical prep advice, fasting rules, sample collection guidance
-  - [ ] Custom 404 page
-  - [ ] Lint, typecheck, static build & screenshots
+- [x] **Phase 4: Remaining Sections & Dedicated Pages**
+  - [x] Departments section: full-bleed deep-teal band (`#022325`) with oversized numerals (`01`-`04`) and generous negative space
+  - [x] Process section: ruled timeline (01 Collect, 02 Test, 03 Report) with verified facts
+  - [x] Team section: editorial credit list, duotone-teal photo slots with monograms, verified roles
+  - [x] Location & Contact panel: high-contrast letterhead panel with address, tap-to-call lines, WhatsApp, email, Google Maps directions, and print CTA
+  - [x] Reports page: honest delivery explanation (counter pickup + WhatsApp) + number-free illustrative reading guide + doctor interpretation notice
+  - [x] Home Collection page: honest confirmation notice with direct call/WhatsApp enquiry and preparation guidelines
+  - [x] About page: institutional mission, ethical standards, community grounding in Alappuzha, team credits
+  - [x] FAQ page: safe clinical prep advice, fasting rules, sample collection guidance with semantic `<details>`
+  - [x] Custom designed 404 page
+  - [x] Accessible BookingForm with validation, ErrorSummary focus, and pre-filled WhatsApp message generation
+  - [x] Lint (`npm run lint`), typecheck (`tsc --noEmit`), static build (`npm run build`) passing, screenshots captured at 1280px and 360px
+  - *Key Decisions:* Eliminated any fake bill lookups or unconfirmed accreditations; enforced strict unconfirmed badges; verified all 11 static routes pre-render to HTML without client runtime reliance.
 
 - [ ] **Phase 5: Footer, Mobile Bottom Bar, Motion & Polish**
   - [ ] Deep-teal footer with wordmark, structured contact details, verified navigation

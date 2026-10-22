@@ -1,0 +1,64 @@
+.formWrapper {
+  background-color: #ffffff;
+  border: 1px solid var(--ink-hairline);
+  border-radius: var(--radius-sm);
+  padding: clamp(1.5rem, 4vw, 3rem);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.title {
+  font-family: var(--font-serif-google), var(--font-serif);
+  font-size: var(--text-h2);
+  color: var(--ink-primary);
+  margin-bottom: var(--space-2);
+}
+
+.subtitle {
+  font-size: var(--text-body);
+  color: var(--ink-secondary);
+  line-height: var(--lh-body);
+  margin-bottom: var(--space-6);
+  max-width: 55ch;
+}
+
+.serviceRadioGroup {
+  margin-bottom: var(--space-4);
+}
+
+.radioOption {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--ink-hairline);
+  border-radius: var(--radius-xs);
+  margin-bottom: var(--space-2);
+  cursor: pointer;
+  background-color: var(--paper-light);
+  transition: border-color var(--duration-fast) ease;
+}
+
+.radioOption:hover {
+  border-color: var(--teal-500);
+}
+
+.radioSelected {
+  border-color: var(--teal-500);
+  background-color: var(--teal-50);
+}
+
+.privacyCallout {
+  background-color: var(--paper-warm);
+  border-left: 3px solid var(--teal-500);
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--text-xs);
+  color: var(--ink-secondary);
+  line-height: 1.5;
+  margin-bottom: var(--space-6);
+}
+
+.actionRow {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}

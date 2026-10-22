@@ -1,0 +1,155 @@
+.panelSection {
+  padding: var(--section-pad) 0;
+  background-color: var(--paper-warm);
+}
+
+/* High-contrast Letterhead Style Panel */
+.letterheadPanel {
+  background-color: #ffffff;
+  border: 1px solid var(--teal-500);
+  border-radius: var(--radius-xs);
+  box-shadow: 0 4px 24px rgba(4, 142, 146, 0.08);
+  padding: clamp(2rem, 5vw, 4rem);
+  position: relative;
+  overflow: hidden;
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: var(--space-4);
+  border-bottom: 2px solid var(--teal-500);
+  margin-bottom: var(--space-6);
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.labTitle {
+  font-family: var(--font-serif-google), var(--font-serif);
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  color: var(--teal-900);
+  line-height: 1.1;
+  font-weight: 700;
+}
+
+.labSub {
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.printBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--teal-800);
+  background-color: var(--teal-50);
+  border: 1px solid var(--teal-200);
+  padding: 6px 12px;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+}
+
+.printBadge:hover {
+  background-color: var(--teal-100);
+}
+
+/* Grid layout for Contact Information */
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-8);
+}
+
+@media (min-width: 860px) {
+  .contentGrid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+  }
+}
+
+.blockTitle {
+  font-family: var(--font-sans-google), var(--font-sans);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal-700);
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.addressText {
+  font-size: 1.25rem;
+  line-height: 1.4;
+  color: var(--ink-primary);
+  font-weight: 500;
+  margin-bottom: var(--space-3);
+}
+
+.phoneList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.phoneItem {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--ink-hairline);
+}
+
+.phoneLabel {
+  font-size: var(--text-xs);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  font-weight: 600;
+}
+
+.phoneLink {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--teal-900);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--duration-fast) ease;
+}
+
+.phoneLink:hover {
+  color: var(--teal-600);
+}
+
+.emailLine {
+  font-size: 1.1rem;
+  color: var(--teal-800);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  word-break: break-all;
+}
+
+.actionRow {
+  display: flex;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.hoursNoticeBox {
+  background-color: var(--paper-warm);
+  border: 1px solid var(--ink-hairline);
+  padding: var(--space-4);
+  border-radius: var(--radius-xs);
+  font-size: var(--text-sm);
+  color: var(--ink-secondary);
+  line-height: 1.5;
+}
