@@ -1,0 +1,73 @@
+# Janasevana Lab Website Implementation Progress
+
+> Site: Janasevana Lab, Kattungal Building, Kaichoondy Jn., Alappuzha, Kerala
+> Stack: Next.js (App Router, Static Export), TypeScript, CSS Modules, Design Tokens
+
+---
+
+## Progress Checklist
+
+- [ ] **Step 0: Setup & Brand Discovery**
+  - [x] Load `frontend-design` skill (`C:\Users\aadhi\.agents\skills\frontend-design\SKILL.md`)
+  - [x] Inspect `brand/` directory: Discovered official logo in `Screenshot 2026-10-23 015243.png`
+  - [x] Extract brand palette: Primary Teal `#048E92`, Charcoal `#434448`
+  - [x] Create `PROGRESS.md`
+
+- [ ] **Phase 1: Foundation**
+  - [ ] Initialize Next.js project with TypeScript and static export (`output: 'export'`)
+  - [ ] Implement design tokens in `src/styles/tokens.css` (full teal tonal ramp 50-900, paper warm base, dark ink, amber prep alert, green WhatsApp)
+  - [ ] Configure typography with high-contrast serif for display, refined sans for UI, and matched Malayalam typography (Noto Serif Malayalam / Noto Sans Malayalam)
+  - [ ] Build core UI components in `src/components/ui/` (Button, SectionHeading, SectionNumber, Rule, Field, ErrorSummary)
+  - [ ] Build configuration in `src/config/` (`site.ts`, `tests.ts`, `team.ts`) with typed `TODO_CONFIRM` markers and helper guards
+  - [ ] Scaffold i18n in `src/i18n/` (`en.ts`, `ml.ts` marked "needs native-speaker review", `LanguageProvider.tsx`)
+  - [ ] Setup layout shell (RootLayout, SkipLink, metadata)
+  - [ ] Type & Color specimen test page for verification
+  - [ ] Lint, typecheck, static build & screenshots
+
+- [ ] **Phase 2: Header & Hero**
+  - [ ] Slim hairline header with official logo mark and wordmark
+  - [ ] Quiet underline-on-hover navigation and segmented EN | മലയാളം language toggle
+  - [ ] Condensing sticky header on scroll without layout shift
+  - [ ] Asymmetrical Hero: massive editorial headline, direct plain language
+  - [ ] Signature `SpecimenLabel` component (SVG barcode strip, perforated edge, ruled lines, no patient data)
+  - [ ] Thin ruled info strip with address, phones, opening hours (with honest confirmation status)
+  - [ ] Mobile-first check: address, phones, primary CTAs visible above fold at 360px
+  - [ ] Lint, typecheck, static build & screenshots
+
+- [ ] **Phase 3: Tests Directory & Basket**
+  - [ ] Ruled row typography (test name in display serif, department, sample type, prep status)
+  - [ ] Verified starter tests (Haematology, Biochemistry, Serology, Clinical Pathology)
+  - [ ] Smart search with synonym mapping ("sugar", "liver", "urine", "blood count", etc.)
+  - [ ] Category tabs with hairline indicators
+  - [ ] Basket with `useReducer` state management
+  - [ ] WhatsApp message builder generating pre-filled encoded `https://wa.me/919188490413` link
+  - [ ] Considered empty state ("No match. Call us and we'll help")
+  - [ ] Mobile responsive stacking
+  - [ ] Lint, typecheck, static build & screenshots
+
+- [ ] **Phase 4: Remaining Sections & Dedicated Pages**
+  - [ ] Departments section: full-bleed deep-teal band with oversized numerals
+  - [ ] Process section: ruled timeline (collect, test, report) with verified facts
+  - [ ] Team section: editorial credit list, duotone-teal portrait slots, confirmed roles
+  - [ ] Location & Contact panel: letterhead-style panel, tap-to-call tabular numbers, directions link
+  - [ ] Reports page: honest delivery process (call/WhatsApp) + number-free report reading guide
+  - [ ] Home Collection page: honest confirmation status, call/WhatsApp direct booking
+  - [ ] About page: laboratory background, ethical standards, local community service
+  - [ ] FAQ page: safe clinical prep advice, fasting rules, sample collection guidance
+  - [ ] Custom 404 page
+  - [ ] Lint, typecheck, static build & screenshots
+
+- [ ] **Phase 5: Footer, Mobile Bottom Bar, Motion & Polish**
+  - [ ] Deep-teal footer with wordmark, structured contact details, verified navigation
+  - [ ] Mobile bottom action bar (Call, WhatsApp) with safe-area padding and WCAG 2.2 focus avoidance
+  - [ ] Controlled CSS motion (staggered load reveal, row hovers, button press) respecting `prefers-reduced-motion`
+  - [ ] Double-ring accessible focus indicators, custom selection, print stylesheet
+  - [ ] SEO: JSON-LD (`MedicalBusiness`/`LocalBusiness` with verified facts only), Open Graph, sitemap, robots
+  - [ ] Lint, typecheck, static build & screenshots
+
+- [ ] **Phase 6: Verification, Critique & Audit**
+  - [ ] Multi-resolution screenshots: 360px, 768px, 1280px, 1920px
+  - [ ] Accessibility audit: No-JS fallback, keyboard navigation, focus trap, screen-reader landmarks
+  - [ ] Art direction hostile critique: template elimination, hierarchy check
+  - [ ] JS bundle size report (<200KB gzipped budget)
+  - [ ] Final confirmation checklist for laboratory owner
