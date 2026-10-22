@@ -1,0 +1,140 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-family: var(--font-sans-google), var(--font-sans);
+  font-weight: 500;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all var(--duration-fast) var(--ease-editorial);
+  white-space: nowrap;
+  user-select: none;
+  border: 1px solid transparent;
+  text-align: center;
+  touch-action: manipulation;
+}
+
+/* Touch targets: at least 48px height on mobile / standard */
+.sizeSm {
+  min-height: 40px;
+  padding: 0 var(--space-4);
+  font-size: var(--text-sm);
+}
+
+.sizeMd {
+  min-height: 48px;
+  padding: 0 var(--space-5);
+  font-size: var(--text-body);
+}
+
+.sizeLg {
+  min-height: 56px;
+  padding: 0 var(--space-8);
+  font-size: 1.1875rem;
+}
+
+/* Primary Variant: Solid deep teal */
+.variantPrimary {
+  background-color: var(--teal-500);
+  color: #ffffff;
+  border-color: var(--teal-600);
+}
+
+.variantPrimary:hover {
+  background-color: var(--teal-600);
+  transform: translateY(-1px);
+}
+
+.variantPrimary:active {
+  background-color: var(--teal-700);
+  transform: translateY(1px);
+}
+
+/* Secondary Variant: Hairline crisp border */
+.variantSecondary {
+  background-color: transparent;
+  color: var(--ink-primary);
+  border-color: var(--ink-hairline-strong);
+}
+
+.variantSecondary:hover {
+  background-color: var(--paper-light);
+  border-color: var(--teal-500);
+  color: var(--teal-600);
+  transform: translateY(-1px);
+}
+
+.variantSecondary:active {
+  background-color: var(--paper-muted);
+  transform: translateY(1px);
+}
+
+/* Ghost / Underline Variant */
+.variantGhost {
+  background-color: transparent;
+  color: var(--ink-primary);
+  border-bottom: 1px solid var(--ink-hairline-strong);
+  border-radius: 0;
+  padding-left: var(--space-1);
+  padding-right: var(--space-1);
+}
+
+.variantGhost:hover {
+  color: var(--teal-500);
+  border-bottom-color: var(--teal-500);
+}
+
+/* WhatsApp Variant: Purpose-bound green */
+.variantWhatsapp {
+  background-color: var(--whatsapp-green);
+  color: #042713;
+  border-color: rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+}
+
+.variantWhatsapp:hover {
+  background-color: #20bd5a;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(37, 211, 102, 0.25);
+}
+
+.variantWhatsapp:active {
+  background-color: #1ba84e;
+  transform: translateY(1px);
+}
+
+/* Dark Band Primary (Inverse) */
+.variantInverse {
+  background-color: #ffffff;
+  color: var(--teal-950);
+  border-color: #ffffff;
+  font-weight: 600;
+}
+
+.variantInverse:hover {
+  background-color: var(--teal-100);
+  color: var(--teal-900);
+  transform: translateY(-1px);
+}
+
+.variantInverse:active {
+  background-color: var(--teal-200);
+  transform: translateY(1px);
+}
+
+/* Disabled */
+.button:disabled,
+.button[aria-disabled='true'] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none !important;
+}
+
+/* Full Width */
+.fullWidth {
+  width: 100%;
+}

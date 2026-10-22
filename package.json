@@ -1,21 +1,24 @@
 {
-  "name": "janasevana",
+  "name": "janasevana-lab",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aadhithcj/janasevana.git"
+  "dependencies": {
+    "next": "14.2.15",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/aadhithcj/janasevana/issues"
-  },
-  "homepage": "https://github.com/aadhithcj/janasevana#readme"
+  "devDependencies": {
+    "@types/node": "26.6.5",
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
+    "eslint": "8.57.1",
+    "eslint-config-next": "14.2.15",
+    "typescript": "5.6.3"
+  }
 }

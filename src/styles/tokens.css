@@ -1,0 +1,141 @@
+:root {
+  /* Brand Teal Palette (Derived from official logo #048E92) */
+  --teal-50: #eef8f8;
+  --teal-100: #d6f0f1;
+  --teal-200: #b0e3e4;
+  --teal-300: #7ccfd1;
+  --teal-400: #3eb5b8;
+  --teal-500: #048e92; /* Authentic brand logo primary */
+  --teal-600: #03777b;
+  --teal-700: #035f62;
+  --teal-800: #054c4f;
+  --teal-900: #043f41;
+  --teal-950: #022325; /* Deep teal-black for dark bands */
+
+  /* Neutral Paper & Ink Palette */
+  --paper-light: #fcfbf8;
+  --paper-warm: #f6f3eb;
+  --paper-muted: #ece8dd;
+  --paper-tint: #f3efe6;
+
+  --ink-primary: #151919; /* High-contrast crisp black ink */
+  --ink-secondary: #434448; /* Authentic brand charcoal */
+  --ink-muted: #676c6d;
+  --ink-faint: #989f9f;
+  --ink-hairline: rgba(21, 25, 25, 0.12);
+  --ink-hairline-strong: rgba(21, 25, 25, 0.22);
+
+  /* Inverse (for Deep Teal full-bleed bands) */
+  --ink-inv-primary: #fcfbf8;
+  --ink-inv-secondary: #c8dedf;
+  --ink-inv-muted: #8fb1b3;
+  --ink-inv-faint: rgba(200, 222, 223, 0.3);
+  --ink-inv-hairline: rgba(255, 255, 255, 0.14);
+
+  /* Strictly Purpose-Bound Functional Accents */
+  /* Amber is ONLY for fasting & sample preparation notices */
+  --amber-bg: #fffbeb;
+  --amber-border: #f59e0b;
+  --amber-text: #92400e;
+  --amber-badge-bg: #fef3c7;
+
+  /* WhatsApp Green is ONLY for WhatsApp CTA & links */
+  --whatsapp-green: #25d366;
+  --whatsapp-dark: #128c7e;
+  --whatsapp-deep: #075e54;
+
+  /* Specimen Label Spec Sheet Accents */
+  --specimen-bg: #fffdf9;
+  --specimen-border: #048e92;
+  --specimen-rule: rgba(4, 142, 146, 0.25);
+  --specimen-code-bg: #f1ede3;
+
+  /* Typography Scale */
+  --font-serif: 'Newsreader', Georgia, Cambria, 'Times New Roman', serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-ml-serif: 'Noto Serif Malayalam', 'Newsreader', serif;
+  --font-ml-sans: 'Noto Sans Malayalam', 'Plus Jakarta Sans', sans-serif;
+
+  /* Fluid Font Sizes */
+  --text-hero: clamp(3.25rem, 6.8vw, 6.25rem);
+  --text-display: clamp(2.25rem, 4.5vw, 4rem);
+  --text-h1: clamp(2rem, 3.6vw, 3rem);
+  --text-h2: clamp(1.5rem, 2.5vw, 2.125rem);
+  --text-h3: clamp(1.25rem, 1.8vw, 1.5rem);
+  --text-lead: clamp(1.1875rem, 1.35vw, 1.375rem);
+  --text-body: 1.125rem; /* 18px body text minimum */
+  --text-sm: 0.9375rem; /* 15px */
+  --text-xs: 0.8125rem; /* 13px micro labels */
+
+  /* Line Heights */
+  --lh-tight: 1.02;
+  --lh-heading: 1.18;
+  --lh-subheading: 1.35;
+  --lh-body: 1.65;
+  --lh-ml-heading: 1.28;
+  --lh-ml-body: 1.82;
+
+  /* Spacing Scale (8px base) */
+  --space-0: 0px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+
+  /* Layout */
+  --container-max: 1240px;
+  --container-narrow: 860px;
+  --gutter: clamp(1.25rem, 4vw, 2.5rem);
+  --section-pad: clamp(4.5rem, 9vw, 8.5rem);
+
+  /* Geometry & Hairlines (1px crisp lines, small radius 2-6px) */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --hairline-light: 1px solid var(--ink-hairline);
+  --hairline-teal: 1px solid rgba(4, 142, 146, 0.2);
+  --hairline-dark: 1px solid var(--ink-inv-hairline);
+
+  /* Focus Indicator Tokens (WCAG 2.2 AA/AAA) */
+  --focus-ring: 0 0 0 3px #ffffff, 0 0 0 5px var(--teal-500);
+  --focus-ring-inv: 0 0 0 3px var(--teal-950), 0 0 0 5px var(--teal-300);
+
+  /* Motion */
+  --ease-editorial: cubic-bezier(0.22, 0.7, 0.2, 1);
+  --duration-fast: 160ms;
+  --duration-normal: 260ms;
+  --duration-reveal: 520ms;
+}
+
+/* Malayalam overrides: higher line-height and strictly zero negative tracking */
+:lang(ml) {
+  letter-spacing: 0 !important;
+  word-spacing: normal !important;
+}
+
+:lang(ml) h1,
+:lang(ml) h2,
+:lang(ml) h3,
+:lang(ml) .serif-display {
+  font-family: var(--font-ml-serif), var(--font-serif);
+  line-height: var(--lh-ml-heading);
+  letter-spacing: 0 !important;
+}
+
+:lang(ml) body,
+:lang(ml) p,
+:lang(ml) span,
+:lang(ml) a,
+:lang(ml) button {
+  font-family: var(--font-ml-sans), var(--font-sans);
+  line-height: var(--lh-ml-body);
+  letter-spacing: 0 !important;
+}

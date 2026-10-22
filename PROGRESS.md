@@ -13,16 +13,17 @@
   - [x] Extract brand palette: Primary Teal `#048E92`, Charcoal `#434448`
   - [x] Create `PROGRESS.md`
 
-- [ ] **Phase 1: Foundation**
-  - [ ] Initialize Next.js project with TypeScript and static export (`output: 'export'`)
-  - [ ] Implement design tokens in `src/styles/tokens.css` (full teal tonal ramp 50-900, paper warm base, dark ink, amber prep alert, green WhatsApp)
-  - [ ] Configure typography with high-contrast serif for display, refined sans for UI, and matched Malayalam typography (Noto Serif Malayalam / Noto Sans Malayalam)
-  - [ ] Build core UI components in `src/components/ui/` (Button, SectionHeading, SectionNumber, Rule, Field, ErrorSummary)
-  - [ ] Build configuration in `src/config/` (`site.ts`, `tests.ts`, `team.ts`) with typed `TODO_CONFIRM` markers and helper guards
-  - [ ] Scaffold i18n in `src/i18n/` (`en.ts`, `ml.ts` marked "needs native-speaker review", `LanguageProvider.tsx`)
-  - [ ] Setup layout shell (RootLayout, SkipLink, metadata)
-  - [ ] Type & Color specimen test page for verification
-  - [ ] Lint, typecheck, static build & screenshots
+- [x] **Phase 1: Foundation**
+  - [x] Initialize Next.js project with TypeScript and static export (`output: 'export'`)
+  - [x] Implement design tokens in `src/styles/tokens.css` (full teal tonal ramp 50-900 anchored on logo teal `#048E92`, paper warm base, dark ink, amber prep alert, green WhatsApp)
+  - [x] Configure typography with high-contrast serif for display (Newsreader), refined sans for UI (Plus Jakarta Sans), and matched Malayalam typography (Noto Serif Malayalam / Noto Sans Malayalam)
+  - [x] Build core UI components in `src/components/ui/` (Button, SectionHeading, SectionNumber, Rule, Field, ErrorSummary)
+  - [x] Build configuration in `src/config/` (`site.ts`, `tests.ts`, `team.ts`) with typed `TODO_CONFIRM` markers and helper guards
+  - [x] Scaffold i18n in `src/i18n/` (`en.ts`, `ml.ts` marked "needs native-speaker review", `LanguageProvider.tsx`)
+  - [x] Setup layout shell (RootLayout, SkipLink, metadata, JSON-LD with verified facts only)
+  - [x] Type & Color specimen test page for verification (`/specimen`)
+  - [x] Lint (`npm run lint`), typecheck (`tsc --noEmit`), static build (`npm run build`) passing, screenshots captured at 1280px and 360px
+  - *Key Decisions:* Extracted official brand assets with transparent alpha; verified First Load JS total is 87.3 KB (well below 200KB budget); established strict ConfirmationStatus system.
 
 - [ ] **Phase 2: Header & Hero**
   - [ ] Slim hairline header with official logo mark and wordmark
