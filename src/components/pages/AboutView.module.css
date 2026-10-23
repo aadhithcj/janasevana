@@ -12,18 +12,18 @@
 
 .heading {
   font-size: var(--step-3);
-  font-weight: var(--display-weight);
-  font-stretch: var(--display-stretch);
+  font-weight: 700;
+  font-stretch: 84%;
   line-height: 1.1;
 }
 
 :lang(ml) .heading {
-  font-stretch: var(--display-stretch);
+  font-stretch: 92%;
   line-height: 1.35;
 }
 
 .line {
-  font-weight: var(--display-weight);
+  font-weight: 700;
   color: var(--teal-800);
 }
 
@@ -52,7 +52,7 @@
 .quality {
   font-family: var(--font-display);
   font-size: var(--step-2);
-  font-weight: var(--display-weight);
+  font-weight: 650;
   line-height: 1.2;
 }
 

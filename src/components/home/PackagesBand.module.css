@@ -21,21 +21,21 @@
   background: #fff;
   color: var(--petrol-800);
   font-size: var(--step--1);
-  font-weight: var(--display-weight);
+  font-weight: 700;
 }
 
 .name {
   color: #fff;
   font-size: var(--step-5);
-  font-weight: var(--display-weight);
-  font-stretch: var(--display-stretch);
+  font-weight: 740;
+  font-stretch: 78%;
   line-height: 0.95;
   max-width: none;
 }
 
 :lang(ml) .name {
   font-family: var(--font-ml-display);
-  font-stretch: var(--display-stretch);
+  font-stretch: 88%;
   line-height: 1.25;
 }
 
@@ -51,8 +51,8 @@
 .amount {
   font-family: var(--font-display);
   font-size: var(--step-4);
-  font-weight: var(--display-weight);
-  font-stretch: var(--display-stretch);
+  font-weight: 700;
+  font-stretch: 82%;
   color: #fff;
 }
 

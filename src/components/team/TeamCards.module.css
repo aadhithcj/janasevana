@@ -59,8 +59,8 @@
   bottom: var(--space-4);
   font-family: var(--font-display);
   font-size: clamp(3.5rem, 2.5rem + 3vw, 5rem);
-  font-weight: var(--display-weight);
-  font-stretch: var(--display-stretch);
+  font-weight: 760;
+  font-stretch: 75%;
   line-height: 0.9;
   color: #fff;
   transform-origin: left bottom;
@@ -98,8 +98,8 @@
 .name {
   font-family: var(--font-display);
   font-size: var(--step-2);
-  font-weight: var(--display-weight);
-  font-stretch: var(--display-stretch);
+  font-weight: 680;
+  font-stretch: 88%;
   line-height: 1.1;
 }
 

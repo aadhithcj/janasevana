@@ -17,7 +17,7 @@
 .searchLabel {
   font-family: var(--font-display);
   font-size: var(--step-2);
-  font-weight: var(--display-weight);
+  font-weight: 660;
 }
 
 :lang(ml) .searchLabel {
@@ -129,15 +129,15 @@
 
 .groupTitle {
   font-size: var(--step-3);
-  font-weight: var(--display-weight);
-  font-stretch: var(--display-stretch);
+  font-weight: 700;
+  font-stretch: 84%;
   line-height: 1.1;
   padding-bottom: var(--space-3);
   border-bottom: 1.5px solid var(--ink);
 }
 
 :lang(ml) .groupTitle {
-  font-stretch: var(--display-stretch);
+  font-stretch: 92%;
   line-height: 1.35;
 }
 
@@ -157,7 +157,7 @@
 .name {
   font-family: var(--font-display);
   font-size: var(--step-1);
-  font-weight: var(--display-weight);
+  font-weight: 650;
   line-height: 1.2;
 }
 
@@ -280,7 +280,7 @@
   padding: 0 var(--space-4);
   border-radius: var(--radius-pill);
   font-size: var(--step--1);
-  font-weight: var(--display-weight);
+  font-weight: 650;
   white-space: nowrap;
   transition:
     background-color var(--dur-fast) var(--ease-out),
@@ -350,7 +350,7 @@
 .emptyTitle {
   font-family: var(--font-display);
   font-size: var(--step-2);
-  font-weight: var(--display-weight);
+  font-weight: 680;
   line-height: 1.15;
 }
 
@@ -390,7 +390,7 @@
   align-items: center;
   gap: var(--space-3);
   font-size: var(--step-2);
-  font-weight: var(--display-weight);
+  font-weight: 680;
 }
 
 .basketCount {

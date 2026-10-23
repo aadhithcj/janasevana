@@ -64,10 +64,6 @@
   --field-ink: #ffffff;
   --field-ink-2: #c9ece9;
   --field-rule: rgb(255 255 255 / 0.22);
-  --tint: color-mix(in oklch, var(--teal-500) 8%, var(--paper));
-  --footer: var(--charcoal-800);
-  --footer-ink: var(--charcoal-100);
-  --footer-ink-2: var(--charcoal-300);
 
   /* Type */
   --font-display: 'Anek Latin', 'Anek Fallback', system-ui, sans-serif;
@@ -75,19 +71,16 @@
   --font-ml-display: 'Anek Malayalam', 'Anek Latin', 'Noto Sans Malayalam', 'Anek Fallback', sans-serif;
   --font-ml-body: 'Noto Sans Malayalam', 'Atkinson Hyperlegible Next', 'Atkinson Fallback', sans-serif;
 
-  /* Fluid scale, ratio about 1.25 */
   --step--1: 1rem;
   --step-0: 1.1875rem;
-  --step-1: clamp(1.3rem, 1.24rem + 0.27vw, 1.5rem);
-  --step-2: clamp(1.55rem, 1.45rem + 0.45vw, 1.9rem);
-  --step-3: clamp(1.85rem, 1.69rem + 0.7vw, 2.4rem);
-  --step-4: clamp(2.15rem, 1.9rem + 1.1vw, 3rem);
-  --step-5: clamp(2.4rem, 2rem + 1.8vw, 3.75rem);
+  --step-1: 1.375rem;
+  --step-2: 1.75rem;
+  --step-3: clamp(1.9rem, 1.6rem + 1.2vw, 2.6rem);
+  --step-4: clamp(2.3rem, 1.75rem + 2.4vw, 3.75rem);
+  --step-5: clamp(2.6rem, 1.6rem + 4.4vw, 5.5rem);
 
-  --display-weight: 600;
-  --display-stretch: 100%;
   --lh-body: 1.55;
-  --lh-display: 1.08;
+  --lh-display: 1.02;
   --measure: 66ch;
 
   /* Space */
@@ -100,13 +93,12 @@
   --space-7: 3rem;
   --space-8: 4.5rem;
   --space-9: 6rem;
-  --section: clamp(3.5rem, 2.4rem + 4.8vw, 9rem);
+  --section: clamp(4.5rem, 3rem + 5vw, 8rem);
   --gutter: clamp(1rem, 0.6rem + 1.6vw, 2rem);
-  --page-max: 75rem;
+  --page-max: 77.5rem;
 
   /* Shape */
-  --radius-slip: 6px;
-  --radius-panel: 24px;
+  --radius-slip: 4px;
   --radius-field: 10px;
   --radius-pill: 999px;
   --target: 48px;
@@ -126,19 +118,16 @@
 
   /* Mobile action bar height, used to keep content clear of it */
   --bar-h: 0px;
-  --header-h: 80px;
 }
 
 /* Malayalam pages: taller glyphs and longer words need a looser setting. */
 :root:lang(ml) {
   --lh-body: 1.8;
-  --lh-display: 1.35;
+  --lh-display: 1.3;
   --measure: 60ch;
-  /* One notch down: Malayalam glyphs are taller and words longer. */
-  --step-2: clamp(1.45rem, 1.37rem + 0.36vw, 1.75rem);
-  --step-3: clamp(1.65rem, 1.52rem + 0.55vw, 2.1rem);
-  --step-4: clamp(1.85rem, 1.65rem + 0.9vw, 2.6rem);
-  --step-5: clamp(2rem, 1.7rem + 1.4vw, 3.15rem);
+  --step-3: clamp(1.7rem, 1.45rem + 1vw, 2.3rem);
+  --step-4: clamp(1.95rem, 1.5rem + 1.9vw, 3.1rem);
+  --step-5: clamp(2rem, 1.35rem + 3vw, 4.2rem);
 }
 
 @media (max-width: 47.99rem) {

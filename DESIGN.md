@@ -1,93 +1,104 @@
 # Design
 
-The single design document for the Janasevana Lab site. Product truth lives in PRODUCT.md; this file holds visual decisions only. Tokens are implemented in `src/styles/tokens.css`. The previous design (v2, "The written request" on teal fields) is recorded in `.impeccable/CURRENT_DESIGN.md`.
+The single design document for the Janasevana Lab site. Product truth lives in PRODUCT.md; this file holds visual decisions only. Tokens are implemented in `src/styles/tokens.css`.
 
-## Concept: quiet paper, one bold moment
+## Concept
 
-The site is calm paper with charcoal ink, the way a careful lab's printed report reads: generous margins, hairline rules, clear type. Teal is ink, not ground. It colours links, rules, numbers and one deliberate full-bleed moment per site: the home hero, where the lab's name, place, phone and current offer meet. Everything a visitor wants to do collects in one place, **Your request**, a paper slip that is always one tap away (header on every screen, drawer on demand). Adding a test, booking a package or typing a name writes into that slip, and the slip shows the exact WhatsApp message before anything is sent. The slip is the spine of the site, not a hero ornament.
+**The written request.** People reach Janasevana Lab with a phone call or a WhatsApp message, so the site is built around the message itself. Its signature is the Request Slip: a white paper note with a teal margin rule that shows, word for word, what will be sent to the lab. Picking a package or adding a test writes itself into the slip, and nothing leaves the phone until the person presses send in WhatsApp. Around the slip, the brand is a deep logo-teal field cut by one sweeping arc, taken from the curve of the lab's letterhead and the logo's swoosh. The lab's name, place and phone numbers are set large in both scripts, the way a bilingual board at Kaichoondy Junction would show them. Everything else is quiet: cool white paper, charcoal ink, ruled lists, and petrol blue kept only for the packages.
 
 ## Colour
 
-Sampled seeds (from `brand/` logo): teal **#058E92**, charcoal **#434448**. Petrol **#0A6C82** is the brief's estimate until the Royal Package ad is supplied.
+Sampled from `brand/Screenshot 2026-10-23 015243.png` (median of solid fills, white and anti-aliased pixels excluded):
 
-| Token | Value | Use |
+| Source | Sampled | Brief estimate |
 |---|---|---|
-| `--paper` | #F7FAF9 | page ground (about 80% of every screen) |
-| `--paper-raised` | #FFFFFF | slip, panels, inputs |
-| `--paper-sunk` | #EEF5F4 | the one occasional tint band |
-| `--ink` | #1E1F22 | body text (15.7:1) |
-| `--ink-2` | #434448 | secondary text (9.3:1) |
-| `--ink-3` | #5A5B60 | meta (6.5:1) |
-| `--rule` | #D9DADF | hairlines |
-| `--teal-500` | #058E92 | logo teal: arc line, large numbers, rules |
-| `--teal-600` | #017B7F | links (4.8:1) |
-| `--teal-700` | #056A6D | primary buttons, the hero field, current nav pill |
-| `--petrol-700` | #0A6C82 | the Royal Package panel only |
-| amber | #FFF4DC / #7A4A00 | fasting and preparation only |
-| WhatsApp | #25D366 / #0E2A1A | WhatsApp actions only |
-| `--footer` | #2A2B2F | footer ground, ink #ECEDEF |
+| Logo teal ("Janasevana", the S, lower ring) | **#058E92** | #009B94 / #008B8B |
+| Logo charcoal (the J, upper ring, "Lab") | **#434448** | #373A3C |
+| Petrol blue (Royal Package ad) | not sampled: the ad is not in `brand/` | #0A6C82, used as given until the ad is supplied |
 
-Full ramps (teal, charcoal, petrol 50–900) are derived in OKLCH from the seeds; tints use `color-mix()` from those.
+The report PDF is also absent, so the letterhead arcs are taken from the brief's description and the logo's own curve.
 
-Strategy: **Restrained.** Paper and charcoal carry the site; teal does real jobs (action, link, current state, number); the home hero is the single field of colour; petrol lives inside one panel.
+Ramps are derived in OKLCH from each seed (same hue, lightness stepped, chroma eased toward the ends):
+
+- **Teal:** 50 #EEF7F6 · 100 #DCEFEE · 200 #A9DEDC · 300 #80D1D4 · 400 #55B2B6 · 500 #058E92 (logo) · 600 #017B7F · 700 #056A6D (field) · 800 #03494C · 900 #013234
+- **Charcoal:** 50 #F6F7F9 · 100 #ECEDEF · 200 #D9DADF · 300 #BFC1C5 · 400 #A0A1A6 · 500 #7F8084 · 600 #5A5B60 · 700 #434448 (logo) · 800 #2A2B2F · 900 #1E1F22
+- **Petrol:** 50 #EEF8FB · 100 #DDF1F7 · 200 #B2E4F4 · 300 #94CBDC · 500 #438BA0 · 600 #24778C · 700 #0A6C82 (ad, estimate) · 800 #004858 · 900 #02313C
+- **Paper:** ground #F7FAF9, raised #FFFFFF, sunk #EEF5F4. Cool, never cream.
+- **Amber (fasting and preparation notices only):** surface #FFF4DC, rule #E0A100, text #7A4A00 (6.85:1).
+- **WhatsApp (WhatsApp actions only):** #25D366 with #0E2A1A text (7.76:1).
+- **Error:** #B3261E (6.54:1 on white), always paired with an icon and words.
+
+Contrast strategy: body text #1E1F22 on paper (15.7:1); secondary #434448 (9.3:1); meta #5A5B60 (6.5:1). On the teal field (#056A6D), body is white (6.4:1) and secondary is #C9ECE9 (5.1:1). Logo teal #058E92 (3.8:1 on paper) carries only large display type, rules and graphics, never body text. Links use teal-600 #017B7F (4.8:1) with an underline.
+
+Strategy: **Committed.** Teal owns the hero field and the closing contact band, about a third of the home page. Petrol owns the packages band. Three inks and paper; nothing else enters except amber and WhatsApp green, each in its one role.
 
 ## Type
 
-- **Display: Anek Latin + Anek Malayalam** at normal width (`font-stretch: 100%`), weight 560–620, `text-wrap: balance`. Used for headlines, prices and phone numbers only.
-- **Body: Atkinson Hyperlegible Next** (English) and **Noto Sans Malayalam**, 19px, line-height 1.55 / 1.8, never tracked.
-- Tabular lining numerals for prices, phones and dates.
-- Fluid scale, ratio about 1.25 (rem at 16px):
-  - `--step--1` 1rem
-  - `--step-0` 1.1875rem (body)
-  - `--step-1` clamp(1.3rem → 1.5rem)
-  - `--step-2` clamp(1.55rem → 1.9rem)
-  - `--step-3` clamp(1.85rem → 2.4rem)
-  - `--step-4` clamp(2.15rem → 3rem)
-  - `--step-5` clamp(2.4rem → 3.75rem), hero only
-- Malayalam headlines use the same steps one notch down with line-height 1.35; weight 600 keeps conjuncts and chillus crisp at 360px.
-- No all-caps labels, no eyebrows, no italic accents.
+- **Display, both scripts: Anek** (Anek Latin + Anek Malayalam, Ek Type). One multiscript design, so the Malayalam headings are the same voice as the English ones, not a fallback. Set condensed (`wdth` 75–87) and heavy (650–760) for headlines, normal width for smaller heads. Tracking 0 to -0.015em on Latin only.
+- **Reading, Latin: Atkinson Hyperlegible Next** (Braille Institute), drawn for low-vision readers with distinct letterforms (Il1, 0O). Body 19px phone, 20px desktop, line-height 1.55, measure 62–70ch.
+- **Reading, Malayalam: Noto Sans Malayalam**, the face Android already uses for Malayalam, so patients read the shapes they know. Body 19px, line-height 1.8, tracking always 0.
+- Malayalam fonts load only in the `/ml/` layout (preloaded there). English pages render the stray "മലയാളം" in the toggle with the system font, so they never download Malayalam files.
+- Numerals: tabular lining (`font-variant-numeric: tabular-nums`) for prices, phone numbers and dates.
+- No all-caps labels, no eyebrow kickers, no italic accent words, no monospace.
+
+Scale (rem at 16px root; display uses clamp between 360px and 1440px):
+`--step--1` 1rem · `--step-0` 1.1875rem (19px body) · `--step-1` 1.375rem · `--step-2` 1.75rem · `--step-3` clamp(1.9, 2.4) · `--step-4` clamp(2.4, 3.6) · `--step-5` clamp(2.6, 5.5). Malayalam display steps are one notch smaller and use line-height 1.3 (Latin display 1.0–1.05), because its glyphs are taller and strings longer.
+
+## Signature
+
+**The Request Slip.** A white rectangle (radius 4px; the only near-square corner on the site), with a 2px teal rule down its left margin set inside the padding, like a ruled message pad. It quotes the exact WhatsApp text in body type with tabular numerals, then offers three plain actions: Send on WhatsApp, Call, Copy message. It appears in the hero offer, under each package, in the basket and live beside the booking form, where it updates as the person types. Seeing the message before sending is the point.
+
+**The arc.** One large elliptical curve closes the teal field at the top of each page (a CSS ellipse on the field's lower edge, sweeping from left to right like the letterhead). The slip straddles it on the home page. It appears once per page, never as background decoration.
 
 ## Layout principles
 
-- 8px base. Major sections are separated by space and a hairline, not colour bands: `--section` clamp(3.5rem → 9rem) (56px phone, 144px wide desktop).
-- Max content width 1200px on a 12-column grid; text measure 60–70ch; left-aligned.
-- Flat and ruled by default. Larger radius (24px) on exactly two surfaces: the Royal Package panel and the request drawer. The slip keeps its 6px paper corner and the only shadow on the site.
-- No card-in-card. Lists are ruled rows (subgrid where rows share columns).
-- Photos render only when a real path is confirmed in config; no empty frames anywhere.
-- Inner pages open on paper: H1, one-line lede, and a single thin teal arc line beneath.
+- One 12-column grid, max 1240px, 16px gutters at phone (20px at 360px+), 32px desktop. Content measure capped at 70ch.
+- Left-aligned everything. No centred stacks except the 404 numeral.
+- Ruled lists instead of cards: tests, packages contents, quick actions and the team are rows divided by 1px rules. Cards are reserved for the Request Slip and the offer, the two highlighted panels.
+- Full-bleed bands vary the rhythm: teal field (hero), paper (actions, services), petrol band (packages), paper (collection steps), sunk paper (team and quality), teal band (contact). A dense band is followed by an open one.
+- More space above a heading than below. Section spacing 72px phone / 128px desktop; heading-to-content 24px.
+- 48×48px minimum targets, 8px minimum separation. Primary actions are 56px tall.
+- At 360px with Malayalam: headings wrap freely (`text-wrap: balance`), buttons wrap their labels rather than truncating, and no fixed widths exist below 768px.
+- Photo slots (storefront, team, collection visit) are framed with a hairline and an inset caption that says what will go there. They hold their aspect ratio, so no layout shift when real photos arrive.
 
 ## Components
 
-- **Header:** a sticky floating capsule 12px from the top: the circular logo mark (unaltered) in its own round bubble, then React Bits PillNav. Separate small pills to the right: EN | മലയാളം and **Your request (n)**. Phones: logo bubble, toggle and request pill only; Call, WhatsApp and Menu in the fixed bottom bar.
-- **Request Slip:** paper note, teal margin rule, the exact message, one primary action (Send on WhatsApp), secondary actions folded into a single "More" row. Never taller than one phone screen; long lists sit behind a disclosure.
-- **Request drawer:** native modal `<dialog>`: bottom sheet on phones, right-hand sheet on desktop, radius 24px. It holds the items, the patient name, booker name, home or lab, area and time fields, the live message, Send on WhatsApp, Call, Copy, and "Nothing is sent until you press send in WhatsApp." Escape closes; focus returns to the opener. The Home Collection page renders the same panel inline.
-- **Add controls:** every Add and Book-this-package button adds to the request and confirms with a short toast and a count bump; Book also opens the drawer.
-- **Buttons:** 48px (56px primary in the hero), radius 999px, Anek 600 at normal width.
-- **Footer:** charcoal; the full stacked logo on a paper tile; nav, address, ISO text, the lab's slogan once, copyright.
+- **Buttons:** 56px (primary) / 48px (secondary), radius 999px (pill, echoing the logo ring), Anek 600 at normal width. Primary on paper: teal-700 fill, white text. On teal field: white fill, teal-900 text. WhatsApp: #25D366 fill, dark text, chat glyph. Press: scale 0.98, 120ms.
+- **Toggle EN | മലയാളം:** a two-segment pill, current segment filled teal-700; both are links to the equivalent page, each labelled in its own script with its own `lang`.
+- **Rows:** 1px charcoal-200 rules, 20px vertical padding, hover tints the row teal-50.
+- **Notices:** cardiovascular notice in charcoal on teal-50 with a 1px teal-300 border and an "i" glyph; fasting notices amber. No thick coloured side stripes.
+- **Placeholder (unconfirmed facts):** never styled as data. Rendered as a sentence, "Call us to confirm", in meta colour with a phone link.
+- **Icons:** authored inline SVG, 24px box, 1.75px stroke, round caps: phone, chat, pin, mail, clock, plus, check, close, chevron, copy, info, arrow-out. No icon library, no emoji.
+- **Browser surfaces:** selection teal-200 on ink; focus ring 3px teal-600 offset 3px with a 1px white inner ring (visible on teal and paper); caret teal-600; underline offset 0.18em, thickness 1.5px; accent-color teal-700.
 
 ## Motion
 
-Transform and opacity only, 150–600ms, `cubic-bezier(0.22, 1, 0.36, 1)` for entrances, all off under `prefers-reduced-motion`.
-- Hero load: one staggered rise (under 600ms total).
-- Section reveal: once, below the fold only.
-- Drawer: slides 24px and fades in; the backdrop fades.
-- Add: the check scales in, the request count bumps, and a toast rises then fades after 2.6s.
-- Disclosures: the chevron rotates; height animates via `::details-content` where supported.
-- Language and page changes: cross-document View Transition, cross-fade only, no fallback needed.
-- PillNav: its own fill hover (owner-requested).
-- No tilt, parallax, counters, marquees or cursor effects.
+- Durations 150–600ms. Easing `cubic-bezier(0.22, 1, 0.36, 1)` (expo-out) for entrances, `cubic-bezier(0.65, 0, 0.35, 1)` for state swaps. Transform and opacity only.
+- **Page load (once):** the hero's H1 lines, actions and slip rise 12px and fade, staggered 70ms, total under 600ms. Content is visible by default; the animation only runs when JS marks the document ready and motion is allowed.
+- **Section reveal (once per section):** IntersectionObserver adds a class once; 16px rise, 420ms. Never re-runs.
+- **Package explorer:** native `<details>`, height animated with `interpolate-size` / `::details-content` where supported, chevron rotates 180° (200ms). Works and opens instantly without support.
+- **Added to booking:** the button's plus morphs to a check (stroke-dashoffset is not transform, so it is a cross-fade plus scale), and the basket count bumps once (scale 1 → 1.18 → 1, 300ms).
+- **Home-collection steps:** the three steps reveal in sequence (90ms stagger) when the list enters view, once.
+- **Language switch:** cross-document View Transition (`@view-transition { navigation: auto }`), a 220ms cross-fade of the main content while the header stays put.
+- **Mobile menu:** `<dialog>` slides up 24px + fades (280ms); backdrop fades.
+- **Sticky action bar:** slides in from below once after load (360ms), and slides out while a form field has focus.
+- `prefers-reduced-motion: reduce` turns every transform off and leaves only opacity cross-fades of 120ms or none.
+- Never: parallax, counters, typewriter, marquee, autoplay, glow, magnetic buttons, cursor effects, scroll hijacking, countdowns.
 
 ## Owner-requested components
 
-- **React Bits PillNav**, vendored verbatim in `src/components/shell/PillNav/`. Settings as requested: `itemStyle="plain"`, `hoverEffect="fill"`, `indicator="pill"`, `bounce={0.24}`, `stretch={0.32}`, `layout="split"` with the real circular mark as `logo`, `surface="solid"`, 48px targets, `collapse="never"` (narrow screens use the site menu), `intro={false}`. It is plain JS (no GSAP), about 11KB gzipped, and renders as plain links without JavaScript.
-- **Team cards**: flattened in v3: paper cards with teal initials, no tilt or arc-draw. They live on About; home lists the three names as a ruled list.
+- **Header navigation: React Bits PillNav** (owner request, 2026-10-23), vendored verbatim in `src/components/shell/PillNav/`. Settings as requested: `itemStyle="plain"`, `hoverEffect="fill"`, `indicator="pill"`, `bounce={0.24}`, `stretch={0.32}`. Adapted to this system: `surface="solid"` (glass is ruled out), bar `#eef5f4`, highlight teal-700 `#056a6d`, ink `#1e1f22`, 56px bar with 48px targets, `collapse="never"` (phones and tablets use the site's own menu dialog), `intro={false}` (no clip-path unroll on every page load; motion stays transform/opacity). The logo lockup stays as a separate home link beside it, so the lab's name is always visible, rather than a second logo inside the pill.
+- **Team cards** (owner request, after the earlier React Bits ProfileCard): three paper cards with a teal portrait panel (initials until real photos are confirmed) and the logo's arc. Hover (fine pointer only) lifts the card 6px, tilts it at most 5° toward the pointer and draws the arc across; keyboard users get the static card, reduced motion turns all of it off. The earlier card's holographic glare, dark theme, "Verified Staff" status and handle were not carried over: the first two break the colour rules, the last two were never stated by the lab.
 
 ## Logo usage
 
-The real artwork is extracted, never redrawn. The header uses the circular mark alone, unaltered, in PillNav's logo bubble. The full stacked lockup with the tagline appears in the footer (on a paper tile, because the logo sits only on light grounds), on About, on printouts and in the Open Graph image.
+The real artwork is extracted, never redrawn. The header sets the circular mark and the "Janasevana Lab" wordmark side by side (both cut from the same artwork) so the name stays legible at 15–18px; the full stacked lockup with the tagline appears in the footer, About page, printouts and the Open Graph image. The logo sits only on light grounds.
 
 ## Detector decisions
 
-- `low-contrast` "#ffffff on #eef5f4" in exported HTML: PillNav's roll-over label, translated out of view; it only shows over the teal fill (white on #056A6D, 6.4:1). False positive.
-- `cramped-padding` on ruled list rows: intentional ruled lists; rows carry their own vertical padding.
-- `bounce-easing` in the vendored PillNav: value-ignored for that file only; the curve belongs to the disabled intro.
+- `cramped-padding` on full-bleed bands (packages band, team section): false positive. Bands are full-bleed by design and take their side inset from the inner `.wrap`.
+- `nested-cards` (notice inside the Request Slip): resolved by unboxing the notice in the slip (icon + rule), keeping the bordered notice only on the Packages page.
+- `low-contrast` "#ffffff on #eef5f4" in exported HTML (13, one per page): false positive. It is PillNav's roll-over label, translated out of view; it only shows over the teal fill on hover (white on #056a6d, 6.4:1).
+- `cramped-padding` on ruled list rows (explorer rows, test rows, footer lists): intentional ruled lists; rows carry their own vertical padding and the rule is the separator, not a container.
+- `bounce-easing` in the vendored PillNav: value-ignored for that file only; the curve belongs to the intro pop, which is disabled.
+- `oversized-h1` on the home hero: kept. The 82px condensed place-name headline is the page's one bold move; on phones it is 41.6px.

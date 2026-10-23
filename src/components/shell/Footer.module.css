@@ -23,7 +23,7 @@
 
 .heading {
   font-size: var(--step-1);
-  font-weight: var(--display-weight);
+  font-weight: 640;
   margin-bottom: var(--space-3);
 }
 

@@ -54,7 +54,7 @@ h4 {
   overflow-wrap: break-word;
   margin: 0;
   font-family: var(--font-display);
-  font-weight: var(--display-weight);
+  font-weight: 640;
   line-height: 1.1;
   text-wrap: balance;
   color: var(--ink);
