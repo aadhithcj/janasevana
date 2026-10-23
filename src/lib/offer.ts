@@ -37,10 +37,13 @@ export function offerScript(window: OfferWindow): string {
 
 export function formatDate(iso: string, locale: 'en' | 'ml'): string {
   const d = new Date(`${iso}T12:00:00${IST}`);
-  return new Intl.DateTimeFormat(locale === 'ml' ? 'ml-IN' : 'en-IN', {
+  const parts = new Intl.DateTimeFormat(locale === 'ml' ? 'ml-IN' : 'en-IN', {
     day: 'numeric',
     month: 'long',
     year: 'numeric',
     timeZone: 'Asia/Kolkata',
-  }).format(d);
+  }).formatToParts(d);
+  const get = (t: string) => parts.find((p) => p.type === t)?.value ?? '';
+  // Day month year in both languages, as people write it in Kerala.
+  return `${get('day')} ${get('month')} ${get('year')}`;
 }

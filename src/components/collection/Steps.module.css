@@ -1,0 +1,101 @@
+.wrap {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.title {
+  font-size: var(--step-2);
+  font-weight: 660;
+}
+
+.steps {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--space-6);
+}
+
+/* The line that joins the three steps. */
+.steps::before {
+  content: '';
+  position: absolute;
+  left: 23px;
+  top: 24px;
+  bottom: 24px;
+  width: 2px;
+  background: var(--teal-200);
+}
+
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  column-gap: var(--space-4);
+  row-gap: var(--space-1);
+}
+
+.num {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--teal-700);
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+}
+
+.stepTitle {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 650;
+  line-height: 1.2;
+  padding-top: 10px;
+}
+
+:lang(ml) .stepTitle {
+  font-family: var(--font-ml-display);
+  line-height: 1.45;
+  padding-top: 6px;
+}
+
+.body {
+  color: var(--ink-2);
+  max-width: 40ch;
+}
+
+@media (min-width: 56rem) {
+  .steps {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+
+  .steps::before {
+    left: 24px;
+    right: calc(33.33% - 24px);
+    top: 23px;
+    bottom: auto;
+    width: auto;
+    height: 2px;
+  }
+
+  .step {
+    grid-template-columns: 1fr;
+  }
+
+  .num {
+    grid-row: auto;
+    margin-bottom: var(--space-3);
+  }
+
+  .stepTitle {
+    padding-top: 0;
+  }
+}

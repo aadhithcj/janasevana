@@ -38,6 +38,7 @@
   display: inline-flex;
   align-items: center;
   min-height: var(--target);
+  min-width: var(--target);
   color: var(--ink);
 }
 

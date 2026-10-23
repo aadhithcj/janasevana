@@ -20,10 +20,13 @@ Rebuilt from scratch on 2026-10-23. Product truth: PRODUCT.md. Design: DESIGN.md
 - [x] lint, `tsc --noEmit`, build pass; screenshots at 360 and 1280.
 
 ## Phase 2: Header, hero, offer, quick actions, action bar
-- [ ] Hero shaped and iterated visually
-- [ ] Offer module, date-driven
-- [ ] Quick actions
-- [ ] Critique of home and fixes
+- [x] Hero: place, H1 in Anek condensed, Call (number on the button) and WhatsApp, offer line, the Request Slip straddling the letterhead arc.
+- [x] Offer is date-driven (`config/packages.ts`, Asia/Kolkata): a head script sets `html[data-offer]` before paint; CSS swaps the cardiovascular slip for the Royal Package once it ends. No hydration mismatch, no rebuild, no countdown.
+- [x] Quick actions, packages band (petrol), services index, home-collection steps with the amber fasting notice, team cards, contact band.
+- [x] Header navigation uses React Bits PillNav (plain items, fill hover, pill indicator, bounce 0.24, stretch 0.32) on a solid brand surface with 48px targets; logo lockup kept beside it. Requested by the owner.
+- [x] Team: three cards with a hover lift, gentle pointer tilt and arc draw (mouse only; off for touch and reduced motion), in place of the earlier holographic ProfileCard. No invented "verified" status or handle.
+- [x] `/impeccable critique` (dual-agent): 25/36, axe 0 violations. Fixed both P1s (one was a false positive), all P2s and the minor findings.
+- [x] lint, tsc, build; screenshots at 360 and 1280 in both languages.
 
 ## Phase 3: Packages and explorer
 ## Phase 4: Tests directory, basket, booking form

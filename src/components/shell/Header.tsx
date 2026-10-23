@@ -4,7 +4,7 @@ import { href, type Locale } from '@/lib/paths';
 import { ActionLink } from '@/components/ui/Action';
 import { LogoLockup } from './Logo';
 import { LangToggle } from './LangToggle';
-import { NavLinks } from './NavLinks';
+import { SiteNav } from './SiteNav';
 import { MenuTrigger } from './Menu';
 import s from './Header.module.css';
 
@@ -16,9 +16,9 @@ export function Header({ locale }: { locale: Locale }) {
         <Link href={href(locale, 'home')} className={s.home} aria-label={t.homeLink}>
           <LogoLockup />
         </Link>
-        <nav className={s.nav} aria-label={t.navLabel}>
-          <NavLinks locale={locale} labels={t.nav} className={s.navList} linkClassName={s.navLink} />
-        </nav>
+        <div className={s.nav}>
+          <SiteNav locale={locale} labels={t.nav} ariaLabel={t.navLabel} />
+        </div>
         <div className={s.end}>
           <LangToggle locale={locale} label={t.language} />
           <ActionLink href={href(locale, 'homeCollection', 'book')} className={s.book}>

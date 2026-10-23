@@ -1,0 +1,10 @@
+.pending {
+  color: inherit;
+}
+
+.pending a {
+  display: inline;
+  padding-block: 12px;
+  color: inherit;
+  font-weight: 600;
+}

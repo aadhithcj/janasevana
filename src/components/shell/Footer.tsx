@@ -41,7 +41,7 @@ export function Footer({ locale }: { locale: Locale }) {
             </li>
             <li>
               <a href={`mailto:${site.email}`} className={s.email}>
-                {site.email}
+                {site.email.toLowerCase()}
               </a>
             </li>
           </ul>

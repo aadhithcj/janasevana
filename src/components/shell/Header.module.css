@@ -42,6 +42,15 @@
   display: none;
 }
 
+.nav :global(.site-pill-nav) {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+:lang(ml) .nav :global(.site-pill-nav) {
+  font-family: var(--font-ml-display);
+}
+
 .navList {
   display: flex;
   gap: var(--space-1);

@@ -129,6 +129,8 @@ button {
 }
 
 .num {
+  /* Anek's plain zero everywhere, so a number looks the same on a link and on a button. */
+  font-family: var(--font-display);
   font-variant-numeric: tabular-nums lining-nums;
   white-space: nowrap;
 }
