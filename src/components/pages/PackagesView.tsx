@@ -9,7 +9,7 @@ export function PackagesView({ locale }: { locale: Locale }) {
   const d = getDict(locale).packages;
   return (
     <>
-      <PageHead title={d.h1} lede={d.intro} tone="petrol" />
+      <PageHead title={d.h1} lede={d.intro} />
       {/* The dated offer leads while it runs; once it ends, CSS moves it below the standing package. */}
       <div className={s.stack}>
         <div className={s.dated}>

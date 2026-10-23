@@ -1,29 +1,23 @@
-import Link from 'next/link';
 import { getDict } from '@/i18n';
 import { href, type Locale } from '@/lib/paths';
-import { ActionLink } from '@/components/ui/Action';
-import { LogoLockup } from './Logo';
+import { RequestButton } from '@/components/request/RequestButton';
 import { LangToggle } from './LangToggle';
 import { SiteNav } from './SiteNav';
 import { MenuTrigger } from './Menu';
 import s from './Header.module.css';
 
+/** A floating group, 12px from the top: logo bubble and PillNav, then the language and request pills. */
 export function Header({ locale }: { locale: Locale }) {
   const t = getDict(locale).shell;
   return (
     <header className={s.header}>
-      <div className={`wrap ${s.bar}`}>
-        <Link href={href(locale, 'home')} className={s.home} aria-label={t.homeLink}>
-          <LogoLockup />
-        </Link>
+      <div className={s.bar}>
         <div className={s.nav}>
-          <SiteNav locale={locale} labels={t.nav} ariaLabel={t.navLabel} />
+          <SiteNav locale={locale} labels={t.nav} ariaLabel={t.navLabel} homeLabel={t.homeLink} />
         </div>
         <div className={s.end}>
           <LangToggle locale={locale} label={t.language} />
-          <ActionLink href={href(locale, 'homeCollection', 'book')} className={s.book}>
-            {t.bookShort}
-          </ActionLink>
+          <RequestButton locale={locale} fallbackHref={href(locale, 'homeCollection', 'book')} />
           <MenuTrigger label={t.menu} className={s.menuTrigger} />
         </div>
       </div>

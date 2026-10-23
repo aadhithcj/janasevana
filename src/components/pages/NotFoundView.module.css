@@ -1,7 +1,7 @@
 .field {
   background: var(--field);
   color: var(--field-ink);
-  padding-block: var(--space-8) var(--section);
+  padding-block: calc(var(--header-h) + var(--space-7)) var(--section);
   border-bottom-left-radius: 50% 4rem;
   border-bottom-right-radius: 50% 4rem;
 }

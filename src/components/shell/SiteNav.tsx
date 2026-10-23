@@ -8,18 +8,32 @@ import PillNav from './PillNav/PillNav';
 const order: PageId[] = ['home', 'packages', 'tests', 'homeCollection', 'about', 'contact'];
 
 /**
- * Desktop navigation: React Bits PillNav with the requested settings
- * (plain items, fill hover, pill indicator, bounce 0.24, stretch 0.32),
- * tuned to the lab's palette, a solid surface (no glass) and 48px targets.
- * The logo stays in the header lockup beside it, so the name is always shown.
+ * React Bits PillNav with the requested settings (plain items, fill hover,
+ * pill indicator, bounce 0.24, stretch 0.32) in its default split layout:
+ * the lab's circular mark, unaltered, in its own round bubble, then the
+ * link capsule. Solid surface (no glass), 48px targets. On narrow screens
+ * the header hides the link capsule and shows the site menu instead.
  */
-export function SiteNav({ locale, labels, ariaLabel }: { locale: Locale; labels: Record<PageId, string>; ariaLabel: string }) {
+export function SiteNav({
+  locale,
+  labels,
+  ariaLabel,
+  homeLabel,
+}: {
+  locale: Locale;
+  labels: Record<PageId, string>;
+  ariaLabel: string;
+  homeLabel: string;
+}) {
   const path = usePathname() || '/';
   const current = path.endsWith('/') ? path : `${path}/`;
   const items = order.map((id) => ({ label: labels[id], href: href(locale, id) }));
   return (
     <PillNav
       items={items}
+      logo="/brand/logo-mark.png"
+      logoAlt={homeLabel}
+      logoHref={href(locale, 'home')}
       activeHref={current}
       linkComponent={Link}
       itemStyle="plain"
@@ -44,6 +58,8 @@ export function SiteNav({ locale, labels, ariaLabel }: { locale: Locale; labels:
         '--pn-font': '16px',
         '--pn-shadow': 'none',
         '--pn-ring': '#017b7f',
+        '--pn-mark': '40px',
+        '--pn-edge': '#d9dadf',
       }}
     />
   );

@@ -1,14 +1,7 @@
 .head {
-  --pf: var(--field);
   position: relative;
-  background: var(--pf);
-  color: #fff;
-  padding-block: clamp(2rem, 1.25rem + 3vw, 4.5rem) var(--space-6);
-  margin-bottom: clamp(56px, 4vw + 40px, 120px);
-}
-
-.petrol {
-  --pf: var(--petrol-700);
+  padding: calc(var(--header-h) + clamp(2rem, 1.25rem + 3vw, 5rem)) 0 clamp(2rem, 1.5rem + 2vw, 3.5rem);
+  margin-bottom: clamp(2rem, 1.5rem + 2vw, 4rem);
 }
 
 .inner {
@@ -17,25 +10,21 @@
 }
 
 .title {
-  color: #fff;
+  max-width: 20ch;
   font-size: var(--step-5);
-  font-weight: var(--display-weight);
-  font-stretch: var(--display-stretch);
-  line-height: var(--lh-display);
-  max-width: 16ch;
+  line-height: 1.08;
 }
 
 :lang(ml) .title {
-  font-weight: var(--display-weight);
-  font-stretch: var(--display-stretch);
   max-width: 18ch;
+  line-height: 1.35;
 }
 
 .lede {
+  max-width: 52ch;
+  color: var(--ink-2);
   font-size: var(--step-1);
   line-height: 1.5;
-  color: var(--field-ink);
-  max-width: 44ch;
 }
 
 :lang(ml) .lede {
@@ -45,22 +34,18 @@
 
 .arc {
   position: absolute;
-  top: calc(100% - 1px);
   left: 0;
+  bottom: 0;
   width: 100%;
-  height: clamp(56px, 4vw + 40px, 120px);
+  height: 40px;
 }
 
 @media print {
   .head {
-    margin-bottom: var(--space-5);
+    padding-top: 0;
   }
 
   .arc {
     display: none;
-  }
-
-  .title {
-    color: #000;
   }
 }

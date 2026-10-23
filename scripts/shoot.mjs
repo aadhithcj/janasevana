@@ -24,7 +24,7 @@ for (const route of routes.split(',')) {
     await page.goto(url, { waitUntil: 'networkidle0' });
     await page.evaluate(() => document.fonts.ready);
     if (click) {
-      for (const el of await page.$$(click)) await el.click();
+      for (const el of await page.$$(click)) await el.click().catch(() => {}); // hidden matches are skipped
       await new Promise((r) => setTimeout(r, 400));
     }
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
