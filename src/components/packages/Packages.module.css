@@ -8,6 +8,10 @@
   gap: var(--space-7);
 }
 
+.grid > * {
+  min-width: 0;
+}
+
 .summary {
   display: grid;
   align-content: start;
@@ -32,6 +36,7 @@
 }
 
 :lang(ml) .name {
+  overflow-wrap: anywhere;
   font-stretch: 90%;
   line-height: 1.3;
 }

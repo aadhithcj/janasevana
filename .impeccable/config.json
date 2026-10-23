@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "bounce-easing",
+        "value": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+        "files": [
+          "src/components/shell/PillNav/PillNav.jsx"
+        ],
+        "createdAt": "2026-10-23T18:17:12.342Z",
+        "reason": "agent: vendored React Bits PillNav intro pop; intro={false} so this curve never runs"
+      }
+    ]
+  }
+}

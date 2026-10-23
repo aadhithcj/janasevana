@@ -1,5 +1,6 @@
 /* The Request Slip: white paper, near-square corners, a soft offset shadow. */
 .slip {
+  min-width: 0;
   position: relative;
   display: grid;
   gap: var(--space-4);
@@ -46,6 +47,7 @@
 }
 
 :lang(ml) .title {
+  overflow-wrap: anywhere;
   font-stretch: 92%;
   line-height: 1.3;
 }

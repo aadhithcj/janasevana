@@ -48,4 +48,8 @@ Rebuilt from scratch on 2026-10-23. Product truth: PRODUCT.md. Design: DESIGN.md
 - [x] Footer: address, numbers, WhatsApp, email, page links, ISO line, and the lab's quality line once.
 - [x] Sitemap with hreflang alternates, robots, Open Graph image (`scripts/build-og.mjs`).
 ## Phase 6: Motion and finish
+- [x] Typeset: Malayalam pages checked at 320–1920 (Anek Malayalam display, Noto Sans Malayalam body, line-height 1.8, no tracking); long Malayalam words no longer overflow at 320px.
+- [x] Motion (transform/opacity, reduced-motion off): one page-load rise in the hero, once-only section reveals below the fold, explorer and parameter disclosure, "Added" check and basket count bump, basket strip and action bar slide-in, ordered collection steps, menu sheet, cross-document view transition on language switch, PillNav fill hover, team card lift.
+- [x] Polish: selection colour, one focus ring (teal, white inner ring; inverted on teal), caret and accent colours, 48px targets (parameter toggles raised from 40px), favicon and apple icon from the real mark, Open Graph image, metadata with hreflang, sitemap, robots, print stylesheet.
+- [x] Detector: remaining findings triaged in DESIGN.md; one value-scoped ignore (vendored PillNav bounce curve).
 ## Phase 7: Verification

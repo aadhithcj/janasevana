@@ -98,4 +98,7 @@ The real artwork is extracted, never redrawn. The header sets the circular mark 
 
 - `cramped-padding` on full-bleed bands (packages band, team section): false positive. Bands are full-bleed by design and take their side inset from the inner `.wrap`.
 - `nested-cards` (notice inside the Request Slip): resolved by unboxing the notice in the slip (icon + rule), keeping the bordered notice only on the Packages page.
+- `low-contrast` "#ffffff on #eef5f4" in exported HTML (13, one per page): false positive. It is PillNav's roll-over label, translated out of view; it only shows over the teal fill on hover (white on #056a6d, 6.4:1).
+- `cramped-padding` on ruled list rows (explorer rows, test rows, footer lists): intentional ruled lists; rows carry their own vertical padding and the rule is the separator, not a container.
+- `bounce-easing` in the vendored PillNav: value-ignored for that file only; the curve belongs to the intro pop, which is disabled.
 - `oversized-h1` on the home hero: kept. The 82px condensed place-name headline is the page's one bold move; on phones it is 41.6px.
