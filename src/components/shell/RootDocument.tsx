@@ -2,12 +2,9 @@ import { cardioPackage } from '@config/packages';
 import { getDict } from '@/i18n';
 import { headScript } from '@/lib/headScript';
 import { BUILD_TIME, offerState } from '@/lib/offer';
-import { href, type Locale } from '@/lib/paths';
+import type { Locale } from '@/lib/paths';
 import { businessJsonLd } from '@/lib/seo';
 import { BasketProvider } from '@/components/booking/BasketContext';
-import { RequestProvider } from '@/components/request/RequestContext';
-import { RequestDrawer } from '@/components/request/RequestDrawer';
-import { RequestToast } from '@/components/request/RequestToast';
 import { Header } from './Header';
 import { Footer } from './Footer';
 import { ActionBar } from './ActionBar';
@@ -50,7 +47,6 @@ export function RootDocument({ locale, children }: { locale: Locale; children: R
           {d.shell.skip}
         </a>
         <BasketProvider>
-          <RequestProvider>
           <Header locale={locale} />
           <main id="main" tabIndex={-1} className={s.main}>
             {children}
@@ -60,9 +56,6 @@ export function RootDocument({ locale, children }: { locale: Locale; children: R
           <MenuDialog locale={locale} labels={d.shell.nav} title={d.shell.menu} closeLabel={d.shell.closeMenu}>
             <MenuExtras locale={locale} />
           </MenuDialog>
-          <RequestDrawer locale={locale} testsHref={href(locale, 'tests')} />
-          <RequestToast locale={locale} />
-          </RequestProvider>
         </BasketProvider>
       </body>
     </html>

@@ -1,9 +1,20 @@
+import { Arc } from '@/components/home/Arc';
 import s from './PageHead.module.css';
 
-/** Inner-page opening on paper: the page's one heading, a one-line lede, and a thin teal arc line. */
-export function PageHead({ title, lede, children }: { title: string; lede?: string; children?: React.ReactNode }) {
+/** Inner-page opening: the coloured field, the page's one heading, and the arc. */
+export function PageHead({
+  title,
+  lede,
+  tone = 'teal',
+  children,
+}: {
+  title: string;
+  lede?: string;
+  tone?: 'teal' | 'petrol';
+  children?: React.ReactNode;
+}) {
   return (
-    <header className={s.head}>
+    <header className={`${s.head} ${tone === 'petrol' ? s.petrol : ''} on-field`}>
       <div className={`wrap ${s.inner}`}>
         <h1 className={s.title} data-load style={{ '--i': 0 } as React.CSSProperties}>
           {title}
@@ -15,9 +26,7 @@ export function PageHead({ title, lede, children }: { title: string; lede?: stri
         )}
         {children}
       </div>
-      <svg className={s.arc} viewBox="0 0 1440 40" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-        <path d="M0 34C520 46 1040 30 1440 4" fill="none" stroke="var(--teal-500)" strokeWidth="2" vectorEffect="non-scaling-stroke" />
-      </svg>
+      <Arc className={s.arc} fill={tone === 'petrol' ? 'var(--petrol-700)' : 'var(--field)'} />
     </header>
   );
 }

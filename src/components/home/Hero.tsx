@@ -1,19 +1,18 @@
 import { cardioPackage, formatInr, royalPackage } from '@config/packages';
 import { site, telHref } from '@config/site';
 import { getDict } from '@/i18n';
-import { formatDate } from '@/lib/offer';
 import type { Locale } from '@/lib/paths';
 import { generalMessage, whatsappUrl } from '@/lib/whatsapp';
+import { formatDate } from '@/lib/offer';
 import { ActionLink } from '@/components/ui/Action';
 import { Icon } from '@/components/ui/Icon';
 import { OfferSlip } from '@/components/slip/OfferSlip';
 import { Arc } from './Arc';
 import s from './Hero.module.css';
 
-/** The site's one field of colour: where the lab is, how to reach it, and the current offer. */
 export function Hero({ locale }: { locale: Locale }) {
   const d = getDict(locale);
-  const landline = site.phones[0];
+  const [landline, whatsapp, mobile] = site.phones;
   return (
     <section className={`${s.hero} on-field`} aria-labelledby="hero-title">
       <div className={`wrap ${s.grid}`}>
@@ -22,10 +21,14 @@ export function Hero({ locale }: { locale: Locale }) {
             <Icon name="pin" />
             <span>{d.home.place}</span>
           </p>
-          <h1 id="hero-title" className={s.title} data-load style={{ '--i': 1 } as React.CSSProperties}>
-            {d.home.h1.join(' ')}
+          <h1 id="hero-title" className={s.title}>
+            {d.home.h1.map((line, i) => (
+              <span key={line} className={s.line} data-load style={{ '--i': i + 1 } as React.CSSProperties}>
+                {line}
+              </span>
+            ))}
           </h1>
-          <div className={s.actions} data-load style={{ '--i': 2 } as React.CSSProperties}>
+          <div className={s.actions} data-load style={{ '--i': 3 } as React.CSSProperties}>
             <ActionLink href={telHref(landline.tel)} variant="field" size="lg" icon="phone">
               {d.shell.call} <span className="num">{landline.display}</span>
             </ActionLink>
@@ -33,8 +36,7 @@ export function Hero({ locale }: { locale: Locale }) {
               {d.home.whatsappCta}
             </ActionLink>
           </div>
-          {/* On phones the slip sits below the fold, so the offer is named here too. */}
-          <p className={s.offerLine} data-load style={{ '--i': 3 } as React.CSSProperties}>
+          <p className={s.offerLine} data-load style={{ '--i': 4 } as React.CSSProperties}>
             <a href="#offer" data-when-offer="live upcoming">
               <span className={s.offerTag}>{cardioPackage.label[locale]}</span>
               <span>
@@ -48,9 +50,21 @@ export function Hero({ locale }: { locale: Locale }) {
               </span>
             </a>
           </p>
+          <p className={s.lede} data-load style={{ '--i': 5 } as React.CSSProperties}>
+            {d.home.lede}
+          </p>
+          <p className={s.numbers} data-load style={{ '--i': 6 } as React.CSSProperties}>
+            <span>{d.home.otherNumbers}:</span>{' '}
+            <a href={telHref(whatsapp.tel)} className="num">
+              {whatsapp.display}
+            </a>{' '}
+            <a href={telHref(mobile.tel)} className="num">
+              {mobile.display}
+            </a>
+          </p>
         </div>
 
-        <div id="offer" className={s.offer} data-load style={{ '--i': 2 } as React.CSSProperties}>
+        <div id="offer" className={s.offer} data-load style={{ '--i': 3 } as React.CSSProperties}>
           <div data-when-offer="live upcoming">
             <OfferSlip pkg={cardioPackage} locale={locale} />
           </div>

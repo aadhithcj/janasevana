@@ -211,28 +211,6 @@ export const en = {
     removedLive: (name: string) => `${name} removed from your booking.`,
   },
 
-  request: {
-    title: 'Your request',
-    open: 'Your request',
-    close: 'Close',
-    added: (name: string) => `${name} added to your request.`,
-    review: 'Review',
-    showAll: (n: number) => `Show all ${n}`,
-    more: 'More options',
-    addPackage: 'Add to my request',
-    book: 'Book this package',
-    intro: 'Check the details. We open WhatsApp with this message for you to send.',
-  },
-
-  search: {
-    title: 'What do you need?',
-    label: 'Search tests',
-    hint: 'Type a test name or an everyday word.',
-    submit: 'Search',
-    try: 'Common searches',
-    words: ['heart', 'sugar', 'thyroid', 'kidney', 'liver', 'cholesterol', 'vitamin'],
-  },
-
   booking: {
     title: 'Book a test or a home visit',
     intro: 'Fill in a few details. We turn them into a WhatsApp message for you to check and send.',

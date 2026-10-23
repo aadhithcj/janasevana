@@ -19,8 +19,7 @@ export type IconName =
   | 'menu'
   | 'arrow'
   | 'alert'
-  | 'print'
-  | 'note';
+  | 'print';
 
 const paths: Record<IconName, React.ReactNode> = {
   phone: (
@@ -84,12 +83,6 @@ const paths: Record<IconName, React.ReactNode> = {
     <>
       <path d="M12 4 2.8 19.5h18.4L12 4Z" />
       <path d="M12 10v4.5M12 17.2v.1" />
-    </>
-  ),
-  note: (
-    <>
-      <path d="M6.5 3.5h8l3 3v14h-11z" />
-      <path d="M9 10h6M9 13.5h6M9 17h3.5" />
     </>
   ),
   print: (

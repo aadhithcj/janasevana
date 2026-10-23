@@ -126,7 +126,7 @@
 
   /* Mobile action bar height, used to keep content clear of it */
   --bar-h: 0px;
-  --header-h: 84px;
+  --header-h: 80px;
 }
 
 /* Malayalam pages: taller glyphs and longer words need a looser setting. */
