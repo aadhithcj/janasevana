@@ -5,6 +5,8 @@ import styles from './Team.module.css';
 import { staffMembers } from '@/config/team';
 import { useLanguage } from '@/i18n/LanguageProvider';
 import { SectionHeading } from '@/components/ui/SectionHeading';
+import ProfileCard from '@/components/ui/ProfileCard';
+import { siteConfig } from '@/config/site';
 
 export function Team() {
   const { t, lang } = useLanguage();
@@ -25,21 +27,30 @@ export function Team() {
             const role = lang === 'ml' ? member.roleMl : member.roleEn;
 
             return (
-              <article key={member.id} className={styles.memberCard}>
-                {/* Intentional Duotone Teal Photo Slot */}
-                <div className={styles.photoSlot} aria-label={`${name} portrait slot`}>
-                  <div className={styles.photoPattern} aria-hidden="true" />
-                  <span className={styles.initials} aria-hidden="true">
-                    {member.initials}
-                  </span>
-                  <span className={styles.photoBadge}>
-                    PHOTO PENDING OWNER CONFIRMATION
-                  </span>
-                </div>
-
-                <div className={styles.roleSmallCaps}>{role}</div>
-                <h3 className={styles.memberName}>{name}</h3>
-              </article>
+              <div key={member.id} className={styles.cardWrapper}>
+                <ProfileCard
+                  name={name}
+                  title={role}
+                  handle="janasevanalab"
+                  status={lang === 'ml' ? 'സ്ഥിരീകരിച്ച ജീവനക്കാർ' : 'Verified Staff'}
+                  statusColor="#22c55e"
+                  contactText={t.common.callUs}
+                  holo={0.55}
+                  glare={0.5}
+                  tiltStrength={1}
+                  parallax={0}
+                  radius={8}
+                  enableTilt={true}
+                  intro={true}
+                  showUserInfo={true}
+                  enableMobileTilt={false}
+                  theme="dark"
+                  miniAvatarUrl="/images/brand-emblem.png"
+                  onContactClick={() => {
+                    window.location.href = `tel:${siteConfig.phones.primaryCallRaw}`;
+                  }}
+                />
+              </div>
             );
           })}
         </div>

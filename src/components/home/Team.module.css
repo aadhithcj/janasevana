@@ -6,17 +6,17 @@
 }
 
 .teamGrid {
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
   gap: var(--space-8);
   margin-top: var(--space-8);
 }
 
-@media (min-width: 768px) {
-  .teamGrid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-8);
-  }
+.cardWrapper {
+  display: flex;
+  justify-content: center;
 }
 
 .memberCard {

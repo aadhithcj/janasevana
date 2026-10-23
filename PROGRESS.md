@@ -80,3 +80,10 @@
   - [x] JS bundle size: First Load Shared JS is 87.3 kB; largest route total is 128 kB (~45 kB gzipped, well under the 200KB budget)
   - [x] Owner confirmation checklist documented in `src/config/site.ts` with honest fallback UI
   - *Key Decisions:* Ensured all dedicated subpages declare `level="h1"` on their primary `SectionHeading`; verified seamless English <-> Malayalam transitions without hydration flash; confirmed static export executes cleanly with zero runtime server dependency.
+
+- [x] **Component Enhancement: ProfileCard (React Bits)**
+  - [x] Integrated `<ProfileCard />` with `@hugeicons/react` and `@hugeicons/core-free-icons` for Laboratory Team (Ajmal Majeed, Najeema Sathar, Remya Sajan).
+  - [x] Applied specified configuration: `theme="dark"`, `holo={0.55}`, `glare={0.5}`, `tiltStrength={1}`, `parallax={0}`, `radius={8}`, `enableTilt={true}`, `intro={true}`, `showUserInfo={true}`, `enableMobileTilt={false}`.
+  - [x] Added subtle smooth hover zoom (`scale(1.03)`).
+  - [x] Verified static build export and visual rendering at 1280px and 360px.
+
