@@ -2,5 +2,13 @@ node_modules
 .next
 out
 *.tsbuildinfo
-*.log
-audit.py
+next-env.d.ts
+
+# Brand source files (contain a real patient report). Never commit or publish.
+brand/
+
+# Local tool state
+.impeccable/config.local.json
+.impeccable/review/
+.impeccable/live/
+.verify/

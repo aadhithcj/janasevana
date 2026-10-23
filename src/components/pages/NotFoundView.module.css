@@ -1,0 +1,99 @@
+.field {
+  background: var(--field);
+  color: var(--field-ink);
+  padding-block: var(--space-8) var(--section);
+  border-bottom-left-radius: 50% 4rem;
+  border-bottom-right-radius: 50% 4rem;
+}
+
+.inner {
+  display: grid;
+  gap: var(--space-5);
+  align-items: end;
+}
+
+.code {
+  font-family: var(--font-display);
+  font-size: clamp(6rem, 3rem + 14vw, 13rem);
+  font-weight: 760;
+  font-stretch: 75%;
+  line-height: 0.85;
+  color: var(--teal-300);
+  max-width: none;
+}
+
+.title {
+  color: #fff;
+  font-size: var(--step-4);
+  font-weight: 700;
+  font-stretch: 85%;
+  line-height: 1.05;
+}
+
+.titleMl {
+  margin-top: var(--space-3);
+  font-family: 'Noto Sans Malayalam', 'Nirmala UI', sans-serif;
+  font-size: var(--step-2);
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.body {
+  margin-top: var(--space-4);
+  color: var(--field-ink-2);
+}
+
+.body:lang(ml) {
+  font-family: 'Noto Sans Malayalam', 'Nirmala UI', sans-serif;
+  line-height: 1.8;
+}
+
+.links {
+  padding-top: var(--space-7);
+}
+
+.list {
+  display: grid;
+  border-top: 1px solid var(--field-rule);
+}
+
+.list li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--space-2) var(--space-5);
+  border-bottom: 1px solid var(--field-rule);
+}
+
+.list a,
+.call a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 52px;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 600;
+}
+
+.mlLink {
+  font-family: 'Noto Sans Malayalam', 'Nirmala UI', sans-serif !important;
+  font-size: var(--step-0) !important;
+  color: var(--field-ink-2) !important;
+}
+
+.call {
+  margin-top: var(--space-5);
+}
+
+@media (min-width: 48rem) {
+  .inner {
+    grid-template-columns: auto 1fr;
+    gap: var(--space-7);
+  }
+
+  .list {
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--space-7);
+  }
+}

@@ -1,0 +1,17 @@
+/* Malayalam faces. Linked only from /ml/ pages. Instanced and subset by scripts/build-fonts.py (SIL OFL). */
+@font-face {
+  font-family: 'Anek Malayalam';
+  src: url('/fonts/anek-malayalam.woff2') format('woff2');
+  font-weight: 500 760;
+  font-stretch: 80% 100%;
+  font-display: swap;
+  unicode-range: U+0D00-0D7F, U+200C-200D, U+25CC, U+0964-0965;
+}
+
+@font-face {
+  font-family: 'Noto Sans Malayalam';
+  src: url('/fonts/noto-sans-malayalam.woff2') format('woff2');
+  font-weight: 400 700;
+  font-display: swap;
+  unicode-range: U+0D00-0D7F, U+200C-200D, U+25CC, U+0964-0965;
+}

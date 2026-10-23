@@ -1,46 +1,42 @@
-import { diagnosticTests, DiagnosticTest, DepartmentKey } from '@/config/tests';
+import { synonyms, type Test } from '../../config/tests';
 
-export function filterTests(
-  query: string,
-  department: DepartmentKey
-): DiagnosticTest[] {
-  const cleanQuery = query.trim().toLowerCase();
+function normalise(s: string): string {
+  return s
+    .toLowerCase()
+    .normalize('NFC')
+    .replace(/[()\/,.-]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
 
-  return diagnosticTests.filter((test) => {
-    // 1. Department match
-    if (department !== 'all' && test.department !== department) {
-      return false;
-    }
+/**
+ * Matches a query against test names, keywords and the everyday-word
+ * synonym map. Returns ids in directory order.
+ */
+export function searchTests(all: Test[], query: string): Set<string> {
+  const q = normalise(query);
+  const hits = new Set<string>();
+  if (!q) {
+    all.forEach((t) => hits.add(t.id));
+    return hits;
+  }
 
-    // 2. Query match
-    if (!cleanQuery) {
-      return true;
-    }
+  for (const [word, ids] of Object.entries(synonyms)) {
+    const w = normalise(word);
+    // "sugar test" contains "sugar"; "kidn" is the start of "kidney".
+    const wordInQuery = new RegExp(`(^| )${escape(w)}( |$)`).test(q);
+    const queryStartsWord = q.length >= 3 && w.startsWith(q);
+    if (wordInQuery || queryStartsWord) ids.forEach((id) => hits.add(id));
+  }
 
-    // Check nameEn, nameMl, code
-    if (
-      test.nameEn.toLowerCase().includes(cleanQuery) ||
-      test.nameMl.toLowerCase().includes(cleanQuery) ||
-      test.code.toLowerCase().includes(cleanQuery) ||
-      test.sampleTypeEn.toLowerCase().includes(cleanQuery) ||
-      test.sampleTypeMl.toLowerCase().includes(cleanQuery)
-    ) {
-      return true;
-    }
+  for (const t of all) {
+    const haystack = normalise([t.name, ...(t.keywords ?? []), ...(t.parameters ?? []).map((p) => p.name)].join(' | '));
+    if (haystack.includes(q)) hits.add(t.id);
+    else if (q.split(' ').every((part) => part.length > 1 && haystack.includes(part))) hits.add(t.id);
+  }
+  return hits;
+}
 
-    // Check subcomponents
-    if (
-      test.subComponents?.some((c) => c.toLowerCase().includes(cleanQuery)) ||
-      test.subComponentsMl?.some((c) => c.toLowerCase().includes(cleanQuery))
-    ) {
-      return true;
-    }
-
-    // Check clinical synonyms
-    if (test.synonyms.some((syn) => syn.toLowerCase().includes(cleanQuery))) {
-      return true;
-    }
-
-    return false;
-  });
+function escape(s: string): string {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }

@@ -1,0 +1,54 @@
+/*
+ * Latin faces, self-hosted. Instanced and subset by scripts/build-fonts.py (SIL OFL).
+ * The rupee sign comes from the matching Malayalam design, which the Latin cuts lack.
+ */
+@font-face {
+  font-family: 'Anek Latin';
+  src: url('/fonts/anek-latin.woff2') format('woff2');
+  font-weight: 500 780;
+  font-stretch: 75% 100%;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Anek Latin';
+  src: url('/fonts/anek-rupee.woff2') format('woff2');
+  font-weight: 500 780;
+  font-stretch: 75% 100%;
+  font-display: swap;
+  unicode-range: U+20B9;
+}
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible Next';
+  src: url('/fonts/atkinson.woff2') format('woff2');
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible Next';
+  src: url('/fonts/noto-rupee.woff2') format('woff2');
+  font-weight: 400 700;
+  font-display: swap;
+  unicode-range: U+20B9;
+}
+
+/* Metric-matched fallbacks so the swap does not shift the layout. */
+@font-face {
+  font-family: 'Atkinson Fallback';
+  src: local('Roboto'), local('Arial'), local('Helvetica Neue');
+  size-adjust: 99.2%;
+  ascent-override: 99.2%;
+  descent-override: 31.9%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Anek Fallback';
+  src: local('Roboto Condensed'), local('Arial Narrow'), local('Roboto'), local('Arial');
+  size-adjust: 94.3%;
+  ascent-override: 95.4%;
+  descent-override: 21.2%;
+  line-gap-override: 0%;
+}

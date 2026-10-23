@@ -1,97 +1,67 @@
-import { siteConfig } from '@/config/site';
-import { DiagnosticTest } from '@/config/tests';
+import { site } from '../../config/site';
+import type { Locale } from './paths';
 
-export interface BookingPayload {
-  patientName?: string;
-  phone?: string;
+export type BookingDetails = {
+  patientName: string;
+  bookerName?: string;
+  where: 'home' | 'lab';
   area?: string;
-  serviceType?: 'lab-visit' | 'home-collection';
-  preferredTime?: string;
-  selectedTests?: DiagnosticTest[];
-  notes?: string;
-  lang?: 'en' | 'ml';
+  time?: string;
+  packages: string[];
+  tests: string[];
+};
+
+const words = {
+  en: {
+    greeting: 'Hello Janasevana Lab,',
+    wantHome: 'I would like to book a free home sample collection.',
+    wantLab: 'I would like to book tests at the lab.',
+    patient: 'Patient',
+    booker: 'Booked by',
+    area: 'Area / landmark',
+    time: 'Preferred time',
+    packages: 'Package',
+    tests: 'Tests',
+    closing: 'Please confirm the details and any fasting instructions.',
+  },
+  ml: {
+    greeting: 'നമസ്കാരം ജനസേവന ലാബ്,',
+    wantHome: 'വീട്ടിൽ വന്ന് സാമ്പിൾ എടുക്കുന്ന സൗജന്യ സേവനം ബുക്ക് ചെയ്യണം.',
+    wantLab: 'ലാബിൽ വന്ന് ടെസ്റ്റ് ചെയ്യാൻ ബുക്ക് ചെയ്യണം.',
+    patient: 'പേര് (ടെസ്റ്റ് ചെയ്യേണ്ട ആൾ)',
+    booker: 'ബുക്ക് ചെയ്യുന്നത്',
+    area: 'സ്ഥലം / അടയാളം',
+    time: 'സൗകര്യമുള്ള സമയം',
+    packages: 'പാക്കേജ്',
+    tests: 'ടെസ്റ്റുകൾ',
+    closing: 'വിവരങ്ങളും ഫാസ്റ്റിംഗ് നിർദ്ദേശങ്ങളും ദയവായി ഉറപ്പിച്ചു തരിക.',
+  },
+};
+
+export function bookingMessage(d: BookingDetails, locale: Locale): string {
+  const w = words[locale];
+  const lines = [w.greeting, d.where === 'home' ? w.wantHome : w.wantLab, ''];
+  lines.push(`${w.patient}: ${d.patientName.trim()}`);
+  if (d.bookerName?.trim()) lines.push(`${w.booker}: ${d.bookerName.trim()}`);
+  if (d.where === 'home' && d.area?.trim()) lines.push(`${w.area}: ${d.area.trim()}`);
+  if (d.time?.trim()) lines.push(`${w.time}: ${d.time.trim()}`);
+  if (d.packages.length) lines.push(`${w.packages}: ${d.packages.join(', ')}`);
+  if (d.tests.length) lines.push(`${w.tests}: ${d.tests.join(', ')}`);
+  lines.push('', w.closing);
+  return lines.join('\n');
 }
 
-export function buildWhatsAppLink(payload: BookingPayload): string {
-  const isMl = payload.lang === 'ml';
+/** Short enquiry used by the package and offer slips, with no form. */
+export function enquiryMessage(item: string, locale: Locale): string {
+  return locale === 'ml'
+    ? `നമസ്കാരം ജനസേവന ലാബ്,\n${item} ബുക്ക് ചെയ്യണം. വീട്ടിൽ വന്ന് സാമ്പിൾ എടുക്കാമോ? ഫാസ്റ്റിംഗ് നിർദ്ദേശങ്ങളും പറഞ്ഞു തരിക.`
+    : `Hello Janasevana Lab,\nI would like to book the ${item}, with free home sample collection. Please tell me the fasting instructions.`;
+}
 
-  const lines: string[] = [];
+export function generalMessage(locale: Locale): string {
+  return locale === 'ml' ? 'നമസ്കാരം ജനസേവന ലാബ്,\n' : 'Hello Janasevana Lab,\n';
+}
 
-  if (isMl) {
-    lines.push('നമസ്കാരം ജനസേവന ലാബ്,');
-    lines.push('');
-    lines.push('ഞാൻ ലാബ് പരിശോധനയ്ക്കായി വിവരങ്ങൾ അന്വേഷിക്കുകയാണ്:');
-    if (payload.patientName) {
-      lines.push(`• രോഗിയുടെ പേര്: ${payload.patientName}`);
-    }
-    if (payload.phone) {
-      lines.push(`• ഫോൺ നമ്പർ: ${payload.phone}`);
-    }
-    if (payload.area) {
-      lines.push(`• സ്ഥലം (ആലപ്പുഴ): ${payload.area}`);
-    }
-    if (payload.serviceType) {
-      const typeText =
-        payload.serviceType === 'home-collection'
-          ? 'വീട്ടിൽ സാമ്പിൾ ശേഖരണം (Home Collection)'
-          : 'കൈചൂണ്ടി ലാബിൽ നേരിട്ടെത്തുന്നു (Lab Visit)';
-      lines.push(`• ആവശ്യമായ സേവനം: ${typeText}`);
-    }
-    if (payload.preferredTime) {
-      lines.push(`• സൗകര്യപ്രദമായ സമയം: ${payload.preferredTime}`);
-    }
-    if (payload.selectedTests && payload.selectedTests.length > 0) {
-      lines.push('');
-      lines.push('ആവശ്യമായ പരിശോധനകൾ (Tests):');
-      payload.selectedTests.forEach((test, idx) => {
-        lines.push(`  ${idx + 1}. ${test.nameEn} (${test.nameMl})`);
-      });
-    }
-    if (payload.notes) {
-      lines.push('');
-      lines.push(`കുറിപ്പ്: ${payload.notes}`);
-    }
-    lines.push('');
-    lines.push('ദയവായി ലഭ്യമായ സമയവും കൂടുതൽ വിവരങ്ങളും അറിയിക്കുമല്ലോ.');
-  } else {
-    lines.push('Hello Janasevana Lab,');
-    lines.push('');
-    lines.push('I would like to enquire about diagnostic testing:');
-    if (payload.patientName) {
-      lines.push(`• Patient Name: ${payload.patientName}`);
-    }
-    if (payload.phone) {
-      lines.push(`• Contact Phone: ${payload.phone}`);
-    }
-    if (payload.area) {
-      lines.push(`• Locality / Area: ${payload.area}, Alappuzha`);
-    }
-    if (payload.serviceType) {
-      const typeText =
-        payload.serviceType === 'home-collection'
-          ? 'Home Sample Collection'
-          : 'Direct Visit to Kaichoondy Lab';
-      lines.push(`• Service Requested: ${typeText}`);
-    }
-    if (payload.preferredTime) {
-      lines.push(`• Preferred Date & Time: ${payload.preferredTime}`);
-    }
-    if (payload.selectedTests && payload.selectedTests.length > 0) {
-      lines.push('');
-      lines.push('Selected Investigations:');
-      payload.selectedTests.forEach((test, idx) => {
-        lines.push(`  ${idx + 1}. ${test.nameEn} [${test.code}]`);
-      });
-    }
-    if (payload.notes) {
-      lines.push('');
-      lines.push(`Notes: ${payload.notes}`);
-    }
-    lines.push('');
-    lines.push('Please let me know availability and preparation instructions.');
-  }
-
-  const rawMessage = lines.join('\n');
-  const encoded = encodeURIComponent(rawMessage);
-  return `https://wa.me/${siteConfig.whatsapp.number}?text=${encoded}`;
+export function whatsappUrl(message: string): string {
+  return `https://wa.me/${site.whatsappNumber}?text=${encodeURIComponent(message)}`;
 }
