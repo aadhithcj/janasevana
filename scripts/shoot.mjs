@@ -9,8 +9,9 @@ const full = flags.includes('--full');
 const jsOff = flags.includes('--js-off');
 const date = flags.find((f) => f.startsWith('--date='))?.slice(7);
 const click = flags.find((f) => f.startsWith('--click='))?.slice(8);
+const outDir = flags.find((f) => f.startsWith('--out='))?.slice(6) ?? '.verify';
 const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
-await mkdir('.verify', { recursive: true });
+await mkdir(outDir, { recursive: true });
 const server = await serve(4174);
 const browser = await puppeteer.launch({ executablePath: CHROME, headless: true, args: ['--hide-scrollbars'] });
 for (const route of routes.split(',')) {
@@ -27,7 +28,7 @@ for (const route of routes.split(',')) {
       await new Promise((r) => setTimeout(r, 400));
     }
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
-    const name = `.verify/${tag}-${route.replace(/\//g, '_') || 'root'}-${w}.png`;
+    const name = `${outDir}/${tag}-${route.replace(/\//g, '_') || 'root'}-${w}.png`;
     await page.screenshot({ path: name, fullPage: full });
     console.log(name, overflow > 0 ? `OVERFLOW ${overflow}px` : 'ok');
     await page.close();

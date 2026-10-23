@@ -17,13 +17,13 @@
 
 .heading {
   font-size: var(--step-4);
-  font-weight: 720;
-  font-stretch: 82%;
+  font-weight: var(--display-weight);
+  font-stretch: var(--display-stretch);
   line-height: 1.02;
 }
 
 :lang(ml) .heading {
-  font-stretch: 92%;
+  font-stretch: var(--display-stretch);
   line-height: 1.3;
 }
 
