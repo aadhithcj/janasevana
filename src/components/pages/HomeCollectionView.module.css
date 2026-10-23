@@ -1,0 +1,29 @@
+.grid {
+  display: grid;
+  gap: var(--space-8);
+  padding-bottom: var(--section);
+}
+
+.main {
+  display: grid;
+  align-content: start;
+  gap: var(--space-8);
+}
+
+.side {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+}
+
+.sideTitle {
+  font-size: var(--step-2);
+  font-weight: 660;
+}
+
+@media (min-width: 64rem) {
+  .grid {
+    grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+    column-gap: var(--space-8);
+  }
+}

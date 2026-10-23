@@ -1,0 +1,99 @@
+.section {
+  padding-block: var(--section);
+  background: var(--paper-raised);
+  border-block: 1px solid var(--rule);
+}
+
+.heading {
+  font-size: var(--step-4);
+  font-weight: 720;
+  font-stretch: 82%;
+  line-height: 1.02;
+}
+
+:lang(ml) .heading {
+  font-stretch: 92%;
+  line-height: 1.3;
+}
+
+.intro {
+  margin-top: var(--space-3);
+  color: var(--ink-2);
+}
+
+/* Read like the report's own header row: five columns under one heavy rule. */
+.sheet {
+  margin: var(--space-6) 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  border-top: 2px solid var(--ink);
+}
+
+.col {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4) 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.colName {
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 680;
+  line-height: 1.2;
+  color: var(--teal-800);
+}
+
+:lang(ml) .colName {
+  font-family: var(--font-ml-display);
+  line-height: 1.45;
+}
+
+.colBody {
+  color: var(--ink-2);
+  font-size: var(--step--1);
+  line-height: 1.5;
+}
+
+.doctor {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  padding: var(--space-4) var(--space-5);
+  border: 1.5px solid var(--teal-500);
+  border-radius: 6px;
+  background: var(--teal-50);
+  max-width: 60ch;
+}
+
+.doctor svg {
+  color: var(--teal-700);
+}
+
+.delivery {
+  margin-top: var(--space-4);
+}
+
+@media (min-width: 56rem) {
+  .sheet {
+    grid-template-columns: 1.3fr 1.1fr 1.4fr 1fr 0.9fr;
+  }
+
+  .col {
+    align-content: start;
+    padding: var(--space-4) var(--space-4) var(--space-5) 0;
+    border-bottom: 0;
+  }
+
+  .col + .col {
+    padding-left: var(--space-4);
+    border-left: 1px solid var(--rule);
+  }
+
+  .colName {
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--rule-strong);
+  }
+}

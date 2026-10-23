@@ -240,6 +240,12 @@ html[data-offer='upcoming'] [data-when-offer]:not([data-when-offer~='upcoming'])
     display: none !important;
   }
 
+  header nav,
+  #footer-nav,
+  main > header::after {
+    display: none !important;
+  }
+
   a {
     color: #000;
     text-decoration: none;

@@ -41,5 +41,11 @@ Rebuilt from scratch on 2026-10-23. Product truth: PRODUCT.md. Design: DESIGN.md
 - [x] `scripts/verify-interactions.mjs`: 37 checks pass, including the exact encoded `wa.me/919188490413?text=` URL in both languages.
 - [x] Critique of /tests and /packages: degraded single-context run (sub-agents hit an API limit); fixes applied.
 ## Phase 5: Home Collection, About, Contact, 404, footer
+- [x] Home Collection: what it is, the three-step flow, fasting and preparation (FBS and fasting lipid profile named as fasting tests; no hours given), "Call to confirm your area", collection photo slot, booking form.
+- [x] About: the lab, equipment and automation as stated, team cards, ISO 9001:2015 as text, and "Understanding your report" built on the report's real columns (test, observed value and unit, reference range, method, sample) with no values; ranges differ by age and sex; questions go to the doctor; report delivery "Call us to confirm".
+- [x] Contact: address, all three numbers, WhatsApp, email, directions (address search, pin unconfirmed), hours placeholder, print button and print stylesheet (logo appears on paper, navigation and actions hidden).
+- [x] Bilingual 404 (global-not-found) listing every page in both languages.
+- [x] Footer: address, numbers, WhatsApp, email, page links, ISO line, and the lab's quality line once.
+- [x] Sitemap with hreflang alternates, robots, Open Graph image (`scripts/build-og.mjs`).
 ## Phase 6: Motion and finish
 ## Phase 7: Verification

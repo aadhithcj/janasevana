@@ -1,0 +1,43 @@
+.grid {
+  display: grid;
+  gap: var(--space-8);
+  padding-bottom: var(--section);
+}
+
+.main {
+  display: grid;
+  align-content: start;
+  gap: var(--space-6);
+}
+
+.printLogo {
+  display: none;
+}
+
+.side {
+  max-width: 26rem;
+}
+
+@media (min-width: 64rem) {
+  .grid {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    column-gap: var(--space-8);
+  }
+
+  .side {
+    max-width: none;
+  }
+}
+
+@media print {
+  .printLogo {
+    display: block;
+    width: 200px;
+    height: auto;
+  }
+
+  .grid {
+    display: block;
+    padding: 0;
+  }
+}
