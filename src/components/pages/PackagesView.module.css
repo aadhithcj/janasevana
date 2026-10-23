@@ -1,0 +1,17 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.standing {
+  border-top: 1px solid var(--rule);
+}
+
+:global(html[data-offer='ended']) .dated {
+  order: 2;
+  border-top: 1px solid var(--rule);
+}
+
+:global(html[data-offer='ended']) .standing {
+  border-top: 0;
+}

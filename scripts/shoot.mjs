@@ -8,6 +8,7 @@ const [routes = '/', widths = '360,1280', tag = 'shot', ...flags] = process.argv
 const full = flags.includes('--full');
 const jsOff = flags.includes('--js-off');
 const date = flags.find((f) => f.startsWith('--date='))?.slice(7);
+const click = flags.find((f) => f.startsWith('--click='))?.slice(8);
 const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 await mkdir('.verify', { recursive: true });
 const server = await serve(4174);
@@ -21,6 +22,10 @@ for (const route of routes.split(',')) {
     const url = `http://localhost:4174${route}${date ? `?preview-date=${date}` : ''}`;
     await page.goto(url, { waitUntil: 'networkidle0' });
     await page.evaluate(() => document.fonts.ready);
+    if (click) {
+      for (const el of await page.$$(click)) await el.click();
+      await new Promise((r) => setTimeout(r, 400));
+    }
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
     const name = `.verify/${tag}-${route.replace(/\//g, '_') || 'root'}-${w}.png`;
     await page.screenshot({ path: name, fullPage: full });

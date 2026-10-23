@@ -29,6 +29,11 @@ Rebuilt from scratch on 2026-10-23. Product truth: PRODUCT.md. Design: DESIGN.md
 - [x] lint, tsc, build; screenshots at 360 and 1280 in both languages.
 
 ## Phase 3: Packages and explorer
+- [x] `/packages/` and `/ml/packages/`: petrol page head with the arc, each package as a sticky summary beside its explorer.
+- [x] Explorer on native `<details>` (works without JS; height animates where supported). Tests with sub-parameters or a lab-written line open; others stay plain rows.
+- [x] Cardiovascular notice permanent and boxed; offer validity shown; after 15 Nov 2026 the section is marked ended, its booking actions hide, and it moves below the Royal Package (single render, CSS order, no duplicate ids).
+- [x] "Book this package" links to the booking form with `?package=`; Send on WhatsApp and Copy message beside it.
+- [x] Verified live and ended states with `?preview-date=2026-11-20`; screenshots at 360 and 1280.
 ## Phase 4: Tests directory, basket, booking form
 ## Phase 5: Home Collection, About, Contact, 404, footer
 ## Phase 6: Motion and finish
