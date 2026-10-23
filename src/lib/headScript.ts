@@ -15,5 +15,6 @@ export function headScript(locale: Locale): string {
 
   const motion = `(function(){var d=document.documentElement;if(!window.matchMedia||matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window))return;d.classList.add('motion');document.addEventListener('DOMContentLoaded',function(){var h=innerHeight,els=[].slice.call(document.querySelectorAll('[data-reveal]'));var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.setAttribute('data-reveal','in');io.unobserve(x.target)}})},{rootMargin:'0px 0px -8% 0px'});els.forEach(function(el){if(el.getBoundingClientRect().top>h*0.92){el.setAttribute('data-reveal','pending');io.observe(el)}});setTimeout(function(){els.forEach(function(el){if(el.getAttribute('data-reveal')==='pending'){el.setAttribute('data-reveal','in')}})},6000)})})();`;
 
-  return lang + offerScript(cardioPackage.window!) + motion;
+  const js = `document.documentElement.classList.add('js');`;
+  return js + lang + offerScript(cardioPackage.window!) + motion;
 }

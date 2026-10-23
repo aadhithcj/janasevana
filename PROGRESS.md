@@ -35,6 +35,11 @@ Rebuilt from scratch on 2026-10-23. Product truth: PRODUCT.md. Design: DESIGN.md
 - [x] "Book this package" links to the booking form with `?package=`; Send on WhatsApp and Copy message beside it.
 - [x] Verified live and ended states with `?preview-date=2026-11-20`; screenshots at 360 and 1280.
 ## Phase 4: Tests directory, basket, booking form
+- [x] `/tests/`: everyday-word search with an English and Malayalam synonym map (short queries match whole words), department filters with a live count, fixed label-grid rows showing method and sample only where the report states them and preparation as confirmed or "Ask the lab". CRP and RA Factor show the name and "Ask the lab"; CRP and hs-CRP are separate rows.
+- [x] Basket: Context + useReducer, persisted per browser, polite live announcements, count bump; sticky panel on desktop, strip above the call bar on phones with matching scroll padding so focus is never hidden.
+- [x] Booking form: patient name, optional booker name, home or lab, area/landmark (home only), optional time, chosen items. Accessible errors, focused error summary, live message preview, success and failure states, Copy message, Call. Hidden without JavaScript, replaced by Call/WhatsApp links. `?package=` prefill (ended offer ignored).
+- [x] `scripts/verify-interactions.mjs`: 37 checks pass, including the exact encoded `wa.me/919188490413?text=` URL in both languages.
+- [x] Critique of /tests and /packages: degraded single-context run (sub-agents hit an API limit); fixes applied.
 ## Phase 5: Home Collection, About, Contact, 404, footer
 ## Phase 6: Motion and finish
 ## Phase 7: Verification

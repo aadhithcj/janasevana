@@ -30,9 +30,12 @@ export function searchTests(all: Test[], query: string): Set<string> {
   }
 
   for (const t of all) {
-    const haystack = normalise([t.name, ...(t.keywords ?? []), ...(t.parameters ?? []).map((p) => p.name)].join(' | '));
-    if (haystack.includes(q)) hits.add(t.id);
-    else if (q.split(' ').every((part) => part.length > 1 && haystack.includes(part))) hits.add(t.id);
+    const haystack = normalise([t.name, ...(t.keywords ?? []), ...(t.parameters ?? []).map((p) => p.name)].join(' '));
+    // Very short queries ("RA", "D") match whole words only, so they do not hit "ratio" or "random".
+    if (q.length < 3) {
+      if (new RegExp(`(^| )${escape(q)}( |$)`).test(haystack)) hits.add(t.id);
+    } else if (haystack.includes(q)) hits.add(t.id);
+    else if (q.split(' ').every((part) => part.length > 2 && haystack.includes(part))) hits.add(t.id);
   }
   return hits;
 }

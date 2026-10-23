@@ -85,6 +85,17 @@ Scale (rem at 16px root; display uses clamp between 360px and 1440px):
 - `prefers-reduced-motion: reduce` turns every transform off and leaves only opacity cross-fades of 120ms or none.
 - Never: parallax, counters, typewriter, marquee, autoplay, glow, magnetic buttons, cursor effects, scroll hijacking, countdowns.
 
+## Owner-requested components
+
+- **Header navigation: React Bits PillNav** (owner request, 2026-10-23), vendored verbatim in `src/components/shell/PillNav/`. Settings as requested: `itemStyle="plain"`, `hoverEffect="fill"`, `indicator="pill"`, `bounce={0.24}`, `stretch={0.32}`. Adapted to this system: `surface="solid"` (glass is ruled out), bar `#eef5f4`, highlight teal-700 `#056a6d`, ink `#1e1f22`, 56px bar with 48px targets, `collapse="never"` (phones and tablets use the site's own menu dialog), `intro={false}` (no clip-path unroll on every page load; motion stays transform/opacity). The logo lockup stays as a separate home link beside it, so the lab's name is always visible, rather than a second logo inside the pill.
+- **Team cards** (owner request, after the earlier React Bits ProfileCard): three paper cards with a teal portrait panel (initials until real photos are confirmed) and the logo's arc. Hover (fine pointer only) lifts the card 6px, tilts it at most 5° toward the pointer and draws the arc across; keyboard users get the static card, reduced motion turns all of it off. The earlier card's holographic glare, dark theme, "Verified Staff" status and handle were not carried over: the first two break the colour rules, the last two were never stated by the lab.
+
+## Logo usage
+
+The real artwork is extracted, never redrawn. The header sets the circular mark and the "Janasevana Lab" wordmark side by side (both cut from the same artwork) so the name stays legible at 15–18px; the full stacked lockup with the tagline appears in the footer, About page, printouts and the Open Graph image. The logo sits only on light grounds.
+
 ## Detector decisions
 
-Rules deliberately ignored (scoped) are recorded here with reasons when the Impeccable hook raises them.
+- `cramped-padding` on full-bleed bands (packages band, team section): false positive. Bands are full-bleed by design and take their side inset from the inner `.wrap`.
+- `nested-cards` (notice inside the Request Slip): resolved by unboxing the notice in the slip (icon + rule), keeping the bordered notice only on the Packages page.
+- `oversized-h1` on the home hero: kept. The 82px condensed place-name headline is the page's one bold move; on phones it is 41.6px.
