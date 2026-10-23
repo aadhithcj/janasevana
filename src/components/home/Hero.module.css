@@ -166,6 +166,25 @@
   margin-bottom: calc(-1 * var(--overhang));
 }
 
+/* The lab photo, framed like a printed photo on paper, overhanging the arc like the slip. */
+.photo {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 calc(-1 * var(--overhang));
+  padding: 10px;
+  border-radius: var(--radius-slip);
+  background: var(--paper-raised);
+  box-shadow: var(--shadow-slip);
+}
+
+.photo img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
 .arc {
   position: absolute;
   top: calc(100% - 1px);

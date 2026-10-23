@@ -60,6 +60,7 @@ export const en = {
     directionsNote: 'The map searches our address. Call us if you need the exact spot.',
     hours: 'Opening hours',
     iso: 'ISO 9001:2015 certified',
+    heroPhotoAlt: 'Janasevana Lab at Kattungal Building, Kaichoondy Junction',
     photoSlot: {
       storefront: 'Photo of the lab front, coming soon',
       team: 'Team photo, coming soon',

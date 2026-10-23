@@ -66,6 +66,13 @@ export const site = {
   discountDetails: todo('Which tests the 10%–50% discounts apply to') as Confirmable<Hours>,
   isoCertificate: todo('ISO certificate number, body and scope') as Confirmable<string>,
   photos: {
+    /**
+     * The lab photo on the right of the home hero. To show it, put the file in
+     * public/photos/ (for example lab.webp, about 1200x1500, portrait) and set:
+     *   hero: { status: 'confirmed', value: '/photos/lab.webp' },
+     * Until then the hero shows the current offer there instead.
+     */
+    hero: todo('Lab photo for the home hero') as Confirmable<string>,
     storefront: todo('Photo of the lab front at Kaichoondy Jn.') as Confirmable<string>,
     team: todo('Photos of the team') as Confirmable<string>,
     collection: todo('Photo of a home collection visit') as Confirmable<string>,
