@@ -1,0 +1,144 @@
+/*
+ * The home section index: marker lines fixed at the left edge on wide screens, shown once the
+ * page has scrolled. Labels appear only while the index is hovered or focused, on a frosted panel.
+ * --effect (0..1) is eased per item by script: pointer proximity, or 1 for the section in view.
+ */
+.nav {
+  position: fixed;
+  top: 50%;
+  left: 6px;
+  z-index: 15;
+  display: none;
+  transform: translateY(-50%);
+}
+
+@media (min-width: 80rem) {
+  .nav {
+    display: block;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 420ms var(--ease-out);
+  }
+
+  .nav[data-shown] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.list {
+  position: relative;
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: var(--space-2) var(--space-3) var(--space-2) var(--space-2);
+  list-style: none;
+  border-radius: 18px;
+  transition:
+    background-color 300ms var(--ease-out),
+    box-shadow 300ms var(--ease-out);
+}
+
+.list:hover .link,
+.list:has(:focus-visible) .link {
+  gap: var(--space-3);
+}
+
+/* The frosted panel behind the labels while they show. */
+.list:hover,
+.list:has(:focus-visible) {
+  background: rgb(255 255 255 / 0.72);
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.8),
+    0 16px 36px -22px rgb(3 73 76 / 0.45);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  backdrop-filter: blur(16px) saturate(1.4);
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  min-width: 44px;
+  min-height: 44px;
+  padding-right: var(--space-2);
+  color: color-mix(in oklab, var(--deep) calc(var(--effect, 0) * 100%), var(--ink-3));
+  text-decoration: none;
+}
+
+.link:focus-visible {
+  outline: 3px solid var(--teal-600);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+.marker {
+  flex: none;
+  width: 24px;
+  height: 2px;
+  border-radius: 2px;
+  background: color-mix(in oklab, var(--teal-600) calc(var(--effect, 0) * 100%), var(--charcoal-300));
+  transform-origin: left center;
+  transform: scaleX(calc(0.45 + var(--effect, 0) * 0.55));
+}
+
+.label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  white-space: nowrap;
+  /* No width at rest, so the index takes only its markers' room over the page. */
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    opacity 240ms var(--ease-out),
+    max-width 320ms var(--ease-out-quart),
+    transform 360ms var(--ease-out-quart);
+}
+
+/* The section in view: its label steps right and takes the teal. */
+.link[aria-current='true'] .label {
+  transform: translateX(8px);
+  color: var(--deep);
+}
+
+.list:hover .label,
+.list:has(:focus-visible) .label {
+  max-width: 12rem;
+  opacity: 1;
+}
+
+.link[aria-current='true'] .label {
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav,
+  .list,
+  .label {
+    transition: none;
+  }
+}
+
+@media print {
+  .nav {
+    display: none;
+  }
+}
+
+/* Wide enough screens have room in the margin: the labels stay visible at rest, quietly. */
+@media (min-width: 96rem) {
+  .link {
+    gap: var(--space-3);
+  }
+
+  .label {
+    max-width: 12rem;
+    opacity: 0.5;
+  }
+
+  .list:hover .label,
+  .list:has(:focus-visible) .label {
+    opacity: 1;
+  }
+}

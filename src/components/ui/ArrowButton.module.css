@@ -31,8 +31,6 @@
 .tint {
   --ab-bg: var(--teal-100);
   --ab-fg: var(--ink);
-  --ab-circle: var(--deep);
-  --ab-circle-fg: #fff;
 }
 
 .whatsapp {
@@ -56,7 +54,8 @@
   z-index: 1;
   width: 100%;
   min-width: 0;
-  padding-inline: 2.25rem;
+  /* Half the circle's width plus 20px: the label keeps 20px either side once the circle is in. */
+  padding-inline: calc(var(--ab-h) / 2 + 1.25rem);
   transition:
     width 500ms var(--ease-out-quart),
     background-color var(--dur-fast) var(--ease-out);
@@ -136,9 +135,9 @@
   }
 }
 
-/* Malayalam labels are longer: a little less side room. */
+/* Malayalam labels are longer: a little less spare room, still clear of the circle. */
 :lang(ml) .inner {
-  padding-inline: 1.5rem;
+  padding-inline: calc(var(--ab-h) / 2 + 0.9rem);
   font-family: var(--font-ml-body);
 }
 

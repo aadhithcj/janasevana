@@ -46,8 +46,10 @@
 .icon {
   position: absolute;
   left: 1.4rem;
+  z-index: 1;
   color: var(--teal-700);
   pointer-events: none;
+  transition: color var(--dur-base) var(--ease-out);
 }
 
 .input {
@@ -64,7 +66,7 @@
     0 18px 40px -26px rgb(3 73 76 / 0.45);
   -webkit-appearance: none;
   appearance: none;
-  transition: box-shadow var(--dur-base) var(--ease-out);
+  transition: box-shadow var(--dur-slow) var(--ease-out-quart);
 }
 
 .input::placeholder {
@@ -76,11 +78,29 @@
   display: none;
 }
 
+.input:hover {
+  box-shadow:
+    0 1px 2px rgb(3 73 76 / 0.08),
+    0 22px 46px -24px rgb(3 73 76 / 0.55);
+}
+
+/* Focus: the pill keeps its shape (the site-wide focus style would square it off); a faint teal
+   halo and a lifted shadow ease in, and the caret marks the place. */
+.input:focus,
 .input:focus-visible {
   outline: none;
+  border-radius: var(--radius-pill);
   box-shadow:
-    0 0 0 3px var(--teal-600),
-    0 18px 40px -26px rgb(3 73 76 / 0.45);
+    0 0 0 3px rgb(5 142 146 / 0.14),
+    0 26px 52px -24px rgb(3 73 76 / 0.6);
+}
+
+.form:focus-within .icon {
+  color: var(--deep);
+}
+
+.submit:active {
+  transform: scale(0.96);
 }
 
 .submit {
@@ -96,7 +116,9 @@
   background: var(--deep);
   color: #fff;
   font-weight: 700;
-  transition: background-color var(--dur-fast) var(--ease-out);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-press) var(--ease-out);
 }
 
 .submit:hover {
@@ -215,7 +237,7 @@
 
 @media (hover: hover) and (pointer: fine) {
   .tile:hover {
-    transform: translateY(-3px);
+    transform: scale(1.02);
   }
 }
 

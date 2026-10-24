@@ -62,8 +62,17 @@ export function HomePackages({ locale }: { locale: Locale }) {
             {[royalPackage, cardioPackage].map((pkg) => (
               <label key={pkg.id} className={s.tab}>
                 <input type="radio" name="pk" className={s.radio} data-pkg-radio={pkg.id} defaultChecked={pkg.id === 'royal'} />
-                <span className={s.tabName}>{pkg.name[locale]}</span>
-                <span className={`${s.tabPrice} num`}>{formatInr(pkg.priceInr)}</span>
+                {/* After React Bits' PillNav: a fill rises from below into the package under the pointer
+                    (and stays in the chosen one), while the label rolls up and a white copy rolls in. */}
+                <span className={s.fill} aria-hidden="true" />
+                <span className={s.face}>
+                  <span className={s.tabName}>{pkg.name[locale]}</span>
+                  <span className={`${s.tabPrice} num`}>{formatInr(pkg.priceInr)}</span>
+                </span>
+                <span className={`${s.face} ${s.faceAlt}`} aria-hidden="true">
+                  <span className={s.tabName}>{pkg.name[locale]}</span>
+                  <span className={`${s.tabPrice} num`}>{formatInr(pkg.priceInr)}</span>
+                </span>
               </label>
             ))}
           </div>

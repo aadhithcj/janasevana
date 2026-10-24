@@ -3,6 +3,7 @@ import { getDict } from '@/i18n';
 import { href, type Locale } from '@/lib/paths';
 import { ArrowButton } from '@/components/ui/ArrowButton';
 import { LogoMark, LogoName } from './Logo';
+import { HomeLink } from './HomeLink';
 import { LangToggle } from './LangToggle';
 import { SiteNav } from './SiteNav';
 import { RequestLink } from './RequestLink';
@@ -32,10 +33,10 @@ export function Header({ locale }: { locale: Locale }) {
           </div>
         </div>
         {/* The visible name leads the link's name (WCAG 2.5.3); "home page" is spoken after it. */}
-        <Link href={home} className={s.home}>
+        <HomeLink href={home} className={s.home}>
           <LogoName />
           <span className="visually-hidden">{t.homeSuffix}</span>
-        </Link>
+        </HomeLink>
         <div className={s.end}>
           <LangToggle locale={locale} label={t.language} />
           <RequestLink locale={locale} />

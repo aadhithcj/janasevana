@@ -92,6 +92,9 @@ export const en = {
     searchHintPrefix: 'Try: ',
     searchSubmit: 'Search',
     searchCats: 'Or start from what you are checking',
+    sectionNavLabel: 'Sections of this page',
+    sectionNav: ['Top', 'Search', 'What we do', 'Packages', 'Home collection', 'Team', 'Find the lab'],
+    findSign: 'Look for this sign.',
     collectTitle: 'Book a free home visit',
     searchAll: 'All tests',
     searchLede: 'Search every test by its name, or by an everyday word like sugar or thyroid.',
@@ -124,6 +127,8 @@ export const en = {
     promise: 'The lab comes to your home.',
     promiseLead: ['The', 'lab', 'comes'],
     promiseHighlight: ['to', 'your', 'home.'],
+    /** Which highlighted word carries the swoosh: "home". */
+    promiseUnderline: 2,
     subLead: 'Free home sample collection.',
     subBody: 'A blood sample collector visits you.',
     meta: 'Janasevana Lab, Kaichoondy Jn., Alappuzha',
@@ -156,7 +161,7 @@ export const en = {
     lede:
       'Blood and urine tests, rapid tests, ECG and lung function tests. Free home sample collection: call or WhatsApp, and a sample collector visits you.',
     callCta: 'Call the lab',
-    whatsappCta: 'WhatsApp us',
+    whatsappCta: 'WhatsApp',
     otherNumbers: 'Other numbers',
     offerDetails: 'What each test measures',
     bookPackage: 'Book this package',

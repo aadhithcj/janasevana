@@ -12,9 +12,9 @@ export function LogoMark({ className }: { className?: string }) {
 }
 
 /** The name as live text in the logo's colours (teal "Janasevana", charcoal "Lab"), sharp at any size. */
-export function LogoName() {
+export function LogoName({ onDark = false }: { onDark?: boolean }) {
   return (
-    <span className={s.name} lang="en">
+    <span className={`${s.name} ${onDark ? s.nameOnDark : ''}`} lang="en">
       <span className={s.nameLead}>Janasevana</span> Lab
     </span>
   );

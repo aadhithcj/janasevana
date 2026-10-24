@@ -108,6 +108,10 @@
   gap: var(--space-3);
 }
 
+.foot > * {
+  min-width: 0;
+}
+
 .book {
   display: grid;
   align-content: start;
@@ -232,19 +236,23 @@
   }
 
   .foot {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    align-items: start;
     gap: var(--space-4);
   }
 }
 
 @media (min-width: 48rem) and (hover: hover) and (pointer: fine) {
   .step:hover {
-    transform: translateY(-4px);
+    transform: scale(1.02);
   }
 }
 
 @media (min-width: 64rem) {
+  /* Side by side only where the booking card has room for its buttons (Malayalam labels run long). */
+  .foot {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: start;
+  }
+
   .head {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     align-items: end;

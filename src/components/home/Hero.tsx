@@ -39,10 +39,16 @@ export function Hero({ locale }: { locale: Locale }) {
                 {d.hero.promiseHighlight.map((w, i, all) => (
                   <span key={i}>
                     <span
-                      className={s.word}
+                      className={`${s.word} ${i === d.hero.promiseUnderline ? s.underlined : ''}`}
                       style={{ '--w': d.hero.promiseLead.length + i } as React.CSSProperties}
                     >
                       {w}
+                      {/* A swoosh under "home", after the one in the lab's logo; it draws itself in on load. */}
+                      {i === d.hero.promiseUnderline && (
+                        <svg className={s.swoosh} viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true">
+                          <path d="M4 16 C 70 4, 150 4, 296 12" pathLength={1} />
+                        </svg>
+                      )}
                     </span>
                     {i < all.length - 1 ? ' ' : ''}
                   </span>

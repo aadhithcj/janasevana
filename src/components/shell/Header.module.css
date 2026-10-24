@@ -488,3 +488,12 @@
     display: none;
   }
 }
+
+/* The name on a deep ground (the footer): white with the pale teal. */
+.nameOnDark {
+  color: #fff;
+}
+
+.nameOnDark .nameLead {
+  color: var(--teal-200);
+}

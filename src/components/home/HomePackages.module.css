@@ -194,18 +194,6 @@
   border-radius: 16px;
   color: var(--ink);
   cursor: pointer;
-  transition:
-    background-color var(--dur-base) var(--ease-out-quart),
-    color var(--dur-base) var(--ease-out-quart);
-}
-
-.tab:hover {
-  background: var(--teal-100);
-}
-
-.tab:has(:checked) {
-  background: var(--deep);
-  color: #fff;
 }
 
 .tab:has(:focus-visible) {
@@ -554,5 +542,100 @@
   .summary,
   .chipSoft {
     display: none;
+  }
+}
+
+/* Under the pointer the photo drifts in a little. */
+.shotImg {
+  transition: transform 1200ms var(--ease-out-quart);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .stage:hover .shotImg {
+    transform: scale(1.045);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shotImg {
+    transition: none;
+  }
+}
+
+/* ---------- The package switch, after React Bits' PillNav (its "fill" hover) ---------- */
+/* Each package is its own pill: the fill grows from below the bottom edge, PillNav's curves and timings. */
+.tab,
+.tab:hover,
+.tab:has(:checked) {
+  overflow: hidden;
+  isolation: isolate;
+  background: transparent;
+  color: var(--ink);
+}
+
+.fill {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: -1;
+  width: 170%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--deep);
+  transform: translate(-50%, -50%) scale(0);
+  transition: transform 360ms cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.face {
+  display: grid;
+  gap: 2px;
+  transition: transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* The white copy waits below the pill and rolls in as the fill arrives. */
+.faceAlt {
+  position: absolute;
+  inset: 0;
+  align-content: center;
+  padding: inherit;
+  color: #fff;
+  transform: translateY(150%);
+}
+
+.tab:has(:checked) .fill {
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 550ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.tab:has(:checked) .face {
+  transform: translateY(-150%);
+  transition-duration: 500ms;
+}
+
+.tab:has(:checked) .faceAlt {
+  transform: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tab:hover .fill {
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform 550ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .tab:hover .face {
+    transform: translateY(-150%);
+    transition-duration: 500ms;
+  }
+
+  .tab:hover .faceAlt {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fill,
+  .face {
+    transition: none;
   }
 }

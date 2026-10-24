@@ -89,3 +89,14 @@
     gap: var(--space-5);
   }
 }
+
+/* The cards run the full height of the text beside them, so the panel has no empty band. */
+@media (min-width: 64rem) {
+  .panel > ul {
+    align-self: stretch;
+  }
+
+  .panel > ul > li {
+    height: 100%;
+  }
+}

@@ -68,9 +68,13 @@ const push = (page) => page.evaluate(() => document.getElementById('hero-helix')
   const box = await page.$eval('#hero-helix', (e) => { const r = e.getBoundingClientRect(); return { x: r.x + r.width * 0.72, y: r.y + r.height * 0.45 }; });
   await page.mouse.move(box.x, box.y, { steps: 8 });
   await wait(300);
-  await page.mouse.move(box.x + 40, box.y + 30, { steps: 6 });
-  await wait(700);
-  const pushed = await push(page);
+  // The push follows cursor movement (impulses that fade when it stops), so sample while moving.
+  let pushed = 0;
+  for (let k = 0; k < 12; k++) {
+    await page.mouse.move(box.x + 40 + k * 18, box.y + 30 + k * 6, { steps: 2 });
+    await wait(30);
+    pushed = Math.max(pushed, await push(page));
+  }
   report(pushed >= 2, 'pointer pushes particles away', `largest offset ${pushed.toFixed(0)}px`);
   const below = await page.$eval('[data-hero]', (e) => e.getBoundingClientRect().bottom + 20);
   await page.mouse.move(640, Math.min(below, 895), { steps: 4 });
