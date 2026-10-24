@@ -94,10 +94,10 @@
   --display-weight: 560;
   --display-stretch: 100%;
   --display-track: -0.025em;
-  /* The hero headline: light Latin, never below 500 in Malayalam */
+  /* The hero headline: confident Latin (560), never below 500 in Malayalam */
   --t-hero: clamp(2.5rem, 1.55rem + 4.3vw, 5.25rem);
-  --hero-weight: 400;
-  --hero-track: -0.03em;
+  --hero-weight: 560;
+  --hero-track: -0.02em;
 
   --lh-body: 1.55;
   --lh-display: 1;

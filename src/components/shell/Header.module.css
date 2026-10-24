@@ -334,12 +334,12 @@
   }
 }
 
-/* On glass, Contact turns white with a teal arrow circle. */
+/* On glass, Contact turns white with a matching white arrow circle and teal arrow. */
 :global(html.scrolled) .contact {
   --ab-bg: #fff;
   --ab-fg: var(--deep);
-  --ab-circle: var(--deep);
-  --ab-circle-fg: #fff;
+  --ab-circle: #fff;
+  --ab-circle-fg: var(--deep);
 }
 
 .contact {

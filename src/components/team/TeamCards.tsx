@@ -39,7 +39,15 @@ export function TeamCards({ locale, label }: { locale: Locale; label: string }) 
             <p className={s.role}>{m.role[locale]}</p>
             {m.registration && (
               <p className={s.reg} lang="en">
-                {m.registration}
+                {m.registration.includes('No. ') ? (
+                  <>
+                    <span>{m.registration.split('No. ')[0]}No.</span>
+                    <br />
+                    <span>{m.registration.split('No. ')[1]}</span>
+                  </>
+                ) : (
+                  m.registration
+                )}
               </p>
             )}
           </div>

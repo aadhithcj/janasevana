@@ -24,8 +24,9 @@
 /* A tall card: large initials where a photo will go, and a name plate at the foot. */
 .card {
   position: relative;
-  display: grid;
-  grid-template-rows: 1fr auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   min-height: 17rem;
   padding: var(--space-3);
   border-radius: 20px;
@@ -35,8 +36,10 @@
 }
 
 .monogram {
-  align-self: center;
-  justify-self: center;
+  position: absolute;
+  top: 36%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   color: var(--teal-200);
   font-family: var(--font-display);
   /* Sized to fit even a card that has given way to its hovered neighbour. */
@@ -44,6 +47,7 @@
   font-weight: 400;
   line-height: 1;
   letter-spacing: -0.04em;
+  pointer-events: none;
 }
 
 .photo {
@@ -105,8 +109,12 @@
   }
 
   .plate {
-    justify-self: center;
-    width: calc((100cqi - 2 * var(--space-3)) / 3 - 2 * var(--space-3));
+    width: 100%;
+    height: 7.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 3px;
     transition: opacity 260ms var(--ease-out);
   }
 }

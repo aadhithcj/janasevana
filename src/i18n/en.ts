@@ -92,6 +92,7 @@ export const en = {
     searchHintPrefix: 'Try: ',
     searchSubmit: 'Search',
     searchCats: 'Or start from what you are checking',
+    collectTitle: 'Book a free home visit',
     searchAll: 'All tests',
     searchLede: 'Search every test by its name, or by an everyday word like sugar or thyroid.',
     pkgSwitch: 'Choose a package',
@@ -121,6 +122,10 @@ export const en = {
 
   hero: {
     promise: 'The lab comes to your home.',
+    promiseLead: ['The', 'lab', 'comes'],
+    promiseHighlight: ['to', 'your', 'home.'],
+    subLead: 'Free home sample collection.',
+    subBody: 'A blood sample collector visits you.',
     meta: 'Janasevana Lab, Kaichoondy Jn., Alappuzha',
     sub: 'Free home sample collection. A blood sample collector visits you.',
     offerTests: (n: number) => `${n} tests, free home sample collection`,

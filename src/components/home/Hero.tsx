@@ -26,17 +26,32 @@ export function Hero({ locale }: { locale: Locale }) {
           <div className={s.copy}>
             {/* Each word rises in turn on load (motion only); the heading reads as one line of text. */}
             <h1 id="hero-title" className={s.promise}>
-              {d.hero.promise.split(' ').map((w, i, all) => (
-                <span key={i}>
-                  <span className={s.word} style={{ '--w': i } as React.CSSProperties}>
-                    {w}
+              <span className={s.lead}>
+                {d.hero.promiseLead.map((w, i) => (
+                  <span key={i}>
+                    <span className={s.word} style={{ '--w': i } as React.CSSProperties}>
+                      {w}
+                    </span>{' '}
                   </span>
-                  {i < all.length - 1 ? ' ' : ''}
-                </span>
-              ))}
+                ))}
+              </span>
+              <span className={s.highlight}>
+                {d.hero.promiseHighlight.map((w, i, all) => (
+                  <span key={i}>
+                    <span
+                      className={s.word}
+                      style={{ '--w': d.hero.promiseLead.length + i } as React.CSSProperties}
+                    >
+                      {w}
+                    </span>
+                    {i < all.length - 1 ? ' ' : ''}
+                  </span>
+                ))}
+              </span>
             </h1>
             <p className={s.sub} data-load style={{ '--i': 5 } as React.CSSProperties}>
-              {d.hero.sub}
+              <strong className={s.subStrong}>{d.hero.subLead}</strong>{' '}
+              <span className={s.subBody}>{d.hero.subBody}</span>
             </p>
           </div>
 
