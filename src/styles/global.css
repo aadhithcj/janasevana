@@ -87,15 +87,22 @@ p {
   text-wrap: pretty;
 }
 
+/*
+ * No underlines: links are teal, and inside running text they are also bold, so
+ * they never rely on colour alone. Hover darkens them.
+ */
 a {
   color: var(--link);
-  text-decoration-line: underline;
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 0.18em;
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease-out);
 }
 
 a:hover {
-  text-decoration-thickness: 2.5px;
+  color: var(--teal-800);
+}
+
+:where(p, li, dd, address, figcaption) > a {
+  font-weight: 700;
 }
 
 button,

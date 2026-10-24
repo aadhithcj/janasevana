@@ -1,12 +1,31 @@
+/*
+ * What the lab does. Phones: a chip index and a swipeable row of cards.
+ * Wide, tall screens: a pinned index on the left; the cards stack on the right,
+ * each sticking 20px below the one before, so the next slides over it.
+ */
 .section {
   padding-block: var(--section);
-  timeline-scope: --dept;
 }
 
-.head {
+.grid {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5);
+}
+
+.grid > * {
+  min-width: 0;
+}
+
+.sideInner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-4);
-  margin-bottom: var(--space-6);
+}
+
+/* The chip row scrolls inside its own box; it must not widen the column. */
+.sideInner > * {
+  min-width: 0;
 }
 
 .title {
@@ -21,176 +40,140 @@
 }
 
 .lede {
-  max-width: 52ch;
+  max-width: 44ch;
   color: var(--ink-2);
   font-size: var(--step-0);
 }
 
-/* ---------- The row (phones: a stack, first card open) ---------- */
-.row {
-  display: grid;
-  gap: var(--space-3);
-  padding-inline: var(--gutter);
+/* ---------- The index: chips on phones, a list beside the stack on wide screens ---------- */
+.index {
+  display: flex;
+  gap: var(--space-2);
+  margin-inline: calc(-1 * var(--gutter));
+  padding: 2px var(--gutter) 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
-.card {
-  border-radius: var(--radius-card);
+.index::-webkit-scrollbar {
+  display: none;
+}
+
+.indexLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: var(--target);
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--mist);
+  color: var(--ink);
+  font-weight: 600;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-base) var(--ease-out-quart),
+    color var(--dur-base) var(--ease-out-quart);
+}
+
+.indexLink:hover {
+  background: var(--teal-100);
+  color: var(--ink);
+}
+
+.indexLink[aria-current='true'] {
   background: var(--deep);
   color: #fff;
 }
 
-.card[open] {
-  background: var(--mist);
-  color: var(--ink);
+.indexCount {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.75rem;
+  height: 1.75rem;
+  padding: 0 0.4rem;
+  border-radius: var(--radius-pill);
+  background: rgb(3 73 76 / 0.1);
+  font-size: 1rem;
+  transition: background-color var(--dur-base) var(--ease-out-quart);
 }
 
-.face {
+.indexLink[aria-current='true'] .indexCount {
+  background: rgb(255 255 255 / 0.18);
+}
+
+/* ---------- The cards: a swipe row on phones ---------- */
+.stack {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  grid-template-areas:
-    'count circle'
-    'name circle';
-  align-items: center;
-  gap: var(--space-1) var(--space-3);
-  min-height: var(--target);
-  padding: var(--space-4) var(--space-5);
-  border-radius: var(--radius-card);
-  cursor: pointer;
-  list-style: none;
+  grid-auto-flow: column;
+  grid-auto-columns: min(86%, 24rem);
+  gap: var(--space-3);
+  margin-inline: calc(-1 * var(--gutter));
+  padding: 0 var(--gutter) var(--space-2);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  scrollbar-width: none;
 }
 
-.face::-webkit-details-marker {
+.stack::-webkit-scrollbar {
   display: none;
 }
 
-.face:focus-visible {
-  outline: 3px solid var(--teal-300);
-  outline-offset: 3px;
+.card {
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border-radius: var(--radius-card);
+  /* Each card a step lighter than the one beneath it, so the deck reads as layers. */
+  background: color-mix(in oklab, var(--deep), var(--teal-700) calc(var(--i) * 22%));
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14);
+  color: #fff;
+  scroll-snap-align: start;
+  scroll-margin-top: calc(var(--header-h) + var(--space-5));
 }
 
-.card[open] .face:focus-visible {
-  outline-color: var(--teal-700);
+.card :focus-visible {
+  outline-color: #fff;
+  box-shadow: 0 0 0 3px var(--teal-900);
+}
+
+.cardText {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+  min-width: 0;
 }
 
 .count {
-  grid-area: count;
   color: var(--deep-ink-2);
-  font-family: var(--font-display);
   font-size: var(--step-0);
   font-weight: 600;
 }
 
-.card[open] .count {
-  color: var(--teal-700);
-}
-
 .name {
-  grid-area: name;
-  font-family: var(--font-display);
+  color: #fff;
   font-size: var(--step-3);
-  font-weight: 460;
-  line-height: 1.1;
+  font-weight: 440;
+  line-height: 1.08;
   letter-spacing: -0.015em;
 }
 
 :lang(ml) .name {
-  font-family: var(--font-ml-display);
   font-weight: 560;
   line-height: 1.35;
   letter-spacing: 0;
 }
 
-/* Closed cards without a photo preview their first tests (wide screens only; the open card lists them). */
-.preview {
-  display: none;
-}
-
-/* Equipment photo: on phones only in the open card; on wider screens on every card. */
-.photo {
-  grid-column: 1 / -1;
-  display: none;
-  overflow: hidden;
-  margin-top: var(--space-3);
-  border-radius: 16px;
-  background: #fff;
-}
-
-.photo img {
-  display: block;
-  width: 100%;
-  height: 11rem;
-  object-fit: cover;
-  object-position: 50% 40%;
-}
-
-.contain img {
-  padding: var(--space-2);
-  object-fit: contain;
-}
-
-.card[open] .photo {
-  display: block;
-}
-
-/* "Discover" with an outlined circle: on phones only the circle shows. */
-.discover {
-  grid-area: circle;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-3);
-  font-weight: 700;
-}
-
-.discover > span:first-child {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-}
-
-.circle {
-  display: grid;
-  place-items: center;
-  width: 52px;
-  height: 52px;
-  border: 1.5px solid rgb(255 255 255 / 0.55);
-  border-radius: 50%;
-  transform: rotate(-45deg);
-  transition: transform var(--dur-base) var(--ease-out-quart);
-}
-
-.card[open] .circle {
-  border-color: var(--teal-700);
-  color: var(--teal-700);
-  transform: rotate(90deg);
-}
-
-.body {
-  display: grid;
-  gap: var(--space-4);
-  padding: 0 var(--space-5) var(--space-5);
-}
-
-.card[open] .body {
-  animation: bodyIn 380ms var(--ease-out-quart) both;
-}
-
-@keyframes bodyIn {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-}
-
 .text {
-  color: var(--ink-2);
+  color: var(--deep-ink-2);
   font-size: var(--step-0);
 }
 
 .list {
-  border-top: 1px solid var(--rule-strong);
+  border-top: 1px solid rgb(255 255 255 / 0.2);
 }
 
 .item {
@@ -199,232 +182,178 @@
   justify-content: space-between;
   gap: var(--space-3);
   min-height: var(--target);
-  padding: var(--space-2) 0;
-  border-bottom: 1px solid var(--rule-strong);
-  color: var(--ink);
+  padding: var(--space-2);
+  margin-inline: calc(-1 * var(--space-2));
+  border-bottom: 1px solid rgb(255 255 255 / 0.2);
+  border-radius: 8px;
+  color: #fff;
   font-weight: 600;
-  text-decoration: none;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.item:hover {
+  background: rgb(255 255 255 / 0.08);
+  color: #fff;
 }
 
 .item svg {
   flex: none;
-  color: var(--teal-700);
-  transition: transform var(--dur-fast) var(--ease-out);
+  color: var(--teal-300);
+  transition: transform var(--dur-base) var(--ease-out-quart);
 }
 
 .item:hover svg {
-  transform: translateX(3px);
+  transform: translateX(4px);
 }
 
+/* "All 12 in the test list" with an arrow circle that turns on hover. */
 .all {
   display: inline-flex;
   align-items: center;
   justify-self: start;
+  gap: var(--space-3);
   min-height: var(--target);
-  color: var(--teal-700);
+  padding: 4px 4px 4px var(--space-4);
+  border-radius: var(--radius-pill);
+  background: #fff;
+  color: var(--deep);
   font-weight: 700;
-}
-
-.foot {
-  display: none;
-}
-
-/* Phones: the test list says what the summary sentence says; the photo is shorter. */
-@media (max-width: 47.99rem) {
-  .text {
-    display: none;
-  }
-
-  .photo img {
-    height: 8.5rem;
-  }
-}
-
-/* ---------- Wider screens: tall cards in a snapping row ---------- */
-@media (min-width: 48rem) {
-  .row {
-    --edge: max(var(--gutter), calc((100vw - var(--page-max)) / 2));
-    display: flex;
-    align-items: stretch;
-    gap: var(--space-4);
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: var(--edge);
-    padding-inline: var(--edge);
-    padding-bottom: var(--space-2);
-    scrollbar-width: none;
-    scroll-timeline: --dept inline;
-  }
-
-  .row::-webkit-scrollbar {
-    display: none;
-  }
-
-  .card {
-    flex: none;
-    width: 17.5rem;
-    min-height: 28rem;
-    scroll-snap-align: start;
-  }
-
-  .card[open] {
-    width: 26rem;
-  }
-
-  .face {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto auto 1fr auto;
-    grid-template-areas:
-      'count'
-      'name'
-      'photo'
-      'circle';
-    align-items: start;
-    gap: var(--space-2);
-    min-height: 28rem;
-    padding: var(--space-6) var(--space-5) var(--space-5);
-  }
-
-  .card[open] .face {
-    grid-template-rows: auto auto auto;
-    grid-template-areas:
-      'count'
-      'name'
-      'photo';
-    min-height: 0;
-  }
-
-  .photo {
-    display: block;
-    grid-area: photo;
-  }
-
-  .preview {
-    grid-area: photo;
-    display: grid;
-    align-content: start;
-    gap: var(--space-2);
-    margin-top: var(--space-4);
-    padding-top: var(--space-4);
-    border-top: 1px solid rgb(255 255 255 / 0.2);
-    color: var(--deep-ink-2);
-    font-size: var(--step-0);
-    line-height: 1.35;
-  }
-
-  .card[open] .preview {
-    display: none;
-  }
-
-  /* Whole words only: the longest name, "Biochemistry", fits the closed card. */
-  .name {
-    font-size: clamp(1.6rem, 1.3rem + 0.9vw, 2.05rem);
-    overflow-wrap: normal;
-    hyphens: manual;
-  }
-
-  .discover {
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .discover > span:first-child {
-    position: static;
-    width: auto;
-    height: auto;
-    overflow: visible;
-    clip: auto;
-  }
-
-  .card[open] .discover {
-    display: none;
-  }
-
-  .foot {
-    display: flex;
-    align-items: center;
-    gap: var(--space-5);
-    margin-top: var(--space-5);
-  }
-}
-
-/* A thin progress line driven by the row's own scroll; hidden where unsupported. */
-.progress {
-  display: none;
-}
-
-@supports (animation-timeline: scroll()) {
-  .progress {
-    display: block;
-    flex: 1;
-    height: 2px;
-    overflow: hidden;
-    background: var(--rule);
-  }
-
-  .progress > span {
-    display: block;
-    height: 100%;
-    background: var(--deep);
-    transform-origin: left center;
-    animation: grow linear both;
-    animation-timeline: --dept;
-  }
-}
-
-@keyframes grow {
-  from {
-    transform: scaleX(0.12);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-
-.controls {
-  display: flex;
-  gap: var(--space-2);
-  margin-left: auto;
-}
-
-.control {
-  display: grid;
-  place-items: center;
-  width: var(--target-lg);
-  height: var(--target-lg);
-  border: 0;
-  border-radius: 50%;
-  background: var(--mist);
-  color: var(--ink);
   transition: background-color var(--dur-fast) var(--ease-out);
 }
 
-.control:hover {
+.all:hover {
   background: var(--teal-100);
+  color: var(--deep);
 }
 
-.control:focus-visible {
-  outline: 3px solid var(--teal-700);
-  outline-offset: 3px;
+.allCircle {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--deep);
+  color: #fff;
+  transform: rotate(-45deg);
+  transition: transform var(--dur-base) var(--ease-out-quart);
 }
 
-.back {
-  transform: rotate(180deg);
+.all:hover .allCircle {
+  transform: rotate(0deg);
+}
+
+/* Equipment photo: on white, above the text on phones, beside it on wide screens. */
+.photo {
+  order: -1;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.photo img {
+  display: block;
+  width: 100%;
+  height: 9rem;
+  border-radius: 16px;
+  background: #fff;
+  object-fit: cover;
+}
+
+.contain img {
+  padding: var(--space-2);
+  object-fit: contain;
+}
+
+.kitName {
+  color: var(--deep-ink-2);
+  font-size: 1rem;
+}
+
+/* Phones: the list says what the summary says. */
+@media (max-width: 63.99rem) {
+  .text {
+    display: none;
+  }
+}
+
+/* ---------- Wide screens ---------- */
+@media (min-width: 64rem) {
+  .grid {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    column-gap: var(--space-7);
+    align-items: start;
+  }
+
+  .sideInner {
+    gap: var(--space-5);
+  }
+
+  .index {
+    display: grid;
+    gap: 4px;
+    margin: var(--space-2) 0 0;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .indexLink {
+    display: flex;
+    min-height: 52px;
+    background: transparent;
+  }
+
+  .stack {
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    gap: var(--space-5);
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .card {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 20rem);
+    align-items: start;
+    column-gap: var(--space-6);
+    min-height: 27rem;
+    padding: var(--space-6);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.16),
+      0 -24px 48px -28px rgb(1 50 52 / 0.85);
+  }
+
+  .name {
+    font-size: var(--step-4);
+  }
+
+  .photo {
+    order: 0;
+  }
+
+  .photo img {
+    height: 15rem;
+  }
+}
+
+/* Pinning only where it fits: at least 1024 wide and 720 tall. */
+@media (min-width: 64rem) and (min-height: 45rem) {
+  .side {
+    position: sticky;
+    top: calc(var(--header-h) + var(--space-6));
+    align-self: start;
+  }
+
+  .card {
+    position: sticky;
+    top: calc(var(--header-h) + var(--space-6) + var(--i) * 20px);
+    scroll-margin-top: calc(var(--header-h) + var(--space-6) + var(--i) * 20px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card[open] .body {
-    animation: none;
-  }
-
-  .circle {
+  .item svg,
+  .allCircle,
+  .indexLink {
     transition: none;
-  }
-}
-
-@media (max-width: 47.99rem) {
-  .head {
-    margin-bottom: var(--space-5);
   }
 }

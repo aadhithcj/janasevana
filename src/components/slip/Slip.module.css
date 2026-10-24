@@ -187,9 +187,7 @@
   color: var(--teal-700);
   font-size: var(--step--1);
   font-weight: 600;
-  text-decoration: underline;
-  text-decoration-thickness: 1.5px;
-  text-underline-offset: 0.18em;
+  text-decoration: none;
 }
 
 .copy:hover {

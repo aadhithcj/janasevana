@@ -64,17 +64,13 @@ The site shows "What it measures" only where the lab wrote it. That's already do
 
 Received on 24 Oct 2026 and now on the site: the shopfront photo (home, Contact, About) and four equipment images.
 
-**Please confirm about the equipment images.** They are the manufacturers' own product photographs, not photos taken in the lab. The site shows them as the lab's equipment, so please confirm:
-- the lab uses these exact models: Erba H360 (haematology), Erba XL-200 (biochemistry), Erba EC 90 (electrolytes) and bioMérieux VIDAS KUBE (immunoassay);
-- the lab is happy to use the manufacturers' photos, or send your own photos of the machines to replace them.
+**Confirmed on 24 Oct 2026:** the lab uses these exact models: Erba H360 (haematology), Erba XL-200 (biochemistry), Erba EC 90 (electrolytes) and bioMérieux VIDAS KUBE (immunoassay). The manufacturers' photos are fine to use, and the shopfront photo from the opening is fine to publish.
 
 Two of the supplied images were left out: a redrawn XL-200 picture (its screen text is garbled, so it looks fake) and a VIDAS KUBE advert showing food-testing work with a model.
 
-**The shopfront photo** shows people at the opening. Please confirm the lab is happy to publish it.
-
 Still welcome, and shown automatically once sent: the team, and a home collection visit.
 
-**Thyroid results.** The site now says "Thyroid test results within an hour." This came through as "thyroid scan results within an hour"; the site reads it as the lab's thyroid blood test, since the lab does not do scans. Please confirm the wording.
+**Thyroid results (confirmed 24 Oct 2026):** the thyroid blood test is completed and the result given within an hour. The site says "Thyroid test results within an hour."
 
 ## 6. Brand and language
 

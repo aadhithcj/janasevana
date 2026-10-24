@@ -79,9 +79,9 @@ export const site = {
     collection: todo('Photo of a home collection visit') as Confirmable<string>,
   },
   /**
-   * Equipment images per department, supplied by the owner on 2026-10-24. These are the
-   * manufacturers' photographs of the models, not photos taken in the lab: the owner is asked
-   * to confirm the models and replace them with their own photos when possible.
+   * Equipment images per department, supplied by the owner on 2026-10-24: the manufacturers'
+   * photographs of the models. The owner confirmed the lab uses these models and that the
+   * photos may be used (2026-10-24).
    */
   equipment: {
     haematology: { status: 'confirmed', value: { photo: 'erba-h360', name: 'Erba H360' } },
