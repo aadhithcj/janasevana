@@ -1,70 +1,66 @@
 .footer {
-  background: var(--paper-raised);
+  padding-top: var(--space-7);
   border-top: 1px solid var(--rule);
-  padding-top: var(--space-8);
+  background: var(--paper);
   color: var(--ink-2);
 }
 
 .grid {
   display: grid;
-  gap: var(--space-7);
+  gap: var(--space-5);
 }
 
 .logo {
-  width: 168px;
+  width: 132px;
   height: auto;
 }
 
 .address {
-  margin-top: var(--space-4);
+  margin-top: var(--space-3);
+  font-size: var(--step--1);
   font-style: normal;
   line-height: 1.6;
 }
 
-.heading {
-  font-size: var(--step-1);
-  font-weight: var(--display-weight);
-  margin-bottom: var(--space-3);
-}
-
-.list li {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  column-gap: var(--space-3);
-}
-
-.list a {
+.address a {
   display: inline-flex;
   align-items: center;
   min-height: var(--target);
-  min-width: var(--target);
   color: var(--ink);
-}
-
-.list a[aria-current='page'] {
-  color: var(--teal-700);
-  text-decoration-thickness: 3px;
-}
-
-.meta {
-  color: var(--ink-3);
-  font-size: var(--step--1);
 }
 
 .email {
   word-break: break-all;
 }
 
+/* Pages in two columns: a compact close, not a second site map. */
+.list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--space-5);
+}
+
+.list a {
+  display: inline-flex;
+  align-items: center;
+  min-width: var(--target);
+  min-height: var(--target);
+  color: var(--ink);
+}
+
+.list a[aria-current='page'] {
+  font-weight: 700;
+}
+
 .base {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2) var(--space-6);
-  margin-top: var(--space-8);
-  padding-block: var(--space-5) var(--space-6);
+  gap: var(--space-1) var(--space-6);
+  margin-top: var(--space-5);
+  padding-block: var(--space-4) var(--space-5);
   border-top: 1px solid var(--rule);
   color: var(--ink-3);
-  font-size: var(--step--1);
+  font-size: 0.9375rem;
 }
 
 .quality {
@@ -73,7 +69,13 @@
 
 @media (min-width: 48rem) {
   .grid {
-    grid-template-columns: 1.2fr 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .list {
+    grid-template-columns: repeat(3, auto);
+    justify-content: end;
   }
 }
 

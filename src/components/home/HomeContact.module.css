@@ -1,0 +1,43 @@
+/* Full-bleed band 3 of 3: teal. */
+.band {
+  padding-block: var(--section);
+  background: var(--field);
+  color: #fff;
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-7);
+}
+
+.grid > * {
+  min-width: 0;
+}
+
+.details {
+  display: grid;
+  align-content: start;
+  gap: var(--space-5);
+}
+
+.title {
+  color: #fff;
+  font-size: var(--t-statement);
+  line-height: 1.04;
+}
+
+.map :global(figcaption) {
+  color: var(--field-ink-2);
+}
+
+.map :global(figcaption a) {
+  color: #fff;
+}
+
+@media (min-width: 64rem) {
+  .grid {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 6fr);
+    column-gap: var(--space-8);
+    align-items: start;
+  }
+}

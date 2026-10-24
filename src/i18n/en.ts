@@ -88,6 +88,22 @@ export const en = {
     ended: 'Offer ended',
   },
 
+  sections: {
+    packages: 'Two packages. Free home sample collection with both.',
+    categories: 'What are you checking?',
+    categoryTests: (n: number) => (n === 1 ? '1 item' : `${n} items`),
+    capabilities: 'What the lab does',
+    capabilitiesLede: 'Fully automated, imported laboratory equipment, run by experienced, qualified professionals.',
+    seeAll: 'See every test',
+    team: 'The people who run your tests',
+    contact: 'Find the lab',
+    mapTitle: 'Map: Janasevana Lab, Kattungal Building, Kaichoondy Junction, Alappuzha',
+    mapCaption: 'The map shows a search for our address. Call us to confirm the exact spot.',
+    openMap: 'Open in Google Maps',
+    yourSelection: 'Your selection',
+    reviewBooking: 'Review and book',
+  },
+
   home: {
     place: 'Kattungal Building, Kaichoondy Jn., Alappuzha',
     h1: ['The lab at Kaichoondy Junction', 'that comes to your home.'],

@@ -103,7 +103,7 @@
   --space-7: 3rem;
   --space-8: 4.5rem;
   --space-9: 6rem;
-  --section: clamp(4rem, 2.9rem + 4.8vw, 8rem);
+  --section: clamp(3.25rem, 2.1rem + 4.9vw, 8rem);
   --gutter: clamp(1rem, 0.6rem + 1.6vw, 2rem);
   --page-max: 75rem;
 

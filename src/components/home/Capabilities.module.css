@@ -1,0 +1,151 @@
+/* Full-bleed band 2 of 3: deeper ice. */
+.band {
+  padding-block: var(--section);
+  background: var(--ice-2);
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-7);
+}
+
+.grid > * {
+  min-width: 0;
+}
+
+.sideInner {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.title {
+  font-size: var(--t-statement);
+  line-height: 1.04;
+}
+
+.lede {
+  color: var(--ink-2);
+  max-width: 40ch;
+}
+
+.index {
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--ink);
+}
+
+.index li {
+  border-bottom: 1px solid var(--rule-strong);
+}
+
+.indexLink {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: var(--target);
+  padding: var(--space-2) 0;
+  color: var(--ink-2);
+  text-decoration: none;
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    padding-left var(--dur-fast) var(--ease-out);
+}
+
+.indexLink:hover {
+  color: var(--ink);
+}
+
+/* The department in view: weight and an underline, never colour alone. */
+.indexLink[aria-current='true'] {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.indexLink[aria-current='true'] span:first-child {
+  text-decoration: underline;
+  text-decoration-color: var(--teal-500);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.35em;
+}
+
+.indexCount {
+  color: var(--teal-700);
+  font-size: var(--step--1);
+  font-weight: 700;
+}
+
+.discount {
+  padding-top: var(--space-3);
+  font-weight: 600;
+}
+
+.block {
+  padding-block: 0 var(--space-7);
+  scroll-margin-top: var(--space-6);
+}
+
+.blockTitle {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  font-size: var(--step-3);
+}
+
+.blockTitle :global(.num) {
+  color: var(--teal-700);
+  font-size: var(--step-1);
+}
+
+.body {
+  margin: var(--space-2) 0 var(--space-4);
+  color: var(--ink-2);
+  max-width: 56ch;
+}
+
+.all {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target);
+  font-weight: 700;
+}
+
+@media (min-width: 64rem) {
+  .grid {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    column-gap: var(--space-8);
+    align-items: start;
+  }
+}
+
+/* Pin only on wide AND tall screens; the panel never exceeds 80vh. */
+@media (min-width: 64rem) and (min-height: 45rem) {
+  .side {
+    position: sticky;
+    top: var(--space-6);
+    max-height: 80vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+
+/* Phones: the scope sentences carry each department; the rows are one tap away in the directory. */
+@media (max-width: 47.99rem) {
+  .block :global(ol) {
+    display: none;
+  }
+
+  .block {
+    padding-bottom: var(--space-5);
+  }
+
+  .lede {
+    display: none;
+  }
+
+  /* The department headings follow directly, so the pinned index is a desktop aid only. */
+  .side nav {
+    display: none;
+  }
+}

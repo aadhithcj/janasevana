@@ -7,28 +7,27 @@ import { FastingNotice } from '@/components/collection/FastingNotice';
 import { Confirmed } from '@/components/ui/Unconfirmed';
 import s from './Collection.module.css';
 
+/** Home collection as one horizontal flow, with the fasting notice and the honest area line beneath. */
 export function Collection({ locale }: { locale: Locale }) {
   const d = getDict(locale);
   return (
     <section className={s.section} aria-labelledby="collection-title">
-      <div className={`wrap ${s.grid}`}>
-        <div className={s.lead} data-reveal>
-          <h2 id="collection-title" className={s.heading}>
-            {d.home.collectionTitle}
-          </h2>
-          <p className={s.lede}>{d.home.collectionLede}</p>
-          <p className={s.area}>
-            <Confirmed fact={site.homeCollectionArea} locale={locale} fallback={d.collection.area}>
-              {(v) => v[locale]}
-            </Confirmed>
-          </p>
+      <div className={`wrap ${s.inner}`}>
+        <div data-reveal>
+          <Steps locale={locale} headingLevel={2} headingId="collection-title" />
         </div>
-        <div className={s.main}>
-          <Steps locale={locale} />
+        <div className={s.foot}>
           <FastingNotice locale={locale} />
-          <Link href={href(locale, 'homeCollection')} className={s.link}>
-            {d.home.collectionLink}
-          </Link>
+          <div className={s.side}>
+            <p className={s.area}>
+              <Confirmed fact={site.homeCollectionArea} locale={locale} fallback={d.collection.area}>
+                {(v) => v[locale]}
+              </Confirmed>
+            </p>
+            <Link href={href(locale, 'homeCollection')} className={s.link}>
+              {d.home.collectionLink}
+            </Link>
+          </div>
         </div>
       </div>
     </section>

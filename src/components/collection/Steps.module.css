@@ -4,98 +4,73 @@
 }
 
 .title {
-  font-size: var(--step-2);
-  font-weight: var(--display-weight);
+  font-size: var(--t-statement);
+  line-height: 1.04;
 }
 
+/* Three steps across, each under a heavy rule with a large numeral: it is a real sequence. */
 .steps {
-  position: relative;
+  display: grid;
+  gap: var(--space-5);
   margin: 0;
   padding: 0;
   list-style: none;
-  display: grid;
-  gap: var(--space-6);
-}
-
-/* The line that joins the three steps. */
-.steps::before {
-  content: '';
-  position: absolute;
-  left: 23px;
-  top: 24px;
-  bottom: 24px;
-  width: 2px;
-  background: var(--teal-200);
 }
 
 .step {
-  position: relative;
   display: grid;
-  grid-template-columns: 48px 1fr;
-  column-gap: var(--space-4);
-  row-gap: var(--space-1);
+  align-content: start;
+  gap: var(--space-2);
+  padding-top: var(--space-3);
+  border-top: 2px solid var(--ink);
 }
 
 .num {
-  grid-row: span 2;
-  display: grid;
-  place-items: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: var(--teal-700);
-  color: #fff;
   font-family: var(--font-display);
-  font-size: var(--step-1);
-  font-weight: var(--display-weight);
-  position: relative;
-  z-index: 1;
+  font-size: clamp(2.5rem, 2rem + 2vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--teal-600);
+  font-variant-numeric: tabular-nums;
 }
 
 .stepTitle {
   font-family: var(--font-display);
   font-size: var(--step-1);
-  font-weight: var(--display-weight);
-  line-height: 1.2;
-  padding-top: 10px;
+  font-weight: 600;
+  line-height: 1.25;
 }
 
 :lang(ml) .stepTitle {
   font-family: var(--font-ml-display);
   line-height: 1.45;
-  padding-top: 6px;
 }
 
 .body {
   color: var(--ink-2);
-  max-width: 40ch;
+  max-width: 34ch;
 }
 
-@media (min-width: 56rem) {
-  .steps {
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-6);
-  }
-
-  .steps::before {
-    left: 24px;
-    right: calc(33.33% - 24px);
-    top: 23px;
-    bottom: auto;
-    width: auto;
-    height: 2px;
-  }
-
+@media (max-width: 47.99rem) {
   .step {
-    grid-template-columns: 1fr;
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    column-gap: var(--space-3);
   }
 
   .num {
-    grid-row: auto;
-    margin-bottom: var(--space-3);
+    grid-row: span 2;
+    font-size: 2.25rem;
   }
 
-  .stepTitle {
-    padding-top: 0;
+  .stepTitle,
+  .body {
+    grid-column: 2;
+  }
+}
+
+@media (min-width: 48rem) {
+  .steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: var(--space-6);
   }
 }

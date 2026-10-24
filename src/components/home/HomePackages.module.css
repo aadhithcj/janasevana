@@ -1,0 +1,150 @@
+.section {
+  padding-block: var(--section);
+}
+
+.title {
+  max-width: 22ch;
+  margin-bottom: var(--space-7);
+  font-size: var(--t-statement);
+  line-height: 1.04;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5);
+}
+
+.panel {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+/* Royal: one of the two rounded panels on the site, in petrol. */
+.royal {
+  padding: clamp(1.5rem, 1rem + 2.5vw, 3rem);
+  border-radius: var(--radius-panel);
+  background: var(--petrol-700);
+  color: #fff;
+}
+
+.royal :focus-visible {
+  outline-color: #fff;
+  box-shadow: 0 0 0 3px var(--petrol-900);
+}
+
+/* The dated offer: flat, ruled, on white. */
+.cardio {
+  padding: clamp(1.5rem, 1rem + 2.5vw, 3rem) 0 0;
+  border-top: 2px solid var(--ink);
+}
+
+.label {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  color: var(--petrol-700);
+  font-size: var(--step--1);
+  font-weight: 700;
+}
+
+.royal .label {
+  color: var(--petrol-100);
+}
+
+.ended {
+  padding: 0 8px;
+  border-radius: 4px;
+  background: var(--charcoal-100);
+  color: var(--ink);
+}
+
+.price {
+  font-family: var(--font-display);
+  font-size: var(--t-price);
+  font-weight: 520;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--petrol-800);
+}
+
+.royal .price {
+  color: #fff;
+}
+
+:global(html[data-offer='ended']) .cardio .price {
+  font-size: var(--step-3);
+  color: var(--ink-3);
+}
+
+.name {
+  font-size: var(--step-2);
+  font-weight: 560;
+}
+
+.royal .name {
+  color: #fff;
+}
+
+.meta {
+  font-weight: 600;
+}
+
+.royal .meta {
+  color: var(--petrol-100);
+}
+
+.period {
+  color: var(--ink-2);
+  font-size: var(--step--1);
+}
+
+.notice {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border-radius: 8px;
+  background: var(--amber-surface);
+  box-shadow: inset 0 0 0 1px var(--amber-rule);
+  font-size: var(--step--1);
+  line-height: 1.5;
+  max-width: 52ch;
+}
+
+.notice svg {
+  color: var(--amber-ink);
+}
+
+:lang(ml) .notice {
+  line-height: 1.75;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-5);
+  margin-top: var(--space-2);
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target);
+  font-weight: 700;
+}
+
+.royal .link {
+  color: #fff;
+}
+
+@media (min-width: 64rem) {
+  .grid {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    column-gap: var(--space-8);
+    align-items: start;
+  }
+}
