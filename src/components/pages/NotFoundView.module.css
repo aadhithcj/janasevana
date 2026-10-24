@@ -1,6 +1,7 @@
 .page {
-  padding-block: calc(var(--header-h) + clamp(3rem, 2rem + 4vw, 6rem)) var(--section);
-  border-radius: 0 0 var(--radius-edge) var(--radius-edge);
+  margin-inline: var(--field-inset);
+  padding-block: clamp(3rem, 2rem + 4vw, 6rem) var(--section);
+  border-radius: var(--radius-field);
   background: var(--mist);
 }
 

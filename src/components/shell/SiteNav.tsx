@@ -39,7 +39,7 @@ export function SiteNav({
       stretch={0.32}
       theme="light"
       surface="solid"
-      barColor="#ffffff"
+      barColor="transparent"
       textColor="#1e1f22"
       highlightColor="#03494c"
       collapse="never"

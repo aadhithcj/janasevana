@@ -1,21 +1,21 @@
 import s from './Header.module.css';
 
-/**
- * The header logo: the owner's original circular J/S mark, with the name set
- * as live text in the logo's own colours (teal "Janasevana", charcoal "Lab"),
- * so it stays sharp at any size.
- */
-export function LogoLockup() {
+/** The owner's circular J/S mark, in the printed logo's charcoal and teal. */
+export function LogoMark({ className }: { className?: string }) {
   return (
-    <span className={s.lockup}>
-      <picture>
-        <source srcSet="/brand/logo-mark.avif" type="image/avif" />
-        <source srcSet="/brand/logo-mark.webp" type="image/webp" />
-        <img src="/brand/logo-mark.png" alt="" width={144} height={144} className={s.mark} fetchPriority="high" />
-      </picture>
-      <span className={s.name} lang="en">
-        <span className={s.nameLead}>Janasevana</span> Lab
-      </span>
+    <picture>
+      <source srcSet="/brand/logo-mark.avif" type="image/avif" />
+      <source srcSet="/brand/logo-mark.webp" type="image/webp" />
+      <img src="/brand/logo-mark.png" alt="" width={144} height={144} className={className} fetchPriority="high" />
+    </picture>
+  );
+}
+
+/** The name as live text in the logo's colours (teal "Janasevana", charcoal "Lab"), sharp at any size. */
+export function LogoName() {
+  return (
+    <span className={s.name} lang="en">
+      <span className={s.nameLead}>Janasevana</span> Lab
     </span>
   );
 }

@@ -1,95 +1,98 @@
 /*
- * Floating header: it takes no height in the flow, so each page's mist field
- * runs behind it (the field adds --header-h of top padding). Sticky on desktop
- * only; on phones it scrolls away and the bottom bar carries Call and WhatsApp.
+ * The header. At the top of a page it is a full-width bar on paper, above the
+ * page's rounded opening field. Once the page scrolls (html.scrolled, set by
+ * the head script) the bar draws together: its width eases in to one centred
+ * pill of deep-teal glass, and its text turns white.
  */
 .header {
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 20;
-  height: var(--header-h);
-  margin-bottom: calc(-1 * var(--header-h));
-  padding: 12px var(--gutter) 0;
+  padding: 10px clamp(8px, 1.2vw, 16px);
   pointer-events: none;
   view-transition-name: site-header;
 }
 
 .bar {
+  --bar-ink: var(--ink);
+  --bar-ink-2: var(--ink-2);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: var(--space-3);
+  max-width: 100%;
+  min-height: 56px;
+  margin-inline: auto;
+  padding: 0 clamp(4px, 1vw, 12px);
+  border-radius: var(--radius-pill);
+  background: rgb(3 73 76 / 0);
+  pointer-events: auto;
+  transition:
+    max-width 640ms var(--ease-out-quart),
+    padding 640ms var(--ease-out-quart),
+    background-color 420ms var(--ease-out),
+    box-shadow 420ms var(--ease-out);
+}
+
+:global(html.scrolled) .bar {
+  --bar-ink: #fff;
+  --bar-ink-2: rgb(255 255 255 / 0.82);
+  max-width: var(--pill-w, 66rem);
+  /* Inline padding only: the bar keeps its height, so nothing below it moves. */
+  padding: 0 6px 0 10px;
+  background: rgb(3 73 76 / 0.82);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.12),
+    0 18px 40px -18px rgb(1 50 52 / 0.55);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  backdrop-filter: blur(18px) saturate(1.5);
+}
+
+:lang(ml) .bar {
+  --pill-w: 78rem;
+}
+
+/* Without backdrop blur the glass is simply more solid. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  :global(html.scrolled) .bar {
+    background: rgb(3 73 76 / 0.96);
+  }
+}
+
+.bar :focus-visible {
+  outline-offset: 2px;
+}
+
+:global(html.scrolled) .bar :focus-visible {
+  outline-color: #fff;
+  box-shadow: 0 0 0 3px var(--teal-900);
+}
+
+/* ---------- Left: the mark and the links ---------- */
+.start {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: var(--space-2);
-  max-width: calc(var(--page-max) + 2 * var(--gutter));
-  margin-inline: auto;
 }
 
-.bar > * {
-  pointer-events: auto;
-}
-
-/* The full lab logo in its own white box, the same height as the nav capsule. */
-.home {
+.markLink {
   flex: none;
-  display: inline-flex;
-  align-items: center;
-  min-height: 56px;
-  padding: 0 14px 0 10px;
-  border-radius: var(--radius-pill);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
   background: var(--paper);
-  text-decoration: none;
-  box-shadow: 0 1px 2px rgb(3 73 76 / 0.06);
-  transition: background-color var(--dur-fast) var(--ease-out);
+  transition: transform var(--dur-base) var(--ease-out-quart);
 }
 
-/* Hover fills the box with the nav's active teal, like the current page pill; the mark keeps its white disc. */
-.home:hover {
-  background: var(--deep);
-}
-
-.home:hover .name,
-.home:hover .nameLead {
-  color: #fff;
-}
-
-.home:focus-visible {
-  outline: 3px solid var(--teal-700);
-  outline-offset: 3px;
-}
-
-.lockup {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
+.markLink:hover {
+  transform: rotate(-12deg);
 }
 
 .mark {
-  width: 38px;
-  height: 38px;
-  padding: 2px;
-  border-radius: 50%;
-  background: var(--paper);
-}
-
-/* The name as live text, in the logo's teal and charcoal. */
-.name {
-  color: var(--charcoal-700);
-  font-family: var(--font-display);
-  font-size: 1.125rem;
-  font-weight: 700;
-  line-height: 1;
-  letter-spacing: -0.01em;
-  white-space: nowrap;
-}
-
-.nameLead {
-  /* teal-600: the logo's teal one step darker, so the name passes 4.5:1 on white. */
-  color: var(--teal-600);
-}
-
-.nav {
-  /* No shrinking: a squeezed wrapper lets the capsule spill over the toggle unseen. */
-  flex: none;
-  margin-right: auto;
-  margin-left: var(--space-2);
+  width: 36px;
+  height: 36px;
 }
 
 .nav :global(.site-pill-nav) {
@@ -101,9 +104,24 @@
   font-family: var(--font-ml-body);
 }
 
-/* PillNav's surfaces sit on the mist as plain white: no rim, no heavy shadow. */
+/* PillNav sets its colours inline; on glass its words turn white and the current page is a white pill. */
+:global(html.scrolled) .nav :global(.site-pill-nav) {
+  --pn-strong: #fff !important;
+  --pn-text: rgb(255 255 255 / 0.82) !important;
+  --pn-pill: #fff !important;
+  --pn-dot: #fff !important;
+  --pn-pill-ink: var(--deep) !important;
+}
+
+/* The capsule has no surface of its own: the bar is the surface. */
+.nav :global(.site-pill-nav) {
+  --pn-edge: transparent !important;
+  --pn-rim: transparent !important;
+  --pn-surface: transparent !important;
+}
+
 .nav :global(.pill-nav__surface) {
-  box-shadow: 0 1px 2px rgb(3 73 76 / 0.06);
+  box-shadow: none;
 }
 
 /* PillNav's off-screen measuring row is unused with collapse="never"; it must not widen the page. */
@@ -111,40 +129,82 @@
   display: none;
 }
 
-/* Narrow screens keep the logo bubble; the links live in the site menu. */
-.nav :global(.pill-nav__bar) {
+/* Narrow screens: the links live in the site menu. */
+.nav {
+  flex: none;
   display: none;
 }
 
+/* ---------- Centre: the lab's name ---------- */
+.home {
+  display: inline-flex;
+  align-items: center;
+  justify-self: center;
+  min-height: var(--target);
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-pill);
+}
+
+.name {
+  color: var(--charcoal-700);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  transition: color 420ms var(--ease-out);
+}
+
+.nameLead {
+  /* teal-600: the logo's teal one step darker, so the name passes 4.5:1 on paper. */
+  color: var(--teal-600);
+  transition: color 420ms var(--ease-out);
+}
+
+:global(html.scrolled) .name {
+  color: #fff;
+}
+
+:global(html.scrolled) .nameLead {
+  color: var(--teal-200);
+}
+
+/* ---------- Right: language, request, Contact, menu ---------- */
 .end {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: var(--space-2);
+  min-width: 0;
 }
 
 /* EN | മലയാളം */
 .toggle {
   display: inline-flex;
-  padding: 4px;
+  padding: 3px;
   border-radius: var(--radius-pill);
-  background: var(--paper);
-  box-shadow: 0 1px 2px rgb(3 73 76 / 0.06);
+  background: var(--mist);
+  transition: background-color 420ms var(--ease-out);
+}
+
+:global(html.scrolled) .toggle {
+  background: rgb(255 255 255 / 0.12);
 }
 
 .seg {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 48px;
-  min-height: 48px;
+  min-width: 46px;
+  min-height: 46px;
   padding: 0 12px;
   border-radius: var(--radius-pill);
-  color: var(--ink-2);
+  color: var(--bar-ink-2);
   font-family: var(--font-body);
   font-size: 1rem;
   font-weight: 700;
   line-height: 1;
-  text-decoration: none;
   transition:
     background-color var(--dur-fast) var(--ease-out),
     color var(--dur-fast) var(--ease-out);
@@ -163,8 +223,7 @@
 }
 
 .seg:hover {
-  color: var(--ink);
-  background: var(--mist);
+  color: var(--bar-ink);
 }
 
 .seg[aria-current='true'] {
@@ -172,29 +231,37 @@
   color: #fff;
 }
 
+:global(html.scrolled) .seg[aria-current='true'] {
+  background: #fff;
+  color: var(--deep);
+}
+
 /* "Your request (n)": enters with opacity and a small rise. */
 .request {
   display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  min-height: 56px;
-  min-width: 56px;
+  min-height: var(--target);
+  min-width: var(--target);
   padding: 0 var(--space-4);
   border-radius: var(--radius-pill);
-  background: var(--paper);
-  color: var(--ink);
+  background: var(--mist);
+  color: var(--bar-ink);
   font-weight: 700;
-  text-decoration: none;
-  box-shadow: 0 1px 2px rgb(3 73 76 / 0.06);
   animation: enter var(--dur-base) var(--ease-out-quart) both;
 }
 
 .request:hover {
-  background: var(--teal-50);
+  color: var(--bar-ink);
+  background: var(--teal-100);
+}
+
+:global(html.scrolled) .request {
+  background: rgb(255 255 255 / 0.12);
 }
 
 .request svg {
-  color: var(--teal-700);
+  color: currentColor;
 }
 
 .requestCount {
@@ -210,6 +277,11 @@
   animation: bump 300ms var(--ease-out);
 }
 
+:global(html.scrolled) .requestCount {
+  background: #fff;
+  color: var(--deep);
+}
+
 @keyframes enter {
   from {
     opacity: 0;
@@ -223,6 +295,14 @@
   }
 }
 
+/* On glass, Contact turns white with a teal arrow circle. */
+:global(html.scrolled) .contact {
+  --ab-bg: #fff;
+  --ab-fg: var(--deep);
+  --ab-circle: var(--deep);
+  --ab-circle-fg: #fff;
+}
+
 .contact {
   display: none;
 }
@@ -232,23 +312,28 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-2);
-  min-width: 56px;
-  min-height: 56px;
+  min-width: var(--target);
+  min-height: var(--target);
   padding: 0 var(--space-3);
   border-radius: var(--radius-pill);
-  background: var(--paper);
-  color: var(--ink);
+  background: var(--mist);
+  color: var(--bar-ink);
   font-size: 1rem;
   font-weight: 700;
-  text-decoration: none;
-  box-shadow: 0 1px 2px rgb(3 73 76 / 0.06);
+  transition: background-color 420ms var(--ease-out);
 }
 
 .menuTrigger:hover {
-  background: var(--teal-50);
+  color: var(--bar-ink);
+  background: var(--teal-100);
 }
 
-.menuTrigger span {
+:global(html.scrolled) .menuTrigger {
+  background: rgb(255 255 255 / 0.12);
+}
+
+.menuTrigger span,
+.requestLabel {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -257,89 +342,32 @@
   white-space: nowrap;
 }
 
-@media (max-width: 47.99rem) {
-  .requestLabel {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-  }
-
-  .request {
-    padding: 0 var(--space-3);
-  }
-}
-
-/* Phones: the capsule is hidden, so its slot takes no room. */
-@media (max-width: 63.99rem) {
-  .nav {
-    display: none;
-  }
-}
-
-/* Phones: the toggle offers only the other language, which is all a tap needs. */
+/* Phones: the toggle offers only the other language, which is all a tap needs, and the
+   name sits beside the mark (there is no room to centre it between the controls). */
 @media (max-width: 47.99rem) {
   .seg[aria-current='true'] {
     display: none;
   }
 
-  .end {
-    margin-left: auto;
-  }
-}
-
-/* Phones up to 432px: the logo, the toggle and the menu share the row. */
-@media (max-width: 26.99rem) {
   .bar {
-    gap: 6px;
-  }
-
-  .end {
-    gap: 6px;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: var(--space-2);
   }
 
   .home {
-    padding: 0 8px 0 6px;
+    justify-self: start;
+    padding: 0;
   }
+}
 
-  .toggle {
-    padding: 3px;
-  }
-
-  .mark {
-    width: 32px;
-    height: 32px;
+/* Small phones: the mark gives way so the name, toggle and menu fit. */
+@media (max-width: 22.4rem) {
+  .markLink {
+    display: none;
   }
 
   .name {
     font-size: 1rem;
-  }
-
-  .seg {
-    min-width: 44px;
-    padding: 0 8px;
-  }
-
-  .segMl {
-    font-size: 0.92rem;
-  }
-
-  .menuTrigger {
-    min-width: 50px;
-    padding: 0;
-  }
-
-  /* With a selection the request pill joins them: the mark alone carries the brand. */
-  .bar:has(.request) .name {
-    display: none;
-  }
-}
-
-@media (max-width: 21.24rem) {
-  .name {
-    display: none;
   }
 }
 
@@ -348,13 +376,12 @@
     display: inline-flex;
   }
 
-  .mark {
-    width: 42px;
-    height: 42px;
-  }
-
-  .name {
-    font-size: 1.25rem;
+  .requestLabel {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
   }
 
   .menuTrigger {
@@ -368,20 +395,16 @@
     overflow: visible;
     clip: auto;
   }
-}
 
-/* Desktop: the full PillNav, and the header stays in reach while scrolling. */
-@media (min-width: 64rem) {
-  .header {
-    position: sticky;
-    top: 0;
+  .name {
+    font-size: 1.3rem;
   }
 }
 
-/* The full capsule once the logo, four links, toggle and Contact fit in one row. */
+/* Desktop: the links join the bar. */
 @media (min-width: 64rem) {
-  .nav :global(.pill-nav__bar) {
-    display: flex;
+  .nav {
+    display: block;
   }
 
   .menuTrigger {
@@ -397,7 +420,7 @@
 }
 
 @media (min-width: 64rem) and (max-width: 79.99rem) {
-  :lang(ml) .nav :global(.pill-nav__bar) {
+  :lang(ml) .nav {
     display: none;
   }
 
@@ -407,6 +430,14 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .bar,
+  .name,
+  .nameLead,
+  .toggle,
+  .markLink {
+    transition: none;
+  }
+
   .request,
   .requestCount {
     animation: none;
@@ -417,13 +448,4 @@
   .header {
     display: none;
   }
-}
-
-/* Once the page scrolls, the floating pills lift off it with a soft shadow. */
-:global(html.scrolled) .home,
-:global(html.scrolled) .toggle,
-:global(html.scrolled) .request,
-:global(html.scrolled) .menuTrigger,
-:global(html.scrolled) .nav :global(.pill-nav__surface) {
-  box-shadow: 0 10px 28px -14px rgb(3 73 76 / 0.45);
 }

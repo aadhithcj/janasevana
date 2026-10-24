@@ -123,8 +123,6 @@
   --radius-field: 10px;
   --radius-pill: 999px;
   --radius-card: 24px;
-  /* The field's one soft lower edge, echoing the logo's swoosh */
-  --radius-edge: clamp(28px, 4vw, 56px);
   --target: 48px;
   --target-lg: 56px;
 
@@ -143,8 +141,11 @@
 
   /* Mobile action bar height, used to keep content clear of it */
   --bar-h: 0px;
-  /* The floating header: 12px offset plus the 56px PillNav */
-  --header-h: 68px;
+  /* The sticky header: the 56px bar with 10px above and below */
+  --header-h: 76px;
+  /* The opening field of every page sits inset from the window as a rounded card. */
+  --field-inset: clamp(8px, 1.2vw, 16px);
+  --radius-field: clamp(22px, 2.6vw, 36px);
 }
 
 /* Malayalam pages: taller glyphs and longer words need a looser setting. */

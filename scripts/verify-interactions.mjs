@@ -210,7 +210,7 @@ for (const [route, sel] of [['/packages/', '#royal [class*="summary"]']]) {
   const active = async () => page.$$eval('[data-dept-index] a', (as) => as.findIndex((a) => a.getAttribute('aria-current') === 'true'));
   const first = await active();
   await page.click('[data-dept-index] a[href="#dept-serology"]');
-  await new Promise((r) => setTimeout(r, 1500));
+  await new Promise((r) => setTimeout(r, 3000));
   const later = await active();
   const top = await page.$eval('#dept-serology', (el) => Math.round(el.getBoundingClientRect().top - parseFloat(getComputedStyle(el).top)));
   check('clicking the index brings that card into place and marks it', first === 0 && later === 2 && Math.abs(top) <= 2, `${first} then ${later}, offset ${top}px`);

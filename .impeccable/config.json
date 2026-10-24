@@ -11,6 +11,15 @@
         ],
         "createdAt": "2026-10-23T18:17:12.342Z",
         "reason": "agent: vendored React Bits PillNav intro pop; intro={false} so this curve never runs"
+      },
+      {
+        "rule": "side-tab",
+        "value": "*",
+        "files": [
+          "src/styles/global.css"
+        ],
+        "createdAt": "2026-10-24T15:10:40.215Z",
+        "reason": "Claude triage: L122 is body::before, a full-width 3px scroll-progress bar fixed at the top of the window, not a one-sided card border"
       }
     ]
   }

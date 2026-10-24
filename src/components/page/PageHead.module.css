@@ -1,7 +1,8 @@
-/* Inner-page opening: the same mist field as the home hero, compact, with the one soft lower edge. */
+/* Inner-page opening: the same rounded mist card as the home hero, compact. */
 .head {
-  padding-block: calc(var(--header-h) + clamp(2.25rem, 1.5rem + 3vw, 4.5rem)) clamp(2.25rem, 1.5rem + 3vw, 4rem);
-  border-radius: 0 0 var(--radius-edge) var(--radius-edge);
+  margin-inline: var(--field-inset);
+  padding-block: clamp(2.25rem, 1.5rem + 3vw, 4.5rem) clamp(2.25rem, 1.5rem + 3vw, 4rem);
+  border-radius: var(--radius-field);
   background: var(--mist);
 }
 

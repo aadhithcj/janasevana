@@ -1,13 +1,14 @@
 /*
  * Arrow button. Hover and keyboard focus slide the circle in; touch shows it at rest.
- * Ink: white on deep teal (10.6:1), arrow on teal-100 (12:1).
+ * Ink: white on deep teal (10.6:1); the arrow circle is the same teal with a white arrow.
  */
 .button {
   --ab-h: var(--target);
   --ab-bg: var(--deep);
   --ab-fg: #fff;
-  --ab-circle: var(--teal-100);
-  --ab-circle-fg: var(--ink);
+  /* The circle takes the button's own colour, so it reads on any ground. */
+  --ab-circle: var(--ab-bg);
+  --ab-circle-fg: var(--ab-fg);
   position: relative;
   display: inline-flex;
   align-items: center;
@@ -37,8 +38,6 @@
 .whatsapp {
   --ab-bg: var(--whatsapp);
   --ab-fg: var(--whatsapp-ink);
-  --ab-circle: var(--whatsapp-ink);
-  --ab-circle-fg: #fff;
 }
 
 .inner,

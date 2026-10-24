@@ -11,8 +11,9 @@
 
 .field {
   position: relative;
-  padding-block: calc(var(--header-h) + clamp(1.75rem, 1rem + 3vw, 4rem)) var(--field-pb);
-  border-radius: 0 0 var(--radius-edge) var(--radius-edge);
+  margin-inline: var(--field-inset);
+  padding-block: clamp(1.75rem, 1rem + 3vw, 4rem) var(--field-pb);
+  border-radius: var(--radius-field);
   background: var(--mist);
 }
 
@@ -193,7 +194,7 @@
   .field {
     display: grid;
     align-content: end;
-    min-height: clamp(36rem, 90svh, 56rem);
+    min-height: clamp(34rem, calc(100svh - 96px), 54rem);
   }
 
   .grid {

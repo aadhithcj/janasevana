@@ -11,6 +11,7 @@
   width: min(80vw, 26rem);
   aspect-ratio: 1;
   overflow: hidden;
+  border-radius: 0 var(--radius-field) 0 0;
   opacity: 0.42;
   pointer-events: none;
 }
