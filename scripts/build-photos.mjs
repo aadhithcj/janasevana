@@ -6,7 +6,8 @@ import sharp from 'sharp';
 
 const photos = [
   // The lab's own shopfront at Kaichoondy Jn., supplied by the owner.
-  { name: 'storefront', src: 'storefront.png', widths: [480, 800, 1200] },
+  // Cropped to leave out an out-of-focus white object in the bottom-right corner.
+  { name: 'storefront', src: 'storefront.png', widths: [480, 800, 1200], keep: [0.83, 0.88] },
   // Equipment images supplied by the owner (manufacturer photographs of the models the lab uses).
   // The original has a dark 1px column at its right edge: trimmed.
   { name: 'erba-h360', src: 'erba-h360.jpg', widths: [400, 700], trimRight: 2 },
@@ -18,10 +19,11 @@ const photos = [
 await mkdir('public/photos', { recursive: true });
 for (const p of photos) {
   const meta = await sharp(`assets-src/photos/${p.src}`).metadata();
-  const width = meta.width - (p.trimRight ?? 0);
+  const width = Math.round((meta.width - (p.trimRight ?? 0)) * (p.keep?.[0] ?? 1));
+  const height = Math.round(meta.height * (p.keep?.[1] ?? 1));
   for (const w of p.widths) {
     const img = sharp(`assets-src/photos/${p.src}`)
-      .extract({ left: 0, top: 0, width, height: meta.height })
+      .extract({ left: 0, top: 0, width, height })
       .resize({ width: Math.min(w, width) });
     const a = await img.clone().avif({ quality: 50, effort: 7 }).toFile(`public/photos/${p.name}-${w}.avif`);
     const b = await img.clone().webp({ quality: 74, effort: 6 }).toFile(`public/photos/${p.name}-${w}.webp`);

@@ -13,21 +13,19 @@ export function PhotoSlot({
   caption,
   alt,
   ratio = '4 / 3',
-  tone = 'paper',
   className,
 }: {
   photo: Confirmable<string>;
   caption: string;
   alt: string;
   ratio?: string;
-  tone?: 'paper' | 'field';
   className?: string;
 }) {
   const src = confirmed(photo);
   // No empty frames anywhere: until the owner confirms a photo, nothing renders.
   if (!src) return null;
   return (
-    <figure className={`${s.slot} ${tone === 'field' ? s.field : ''} ${className ?? ''}`} style={{ aspectRatio: ratio }}>
+    <figure className={`${s.slot} ${className ?? ''}`} style={{ aspectRatio: ratio }}>
       {src && photoFiles[src] ? (
         <Photo name={src} alt={alt} sizes="(min-width: 64rem) 40vw, 100vw" className={s.img} />
       ) : src ? (

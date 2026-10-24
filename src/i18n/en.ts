@@ -341,6 +341,12 @@ export const en = {
   about: {
     h1: 'About Janasevana Lab',
     lede: 'A diagnostic laboratory at Kattungal Building, Kaichoondy Jn., Alappuzha. The lab tests blood and urine samples, runs rapid tests, and offers ECG and lung function tests, with free home sample collection.',
+    kit: {
+      haematology: 'Haematology analyser',
+      biochemistry: 'Biochemistry analyser',
+      electrolytes: 'Electrolyte analyser',
+      immunoassay: 'Immunoassay analyser',
+    },
     equipmentTitle: 'Equipment',
     equipment: [
       'Fully automated, imported laboratory equipment.',
