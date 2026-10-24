@@ -15,18 +15,35 @@ out vec2 vLocal;
 out float vR, vSoft, vAlpha;
 out vec3 vColor;
 void main() {
+  // Kind: 1 backbone A, 2 backbone B, 3 accent grain, 0 rung; +4 dust halo; +8 bead.
+  int kind = int(aA.w);
+  bool bead = kind >= 8;
+  if (bead) kind -= 8;
+  bool dust = kind >= 4;
+  if (dust) kind -= 4;
+  bool rung = aA.z < 1.5;
   float th = aA.y + uPhase;
-  // Strands (aA.z = 2) sit on the circle; rung dots lie on the chord to the other strand.
+  // Backbones sit on the circle; rung dots lie on the chord to the other strand.
   vec2 cs = vec2(cos(th), sin(th));
-  if (aA.z < 1.5) cs = mix(cs, vec2(cos(th + GROOVE), sin(th + GROOVE)), aA.z);
+  if (rung) cs = mix(cs, vec2(cos(th + GROOVE), sin(th + GROOVE)), aA.z);
   float z = uR * cs.y + aJ.z;
   float p = 1.0 + 0.22 * z / uR;
   float w = uR * cs.x * p;
   vec2 pos = (uC + aA.x * uAxis + w * uPerp + aJ.xy) * uK + uOff;
-  float zn = z / uR;
-  float size = zn > 0.45 ? 2.6 : zn < -0.4 ? 1.15 : 1.75;
-  vAlpha = zn > 0.45 ? 0.5 : zn < -0.4 ? 0.5 : 0.9;
-  vSoft = zn > 0.45 ? 1.0 : 0.0;
+  // Depth runs 0 (far side) to 1 (near side) and drives size, opacity, softness and tone.
+  float t = clamp(z / uR * 0.5 + 0.5, 0.0, 1.0);
+  float size, alpha;
+  if (bead) { size = mix(2.0, 4.0, t); alpha = mix(0.55, 1.0, t); }
+  else if (rung) { size = mix(0.85, 1.55, t); alpha = mix(0.34, 0.9, t); }
+  else { size = mix(1.0, 2.5, t); alpha = mix(0.32, 0.95, t); }
+  if (dust) { size *= 0.9; alpha *= 0.55; }
+  vAlpha = alpha;
+  vSoft = (rung ? 0.0 : smoothstep(0.78, 1.0, t)) * (dust ? 1.0 : 0.7);
+  vec3 col;
+  if (kind == 1) col = mix(uColors[1], uColors[2], t);
+  else if (kind == 2) col = mix(uColors[0], uColors[1], t);
+  else if (kind == 3) col = uColors[3];
+  else col = aA.z < 0.5 ? mix(uColors[0], uColors[2], t * 0.85) : mix(uColors[0], uColors[1], t);
   vec2 d = pos - uPointer.xy;
   float dist = length(d);
   if (uPointer.z > 0.0 && dist < uRad && dist > 0.5) {
@@ -35,7 +52,7 @@ void main() {
   }
   vR = max(0.75, size * uK);
   vLocal = aCorner * (vR + 1.0);
-  vColor = uColors[int(aA.w)];
+  vColor = col;
   vec2 q = pos + vLocal;
   gl_Position = vec4(q.x / uRes.x * 2.0 - 1.0, 1.0 - q.y / uRes.y * 2.0, 0.0, 1.0);
 }`;
@@ -50,7 +67,9 @@ uniform vec3 uFade;
 out vec4 o;
 void main() {
   float d = length(vLocal);
-  float a = vSoft > 0.5 ? 1.0 - smoothstep(0.45 * vR, vR, d) : clamp(vR - d + 0.5, 0.0, 1.0);
+  float hard = clamp(vR - d + 0.5, 0.0, 1.0);
+  float soft = 1.0 - smoothstep(0.45 * vR, vR, d);
+  float a = mix(hard, soft, vSoft);
   vec2 f = gl_FragCoord.xy;
   f.y = uRes.y - f.y;
   float t = uFade.x < 0.5
