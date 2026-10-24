@@ -160,11 +160,11 @@ async function search(page, q) {
 }
 
 // ---------- Offer dates ----------
-for (const [date, expect] of [['2026-10-20', 'upcoming'], ['2026-10-23', 'live'], ['2026-11-15', 'live'], ['2026-11-16', 'ended']]) {
+for (const [date, expect] of [['2026-10-20', 'upcoming'], ['2026-10-23T00:00', 'live'], ['2026-11-15T23:59', 'live'], ['2026-11-16T00:00', 'ended']]) {
   const page = await open(`/?preview-date=${date}`);
   const state = await page.evaluate(() => document.documentElement.getAttribute('data-offer'));
   const cardioVisible = await page.evaluate(() => {
-    const el = document.getElementById('slip-cardio');
+    const el = document.getElementById('hero-offer-cardio');
     return !!el && el.offsetParent !== null;
   });
   check(`offer on ${date} is ${expect}`, state === expect && cardioVisible === (expect !== 'ended'), `state=${state} cardioVisible=${cardioVisible}`);
