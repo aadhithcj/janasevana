@@ -1,41 +1,59 @@
 'use client';
 
-import { useId, useMemo, useState } from 'react';
-import { cardioPackage, formatInr, royalPackage } from '@config/packages';
+import { useEffect, useId, useMemo, useState } from 'react';
+import { cardioPackage, royalPackage } from '@config/packages';
 import { site, telHref } from '@config/site';
-import { departments, tests, type DepartmentId, type Test } from '@config/tests';
-import { getDict, type Dict } from '@/i18n';
+import { categories, departments, tests, type CategoryId, type DepartmentId, type Test } from '@config/tests';
+import { getDict } from '@/i18n';
+import { packageItem } from '@/lib/basketItems';
+import { rowFromTest, type IndexRow } from '@/lib/indexRows';
 import type { Locale } from '@/lib/paths';
 import { searchTests } from '@/lib/search';
 import { whatsappUrl } from '@/lib/whatsapp';
 import { Icon } from '@/components/ui/Icon';
 import { actionClass } from '@/components/ui/Action';
 import { useBasket, type BasketItem } from '@/components/booking/BasketContext';
+import { IndexList } from '@/components/index/IndexList';
+import { AddToBooking } from '@/components/index/AddToBooking';
 import s from './TestDirectory.module.css';
 
-type Strings = { tests: Dict['tests']; basket: Dict['basket']; common: Dict['common'] };
 type Filter = 'all' | DepartmentId;
 
-const packageNames: Record<string, { name: string; anchor: 'cardio' | 'royal' }> = {
-  'pkg-cardio': { name: `${cardioPackage.shortName} (${formatInr(cardioPackage.priceInr)})`, anchor: 'cardio' },
-  'pkg-royal': { name: `${royalPackage.shortName} (${formatInr(royalPackage.priceInr)})`, anchor: 'royal' },
-};
-
 function basketItem(t: Test): BasketItem {
-  if (t.kind === 'package') return { id: t.id, name: packageNames[t.id].name, kind: 'package' };
+  if (t.id === 'pkg-cardio') return packageItem(cardioPackage);
+  if (t.id === 'pkg-royal') return packageItem(royalPackage);
   return { id: t.id, name: t.name, kind: 'test' };
 }
 
+/**
+ * The full-density Index: search with everyday words (English and
+ * Malayalam), department filters, category deep links (?cat=, ?q=), a
+ * visible count, add and remove. Without JavaScript the server render shows
+ * every test, grouped.
+ */
 export function TestDirectory({ locale, packagesHref, bookHref }: { locale: Locale; packagesHref: string; bookHref: string }) {
-  const dict = getDict(locale);
-  const t: Strings = { tests: dict.tests, basket: dict.basket, common: dict.common };
+  const d = getDict(locale);
   const basket = useBasket();
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState<Filter>('all');
+  const [category, setCategory] = useState<CategoryId | null>(null);
   const searchId = useId();
 
+  // Deep links from the home page: /tests/?cat=heart or /tests/?q=sugar
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const cat = params.get('cat');
+    const q = params.get('q');
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- reading the URL once after mount keeps the static HTML identical
+    if (cat && categories.some((c) => c.id === cat)) setCategory(cat as CategoryId);
+    if (q) setQuery(q.slice(0, 60));
+  }, []);
+
   const hits = useMemo(() => searchTests(tests, query), [query]);
-  const visible = tests.filter((x) => hits.has(x.id) && (filter === 'all' || x.department === filter));
+  const inCategory = category ? new Set(categories.find((c) => c.id === category)!.ids) : null;
+  const visible = tests.filter(
+    (x) => hits.has(x.id) && (filter === 'all' || x.department === filter) && (!inCategory || inCategory.has(x.id)),
+  );
   const groups = departments
     .map((dep) => ({ dep, rows: visible.filter((x) => x.department === dep) }))
     .filter((g) => g.rows.length > 0);
@@ -45,37 +63,50 @@ export function TestDirectory({ locale, packagesHref, bookHref }: { locale: Loca
       ? `നമസ്കാരം ജനസേവന ലാബ്,\n“${query.trim()}” ടെസ്റ്റ് ലാബിൽ ചെയ്യുമോ?`
       : `Hello Janasevana Lab,\nDo you do the “${query.trim()}” test?`;
 
-  function toggle(test: Test) {
-    const item = basketItem(test);
-    if (basket.has(test.id)) {
-      basket.remove(test.id);
-      basket.announce(t.basket.removedLive(item.name));
-    } else {
-      basket.add(item);
-      basket.announce(t.basket.addedLive(item.name));
+  const action = (row: IndexRow) => {
+    const test = tests.find((x) => x.id === row.testId)!;
+    if (test.kind === 'package') {
+      const anchor = test.id === 'pkg-cardio' ? 'cardio' : 'royal';
+      return (
+        <a href={`${packagesHref}#${anchor}`} className={s.pkgLink}>
+          {d.tests.viewPackage}
+        </a>
+      );
     }
-  }
+    const item = basketItem(test);
+    return (
+      <AddToBooking
+        item={item}
+        labels={{
+          add: d.tests.add,
+          added: d.tests.added,
+          remove: d.tests.remove,
+          addedLive: d.basket.addedLive(item.name),
+          removedLive: d.basket.removedLive(item.name),
+        }}
+      />
+    );
+  };
 
+  const deptLabel = (row: IndexRow) => (row.department ? d.tests.departments[row.department] : undefined);
   const filters: Filter[] = ['all', ...departments];
+  const count = basket.loaded ? basket.items.length : 0;
 
   return (
     <div className={s.layout}>
-      <div className={s.main}>
-        <div className={s.controls} role="search">
-          <label htmlFor={searchId} className={s.searchLabel}>
-            {t.tests.searchLabel}
+      <div className={s.controls}>
+        <div className={s.searchRow} role="search">
+          <label htmlFor={searchId} className="visually-hidden">
+            {d.tests.searchLabel}
           </label>
-          <p id={`${searchId}-hint`} className={s.hint}>
-            {t.tests.searchHint}
-          </p>
           <div className={s.searchBox}>
             <Icon name="search" className={s.searchIcon} />
             <input
               id={searchId}
               type="search"
               value={query}
+              placeholder={d.tests.searchHint}
               onChange={(e) => setQuery(e.target.value)}
-              aria-describedby={`${searchId}-hint`}
               autoComplete="off"
               enterKeyHint="search"
               className={s.search}
@@ -83,221 +114,89 @@ export function TestDirectory({ locale, packagesHref, bookHref }: { locale: Loca
             {query && (
               <button type="button" className={s.clear} onClick={() => setQuery('')}>
                 <Icon name="close" />
-                <span className="visually-hidden">{t.tests.clearSearch}</span>
+                <span className="visually-hidden">{d.tests.clearSearch}</span>
               </button>
             )}
           </div>
-
-          <div className={s.filters} role="group" aria-label={t.tests.filterLabel}>
-            {filters.map((f) => (
-              <button
-                key={f}
-                type="button"
-                aria-pressed={filter === f}
-                className={s.filter}
-                onClick={() => setFilter(f)}
-              >
-                {f === 'all' ? t.tests.all : t.tests.departments[f]}
-              </button>
-            ))}
-          </div>
-          <p className={s.count} role="status" aria-live="polite">
-            {t.tests.showing(visible.length)}
-          </p>
+          {count > 0 && (
+            <a href={bookHref} className={s.selection}>
+              <span className={`${s.selCount} num`} key={count}>
+                {count}
+              </span>
+              <span>{d.tests.selected(count)}</span>
+              <span className={s.selReview}>{d.basket.review}</span>
+            </a>
+          )}
         </div>
 
-        {groups.length === 0 ? (
-          <div className={s.empty}>
-            <p className={s.emptyTitle}>{t.tests.emptyTitle(query.trim())}</p>
-            <p>{t.tests.emptyBody}</p>
-            <div className={s.emptyActions}>
-              <a href={telHref(landline.tel)} className={actionClass({ size: 'lg' })}>
-                <Icon name="phone" />
-                <span>
-                  {t.common.callNumber(landline.display)}
-                </span>
-              </a>
-              <a href={whatsappUrl(askMessage)} target="_blank" rel="noopener" className={actionClass({ variant: 'whatsapp', size: 'lg' })}>
-                <Icon name="chat" />
-                <span>WhatsApp</span>
-              </a>
-            </div>
-            <button type="button" className={s.textButton} onClick={() => { setQuery(''); setFilter('all'); }}>
-              {t.tests.clearSearch}
+        <div className={s.filters} role="group" aria-label={d.tests.filterLabel}>
+          {filters.map((f) => (
+            <button key={f} type="button" aria-pressed={filter === f} className={s.filter} onClick={() => setFilter(f)}>
+              {f === 'all' ? d.tests.all : d.tests.departments[f]}
             </button>
-          </div>
-        ) : (
-          groups.map((g) => (
-            <section key={g.dep} className={s.group} aria-labelledby={`dep-${g.dep}`}>
-              <h2 id={`dep-${g.dep}`} className={s.groupTitle}>
-                {t.tests.departments[g.dep]}
-              </h2>
-              <ul role="list" className={s.rows}>
-                {g.rows.map((x) => (
-                  <Row key={x.id} test={x} t={t} locale={locale} added={basket.has(x.id)} onToggle={() => toggle(x)} packagesHref={packagesHref} />
-                ))}
-              </ul>
-            </section>
-          ))
-        )}
+          ))}
+        </div>
+
+        <div className={s.status}>
+          <p className={s.count} role="status" aria-live="polite">
+            {d.tests.showing(visible.length)}
+          </p>
+          {category && (
+            <p className={s.catChip}>
+              <span>{d.tests.categoryActive(d.tests.categories[category])}</span>
+              <button type="button" className={s.catClear} onClick={() => setCategory(null)}>
+                <Icon name="close" />
+                <span>{d.tests.showAll}</span>
+              </button>
+            </p>
+          )}
+        </div>
       </div>
 
-      <aside className={s.basket} aria-labelledby="basket-title" data-basket={basket.items.length > 0 ? 'full' : 'empty'}>
-        <h2 id="basket-title" className={s.basketTitle}>
-          {t.basket.title}
-          <span className={`${s.basketCount} num`} key={basket.items.length}>
-            {basket.items.length}
-          </span>
-        </h2>
-        {basket.items.length === 0 ? (
-          <p className={s.hint}>{t.basket.empty}</p>
-        ) : (
-          <>
-            <ul role="list" className={s.basketList}>
-              {basket.items.map((i) => (
-                <li key={i.id}>
-                  <span>{i.name}</span>
-                  <button
-                    type="button"
-                    className={s.remove}
-                    onClick={() => {
-                      basket.remove(i.id);
-                      basket.announce(t.basket.removedLive(i.name));
-                    }}
-                  >
-                    <Icon name="close" />
-                    <span className="visually-hidden">
-                      {t.tests.remove}: {i.name}
-                    </span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-            <a href={bookHref} className={actionClass({ block: true })}>
-              {t.basket.continue}
+      {groups.length === 0 ? (
+        <div className={s.empty}>
+          <p className={s.emptyTitle}>{d.tests.emptyTitle(query.trim())}</p>
+          <p>{d.tests.emptyBody}</p>
+          <div className={s.emptyActions}>
+            <a href={telHref(landline.tel)} className={actionClass({ size: 'lg' })}>
+              <Icon name="phone" />
+              <span>{d.common.callNumber(landline.display)}</span>
             </a>
-            <button type="button" className={s.textButton} onClick={basket.clear}>
-              {t.basket.clear}
-            </button>
-          </>
-        )}
-      </aside>
-
-      {basket.items.length > 0 && (
-        <div className={s.strip} data-basket-strip>
-          <span className={s.stripCount}>
-            <span className={`${s.basketCount} num`} key={basket.items.length}>
-              {basket.items.length}
-            </span>
-            <span>{t.basket.title}</span>
-            <span className="visually-hidden">{t.basket.count(basket.items.length)}</span>
-          </span>
-          <a href={bookHref} className={actionClass({ className: s.stripAction })}>
-            {t.basket.continue}
-          </a>
+            <a href={whatsappUrl(askMessage)} target="_blank" rel="noopener" className={actionClass({ variant: 'whatsapp', size: 'lg' })}>
+              <Icon name="chat" />
+              <span>WhatsApp</span>
+            </a>
+          </div>
+          <button
+            type="button"
+            className={s.textButton}
+            onClick={() => {
+              setQuery('');
+              setFilter('all');
+              setCategory(null);
+            }}
+          >
+            {d.tests.clearSearch}
+          </button>
         </div>
+      ) : (
+        groups.map((g) => (
+          <section key={g.dep} className={s.group} aria-labelledby={`dep-${g.dep}`}>
+            <h2 id={`dep-${g.dep}`} className={s.groupTitle}>
+              {d.tests.departments[g.dep]} <span className="num">{g.rows.length}</span>
+            </h2>
+            <IndexList
+              rows={g.rows.map(rowFromTest)}
+              density="full"
+              locale={locale}
+              t={d.index}
+              renderAction={action}
+              showDepartment={filter === 'all' && !category ? undefined : deptLabel}
+              labelledBy={`dep-${g.dep}`}
+            />
+          </section>
+        ))
       )}
     </div>
-  );
-}
-
-function Row({
-  test,
-  t,
-  locale,
-  added,
-  onToggle,
-  packagesHref,
-}: {
-  test: Test;
-  t: Strings;
-  locale: Locale;
-  added: boolean;
-  onToggle: () => void;
-  packagesHref: string;
-}) {
-  const ask = t.common.askLab;
-  const pkgLink = test.kind === 'package' ? `${packagesHref}#${packageNames[test.id].anchor}` : null;
-  const inPkgs = test.inPackages?.map((p) => (p === 'cardio' ? cardioPackage.shortName : royalPackage.shortName));
-  return (
-    <li className={s.row} data-when-offer={test.id === 'pkg-cardio' ? 'live upcoming' : undefined}>
-      <div className={s.head}>
-        <p className={s.name} lang="en">
-          {test.name}
-        </p>
-        {test.about && <p className={s.about}>{test.about[locale]}</p>}
-      </div>
-
-      {test.kind === 'test' && !test.nameOnly && (
-        <dl className={s.facts}>
-          {/* Method and sample only where the lab's report states them; preparation is always answered. */}
-          {(test.method || test.parameters?.some((p) => p.method)) && (
-            <div>
-              <dt>{t.tests.method}</dt>
-              <dd>{test.method ?? t.tests.methodPerPart}</dd>
-            </div>
-          )}
-          {test.sample && (
-            <div>
-              <dt>{t.tests.sample}</dt>
-              <dd>{t.tests.samples[test.sample]}</dd>
-            </div>
-          )}
-          <div>
-            <dt>{t.tests.prep}</dt>
-            <dd>{test.prep === 'fasting' ? <span className={s.fasting}>{t.tests.fastingPrep}</span> : ask}</dd>
-          </div>
-        </dl>
-      )}
-
-      <div className={s.notes}>
-        {test.nameOnly && <p>{t.tests.nameOnly}</p>}
-        {test.kind === 'category' && <p>{t.tests.categoryNote}</p>}
-        {test.viaPackagesOnly && <p>{t.tests.viaPackages}</p>}
-        {inPkgs && !test.viaPackagesOnly && <p>{t.tests.inPackage(inPkgs.join(' / '))}</p>}
-        {test.parameters && test.parameters.length > 0 && (
-          <details className={s.params}>
-            <summary>
-              {t.tests.includes} <span className="num">({test.parameters.length})</span>
-              <Icon name="chevron" className={s.chev} />
-            </summary>
-            <ul role="list" lang="en">
-              {test.parameters.map((p) => (
-                <li key={p.name}>
-                  <span>{p.name}</span>
-                  {p.method && <span className={s.paramMethod}>{p.method}</span>}
-                </li>
-              ))}
-            </ul>
-          </details>
-        )}
-        {pkgLink && (
-          <a href={pkgLink} className={s.pkgLink}>
-            {t.tests.viewPackage}
-          </a>
-        )}
-      </div>
-
-      <div className={s.action}>
-        {added ? (
-          <button type="button" className={s.added} onClick={onToggle}>
-            <Icon name="check" className={s.check} />
-            <span>{t.tests.added}</span>
-            <span className={s.addedRemove}>
-              {t.tests.remove}
-              <span className="visually-hidden">: {test.name}</span>
-            </span>
-          </button>
-        ) : (
-          <button type="button" className={s.add} onClick={onToggle}>
-            <Icon name="plus" />
-            <span>
-              {t.tests.add}
-              <span className="visually-hidden">: {test.name}</span>
-            </span>
-          </button>
-        )}
-      </div>
-    </li>
   );
 }

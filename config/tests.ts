@@ -246,7 +246,8 @@ export const tests: Test[] = [
   {
     id: 'hscrp',
     name: 'hs-CRP (high-sensitivity CRP)',
-    department: 'biochemistry',
+    // hs-CRP exists only inside the Cardiovascular Health Package, so it lives with the packages.
+    department: 'packages',
     kind: 'test',
     about: {
       en: 'Measures an inflammation marker that can help assess cardiovascular risk alongside other factors.',
@@ -434,3 +435,20 @@ export const synonyms: Record<string, string[]> = {
   'വാതം': ['ra'],
   'വിറ്റാമിൻ': ['vitd', 'rapid-vitamin'],
 };
+
+/**
+ * Everyday entry points (home page and `/tests/?cat=`). Each lists only
+ * tests or packages the lab actually offers. CRP (Serology) and hs-CRP
+ * (Cardiovascular Health Package) stay separate items.
+ */
+export type CategoryId = 'heart' | 'sugar' | 'liver' | 'kidney' | 'thyroid' | 'full-body' | 'inflammation';
+
+export const categories: { id: CategoryId; ids: string[] }[] = [
+  { id: 'heart', ids: ['pkg-cardio', 'lipid', 'lpa', 'hscrp', 'ecg'] },
+  { id: 'sugar', ids: ['fbs', 'glucose'] },
+  { id: 'liver', ids: ['lft'] },
+  { id: 'kidney', ids: ['urea', 'creatinine', 'acr'] },
+  { id: 'thyroid', ids: ['tsh', 'rapid-thyroid'] },
+  { id: 'full-body', ids: ['pkg-royal'] },
+  { id: 'inflammation', ids: ['crp', 'hscrp'] },
+];

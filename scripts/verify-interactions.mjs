@@ -27,7 +27,8 @@ async function open(path, width = 1280) {
   return page;
 }
 
-const names = (page) => page.$$eval('[class*="TestDirectory"] li p[lang="en"], li p[lang="en"]', (els) => els.map((e) => e.textContent.trim()));
+// Index rows carry data-test; the test name is the row's English-language label.
+const names = (page) => page.$$eval('main li[data-test] summary [lang="en"]', (els) => els.map((e) => e.textContent.trim()));
 
 async function search(page, q) {
   const input = await page.$('input[type="search"]');
@@ -83,12 +84,13 @@ async function search(page, q) {
 
   // Basket
   await search(page, 'liver');
-  await page.click('main ul li button');
+  await page.click('main li[data-test] button');
   await search(page, 'thyroid');
-  const addButtons = await page.$$('main ul li button');
+  const addButtons = await page.$$('main li[data-test] button');
   await addButtons[0].click();
   await new Promise((r) => setTimeout(r, 150));
-  const basketText = await page.$eval('aside', (a) => a.innerText);
+  // The selection shows up in the booking form on the same page.
+  const basketText = await page.$eval('#book', (a) => a.innerText);
   check('basket holds added tests', basketText.includes('Liver Function Test (LFT)') && basketText.includes('Thyroid Stimulating Hormone (TSH)'));
   const live = await page.evaluate(() => [...document.querySelectorAll('[role="status"]')].map((e) => e.textContent).join(' | '));
   check('add announced politely', /added to your booking/.test(live), live);
@@ -128,6 +130,20 @@ async function search(page, q) {
   check('URL is fully encoded (no raw spaces, &, newlines)', !/[ \n&](?![^?]*$)/.test(url.split('?text=')[1] ?? '') && !/[ \n]/.test(url));
   const success = await page.evaluate(() => document.activeElement?.innerText ?? '');
   check('success state focused with resend link', /WhatsApp should now be open/.test(success) && /Open WhatsApp again/.test(success));
+  await page.close();
+}
+
+// ---------- Category deep links ----------
+for (const [cat, expected] of [
+  ['inflammation', ['CRP', 'hs-CRP (high-sensitivity CRP)']],
+  ['kidney', ['Urea', 'Creatinine', 'Urine Albumin Creatinine Ratio (ACR)']],
+  ['heart', ['Cardiovascular Health Package', 'Lipid Profile', 'Lipoprotein(a), Lp(a)', 'hs-CRP (high-sensitivity CRP)', 'ECG']],
+]) {
+  const page = await open(`/tests/?cat=${cat}`);
+  await new Promise((r) => setTimeout(r, 150));
+  const got = await names(page);
+  const ok = got.length === expected.length && expected.every((e) => got.includes(e));
+  check(`?cat=${cat} shows exactly its tests`, ok, got.join(', '));
   await page.close();
 }
 

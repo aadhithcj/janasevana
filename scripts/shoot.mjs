@@ -28,7 +28,7 @@ for (const route of routes.split(',')) {
       await new Promise((r) => setTimeout(r, 400));
     }
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
-    const name = `${outDir}/${tag}-${route.replace(/\//g, '_') || 'root'}-${w}.png`;
+    const name = `${outDir}/${tag}-${route.replace(/[/?=&]/g, '_') || 'root'}-${w}.png`;
     await page.screenshot({ path: name, fullPage: full });
     console.log(name, overflow > 0 ? `OVERFLOW ${overflow}px` : 'ok');
     await page.close();

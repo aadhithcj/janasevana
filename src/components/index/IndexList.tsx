@@ -121,7 +121,9 @@ function Body({ row, locale, t }: { row: IndexRow; locale: Locale; t: Dict['inde
         </dl>
       )}
 
-      {row.viaPackagesOnly && <p className={s.note}>{t.viaPackages}</p>}
+      {row.viaPackagesOnly && (
+        <p className={s.note}>{row.inPackages?.length === 1 && row.inPackages[0] === 'cardio' ? t.inCardio : t.viaPackages}</p>
+      )}
     </div>
   );
 }

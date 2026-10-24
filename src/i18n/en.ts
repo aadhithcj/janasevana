@@ -170,6 +170,10 @@ export const en = {
     testsHeading: 'Tests in this package',
     noticeLabel: 'Please read',
     bookThis: 'Book this package',
+    select: 'Select for booking',
+    selected: 'Selected',
+    askWhatsapp: 'Ask about it on WhatsApp',
+    contents: 'What’s in it',
     explain: 'Open a test to see what it includes.',
     includes: 'Includes',
     measures: 'What it measures',
@@ -202,6 +206,19 @@ export const en = {
     emptyTitle: (q: string) => `Nothing found for “${q}”`,
     emptyBody: 'The lab may still do this test. Call or WhatsApp and ask.',
     clearSearch: 'Clear search',
+    categories: {
+      heart: 'Heart',
+      sugar: 'Sugar',
+      liver: 'Liver',
+      kidney: 'Kidney',
+      thyroid: 'Thyroid',
+      'full-body': 'Full body',
+      inflammation: 'Inflammation and infection',
+    },
+    categoryActive: (name: string) => `Showing: ${name}`,
+    showAll: 'Show all tests',
+    inCardio: 'Part of the Cardiovascular Health Package. Ask the lab about booking it on its own.',
+    selected: (n: number) => (n === 1 ? '1 selected' : `${n} selected`),
     departments: {
       haematology: 'Haematology',
       biochemistry: 'Biochemistry',
@@ -227,6 +244,7 @@ export const en = {
     samples: { serum: 'Serum', urine: 'Urine' },
     fasting: 'Fasting test. The lab confirms how long.',
     viaPackages: 'Offered in our packages. Ask the lab about booking it on its own.',
+    inCardio: 'Part of the Cardiovascular Health Package. Ask the lab about booking it on its own.',
   },
 
   basket: {

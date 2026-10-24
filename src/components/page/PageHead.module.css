@@ -1,14 +1,6 @@
 .head {
-  --pf: var(--field);
-  position: relative;
-  background: var(--pf);
-  color: #fff;
-  padding-block: clamp(2rem, 1.25rem + 3vw, 4.5rem) var(--space-6);
-  margin-bottom: clamp(56px, 4vw + 40px, 120px);
-}
-
-.petrol {
-  --pf: var(--petrol-700);
+  padding-block: clamp(2.5rem, 1.5rem + 4vw, 6rem) clamp(2rem, 1.25rem + 3vw, 4rem);
+  border-bottom: 1px solid var(--rule);
 }
 
 .inner {
@@ -17,25 +9,22 @@
 }
 
 .title {
-  color: #fff;
-  font-size: var(--step-5);
-  font-weight: var(--display-weight);
-  font-stretch: var(--display-stretch);
-  line-height: var(--lh-display);
-  max-width: 16ch;
+  max-width: 18ch;
+  font-size: var(--t-statement);
+  font-weight: 540;
+  line-height: 1.02;
 }
 
 :lang(ml) .title {
-  font-weight: var(--display-weight);
-  font-stretch: var(--display-stretch);
-  max-width: 18ch;
+  font-weight: 600;
+  line-height: 1.32;
 }
 
 .lede {
+  max-width: 50ch;
+  color: var(--ink-2);
   font-size: var(--step-1);
   line-height: 1.5;
-  color: var(--field-ink);
-  max-width: 44ch;
 }
 
 :lang(ml) .lede {
@@ -43,24 +32,10 @@
   line-height: 1.8;
 }
 
-.arc {
-  position: absolute;
-  top: calc(100% - 1px);
-  left: 0;
-  width: 100%;
-  height: clamp(56px, 4vw + 40px, 120px);
-}
-
-@media print {
-  .head {
-    margin-bottom: var(--space-5);
-  }
-
-  .arc {
-    display: none;
-  }
-
-  .title {
-    color: #000;
+@media (min-width: 64rem) {
+  .inner {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: end;
+    column-gap: var(--space-8);
   }
 }

@@ -1,20 +1,9 @@
-import { Arc } from '@/components/home/Arc';
 import s from './PageHead.module.css';
 
-/** Inner-page opening: the coloured field, the page's one heading, and the arc. */
-export function PageHead({
-  title,
-  lede,
-  tone = 'teal',
-  children,
-}: {
-  title: string;
-  lede?: string;
-  tone?: 'teal' | 'petrol';
-  children?: React.ReactNode;
-}) {
+/** Inner-page opening: one statement heading and its lede, on white, closed by a hairline. */
+export function PageHead({ title, lede, children }: { title: string; lede?: string; children?: React.ReactNode }) {
   return (
-    <header className={`${s.head} ${tone === 'petrol' ? s.petrol : ''} on-field`}>
+    <header className={s.head}>
       <div className={`wrap ${s.inner}`}>
         <h1 className={s.title} data-load style={{ '--i': 0 } as React.CSSProperties}>
           {title}
@@ -26,7 +15,6 @@ export function PageHead({
         )}
         {children}
       </div>
-      <Arc className={s.arc} fill={tone === 'petrol' ? 'var(--petrol-700)' : 'var(--field)'} />
     </header>
   );
 }
