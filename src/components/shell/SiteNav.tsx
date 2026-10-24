@@ -5,25 +5,24 @@ import { usePathname } from 'next/navigation';
 import { href, type Locale, type PageId } from '@/lib/paths';
 import PillNav from './PillNav/PillNav';
 
-const order: PageId[] = ['home', 'packages', 'tests', 'homeCollection', 'about', 'contact'];
+// No Home item: the logo beside the capsule links home.
+const order: PageId[] = ['packages', 'tests', 'homeCollection', 'about', 'contact'];
 
 /**
  * React Bits PillNav with the requested settings (plain items, fill hover,
- * pill indicator, bounce 0.24, stretch 0.32) in its default split layout:
- * the lab's circular mark, unaltered, in its own round bubble, then the
- * link capsule. Solid surface (no glass), 48px targets. On narrow screens
- * the header hides the link capsule and shows the site menu instead.
+ * pill indicator, bounce 0.24, stretch 0.32). No logo is passed in: the
+ * header sets the full lab logo in its own box beside the capsule. Solid
+ * surface (no glass), 48px targets. On narrow screens the header hides the
+ * link capsule and shows the site menu instead.
  */
 export function SiteNav({
   locale,
   labels,
   ariaLabel,
-  homeLabel,
 }: {
   locale: Locale;
   labels: Record<PageId, string>;
   ariaLabel: string;
-  homeLabel: string;
 }) {
   const path = usePathname() || '/';
   const current = path.endsWith('/') ? path : `${path}/`;
@@ -31,9 +30,6 @@ export function SiteNav({
   return (
     <PillNav
       items={items}
-      logo="/brand/logo-mark-120.webp"
-      logoAlt={homeLabel}
-      logoHref={href(locale, 'home')}
       activeHref={current}
       linkComponent={Link}
       itemStyle="plain"

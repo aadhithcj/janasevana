@@ -1,6 +1,8 @@
+import Link from 'next/link';
 import { getDict } from '@/i18n';
 import { href, type Locale } from '@/lib/paths';
 import { ArrowButton } from '@/components/ui/ArrowButton';
+import { LogoLockup } from './Logo';
 import { LangToggle } from './LangToggle';
 import { SiteNav } from './SiteNav';
 import { RequestLink } from './RequestLink';
@@ -8,8 +10,8 @@ import { MenuTrigger } from './Menu';
 import s from './Header.module.css';
 
 /**
- * A floating header over each page's mist field: the circular mark and the
- * PillNav capsule at the left; the language toggle, "Your request" (only
+ * A floating header over each page's mist field: the full logo in a white
+ * box and the PillNav capsule at the left; the language toggle, "Your request" (only
  * with a selection) and the Contact arrow button at the right.
  */
 export function Header({ locale }: { locale: Locale }) {
@@ -17,8 +19,11 @@ export function Header({ locale }: { locale: Locale }) {
   return (
     <header className={s.header}>
       <div className={s.bar}>
+        <Link href={href(locale, 'home')} className={s.home} aria-label={t.homeLink}>
+          <LogoLockup />
+        </Link>
         <div className={s.nav}>
-          <SiteNav locale={locale} labels={t.nav} ariaLabel={t.navLabel} homeLabel={t.homeLink} />
+          <SiteNav locale={locale} labels={t.nav} ariaLabel={t.navLabel} />
         </div>
         <div className={s.end}>
           <LangToggle locale={locale} label={t.language} />
