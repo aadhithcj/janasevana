@@ -23,7 +23,7 @@ export function Header({ locale }: { locale: Locale }) {
         <div className={s.end}>
           <LangToggle locale={locale} label={t.language} />
           <ActionLink href={href(locale, 'homeCollection', 'book')} className={s.book}>
-            {t.book}
+            {locale === 'ml' ? t.bookShort : t.book}
           </ActionLink>
           <MenuTrigger label={t.menu} className={s.menuTrigger} />
         </div>

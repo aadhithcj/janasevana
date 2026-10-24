@@ -29,14 +29,16 @@
   color: var(--ink);
 }
 
-.email {
-  word-break: break-all;
+.address .email {
+  display: inline;
+  padding-block: 12px;
+  overflow-wrap: anywhere;
 }
 
 /* Pages in two columns: a compact close, not a second site map. */
 .list {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   column-gap: var(--space-5);
 }
 

@@ -78,7 +78,7 @@
 
 /* The count sits right beside the name, small and tabular. */
 .count {
-  color: var(--teal-600);
+  color: var(--teal-700);
   font-size: var(--step--1);
   font-weight: 700;
 }

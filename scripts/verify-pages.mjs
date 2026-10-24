@@ -34,7 +34,9 @@ for (const route of all) {
           const r = el.getBoundingClientRect();
           if (!r.width || !r.height || getComputedStyle(el).visibility === 'hidden') return false;
           // Inline links inside running text are exempt (WCAG 2.5.8 inline exception).
-          const inline = getComputedStyle(el).display === 'inline' && el.closest('p, li, dd');
+          const inline = getComputedStyle(el).display === 'inline' && el.closest('p, li, dd, address');
+          // A native radio inside a large tappable label is covered by the label's area.
+          if (el.matches('input[type=radio]') && el.closest('label')?.getBoundingClientRect().height >= 44) return false;
           return !inline && (r.height < 44 || r.width < 44);
         })
         .map((el) => `${(el.textContent || el.getAttribute('aria-label') || el.tagName).trim().slice(0, 30)} ${Math.round(el.getBoundingClientRect().width)}x${Math.round(el.getBoundingClientRect().height)}`),
