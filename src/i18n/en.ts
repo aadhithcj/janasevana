@@ -78,6 +78,16 @@ export const en = {
     nothingSent: 'Nothing is sent until you press send in WhatsApp.',
   },
 
+  hero: {
+    promise: 'The lab comes to your home.',
+    meta: 'Janasevana Lab, Kaichoondy Jn., Alappuzha',
+    sub: 'Free home sample collection. A blood sample collector visits you.',
+    offerTests: (n: number) => `${n} tests, free home sample collection`,
+    callToConfirm: 'Call to confirm.',
+    seePackage: 'See the package',
+    ended: 'Offer ended',
+  },
+
   home: {
     place: 'Kattungal Building, Kaichoondy Jn., Alappuzha',
     h1: ['The lab at Kaichoondy Junction', 'that comes to your home.'],
@@ -225,6 +235,7 @@ export const en = {
     count: (n: number) => (n === 1 ? '1 item' : `${n} items`),
     clear: 'Clear all',
     continue: 'Continue to booking',
+    review: 'Review',
     addedLive: (name: string) => `${name} added to your booking.`,
     removedLive: (name: string) => `${name} removed from your booking.`,
   },

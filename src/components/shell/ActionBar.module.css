@@ -3,7 +3,7 @@
   inset: auto 0 0;
   z-index: 30;
   display: grid;
-  grid-template-columns: 1fr 1fr auto;
+  grid-template-columns: 1fr 1fr;
   gap: 8px;
   padding: 8px var(--gutter) calc(8px + env(safe-area-inset-bottom, 0px));
   background: var(--paper-raised);
@@ -63,27 +63,44 @@
   color: var(--whatsapp-ink);
 }
 
-.menu {
-  border: 1.5px solid var(--rule-strong);
+.withReview {
+  grid-template-columns: 1fr 1fr auto;
+}
+
+.review {
+  gap: 6px;
+  border: 1.5px solid var(--ink);
   color: var(--ink);
-  padding: 0 12px;
+  padding: 0 12px 0 6px;
+  animation: review-in var(--dur-base) var(--ease-out);
 }
 
-@media (max-width: 22.4rem) {
-  .menu span {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-  }
+.count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.9rem;
+  height: 1.9rem;
+  padding: 0 0.4rem;
+  border-radius: var(--radius-pill);
+  background: var(--ink);
+  color: #fff;
+  font-size: 0.9375rem;
+  animation: bump 300ms var(--ease-out);
+}
 
-  .menu {
-    width: var(--target);
-    padding: 0;
+@keyframes review-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
   }
 }
+
+@keyframes bump {
+  50% {
+    transform: scale(1.18);
+  }
+}
+
 
 @media (min-width: 48rem) {
   .bar {

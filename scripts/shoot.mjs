@@ -18,7 +18,7 @@ for (const route of routes.split(',')) {
   for (const w of widths.split(',').map(Number)) {
     const page = await browser.newPage();
     await page.setJavaScriptEnabled(!jsOff);
-    await page.setViewport({ width: w, height: w < 768 ? 780 : 900, deviceScaleFactor: 1 });
+    await page.setViewport({ width: w, height: w < 768 ? 740 : 900, deviceScaleFactor: 1 });
     await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduce' }]);
     const url = `http://localhost:4174${route}${date ? `?preview-date=${date}` : ''}`;
     await page.goto(url, { waitUntil: 'networkidle0' });
