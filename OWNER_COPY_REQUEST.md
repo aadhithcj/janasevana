@@ -60,12 +60,21 @@ The site shows "What it measures" only where the lab wrote it. That's already do
 - **ISO 9001:2015:** certificate number, certifying body and scope (shown as plain text only).
 - **Live website address (domain):** used for the sitemap and links shared on WhatsApp.
 
-## 5. Photos (optional)
+## 5. Photos
 
-The site never shows empty photo frames. If the lab sends any of these, they appear automatically:
-- the lab front;
-- the team;
-- a home collection visit.
+Received on 24 Oct 2026 and now on the site: the shopfront photo (home, Contact, About) and four equipment images.
+
+**Please confirm about the equipment images.** They are the manufacturers' own product photographs, not photos taken in the lab. The site shows them as the lab's equipment, so please confirm:
+- the lab uses these exact models: Erba H360 (haematology), Erba XL-200 (biochemistry), Erba EC 90 (electrolytes) and bioMérieux VIDAS KUBE (immunoassay);
+- the lab is happy to use the manufacturers' photos, or send your own photos of the machines to replace them.
+
+Two of the supplied images were left out: a redrawn XL-200 picture (its screen text is garbled, so it looks fake) and a VIDAS KUBE advert showing food-testing work with a model.
+
+**The shopfront photo** shows people at the opening. Please confirm the lab is happy to publish it.
+
+Still welcome, and shown automatically once sent: the team, and a home collection visit.
+
+**Thyroid results.** The site now says "Thyroid test results within an hour." This came through as "thyroid scan results within an hour"; the site reads it as the lab's thyroid blood test, since the lab does not do scans. Please confirm the wording.
 
 ## 6. Brand and language
 
