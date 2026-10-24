@@ -8,7 +8,7 @@ import s from './NotFoundView.module.css';
 /** Served for any unknown address, so it speaks both languages. */
 export function NotFoundView() {
   return (
-    <section className={s.field + ' on-field'} aria-labelledby="nf-title">
+    <section className={s.page} aria-labelledby="nf-title">
       <div className={`wrap ${s.inner}`}>
         <p className={s.code} aria-hidden="true">
           404
@@ -26,7 +26,7 @@ export function NotFoundView() {
           </p>
         </div>
       </div>
-      <div className={`wrap ${s.links}`}>
+      <div className="wrap">
         <ul role="list" className={s.list}>
           {pageIds.map((id) => (
             <li key={id}>

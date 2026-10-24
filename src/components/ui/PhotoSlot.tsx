@@ -22,6 +22,8 @@ export function PhotoSlot({
   className?: string;
 }) {
   const src = confirmed(photo);
+  // No empty frames anywhere: until the owner confirms a photo, nothing renders.
+  if (!src) return null;
   return (
     <figure className={`${s.slot} ${tone === 'field' ? s.field : ''} ${className ?? ''}`} style={{ aspectRatio: ratio }}>
       {src ? (

@@ -1,10 +1,9 @@
-import { site } from '@config/site';
 import { getDict } from '@/i18n';
 import type { Locale } from '@/lib/paths';
 import { PageHead } from '@/components/page/PageHead';
 import { ContactDetails } from '@/components/contact/ContactDetails';
 import { PrintButton } from '@/components/contact/PrintButton';
-import { PhotoSlot } from '@/components/ui/PhotoSlot';
+import { MapEmbed } from '@/components/contact/MapEmbed';
 import { LogoFull } from '@/components/shell/Logo';
 import s from './ContactView.module.css';
 
@@ -26,7 +25,7 @@ export function ContactView({ locale }: { locale: Locale }) {
           </div>
         </section>
         <div className={s.side} data-print="hide">
-          <PhotoSlot photo={site.photos.storefront} caption={d.common.photoSlot.storefront} alt="" ratio="4 / 3" />
+          <MapEmbed locale={locale} />
         </div>
       </div>
     </>

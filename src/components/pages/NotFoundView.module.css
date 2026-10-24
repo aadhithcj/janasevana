@@ -1,37 +1,34 @@
-.field {
-  background: var(--field);
-  color: var(--field-ink);
-  padding-block: var(--space-8) var(--section);
-  border-bottom-left-radius: 50% 4rem;
-  border-bottom-right-radius: 50% 4rem;
+.page {
+  padding-block: clamp(3rem, 2rem + 4vw, 7rem) var(--section);
 }
 
 .inner {
   display: grid;
-  gap: var(--space-5);
-  align-items: end;
+  gap: var(--space-6);
 }
 
+/* The number is the display type: set large, in logo teal, no field behind it. */
 .code {
   font-family: var(--font-display);
-  font-size: clamp(6rem, 3rem + 14vw, 13rem);
-  font-weight: var(--display-weight);
-  font-stretch: var(--display-stretch);
-  line-height: 0.85;
-  color: var(--teal-300);
+  font-size: clamp(6rem, 3rem + 14vw, 14rem);
+  font-weight: 500;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  color: var(--teal-500);
   max-width: none;
 }
 
+.text {
+  display: grid;
+  gap: var(--space-3);
+}
+
 .title {
-  color: #fff;
-  font-size: var(--step-4);
-  font-weight: var(--display-weight);
-  font-stretch: var(--display-stretch);
-  line-height: 1.05;
+  font-size: var(--t-statement);
+  line-height: 1.04;
 }
 
 .titleMl {
-  margin-top: var(--space-3);
   font-family: 'Noto Sans Malayalam', 'Nirmala UI', sans-serif;
   font-size: var(--step-2);
   font-weight: 600;
@@ -39,8 +36,7 @@
 }
 
 .body {
-  margin-top: var(--space-4);
-  color: var(--field-ink-2);
+  color: var(--ink-2);
 }
 
 .body:lang(ml) {
@@ -48,13 +44,10 @@
   line-height: 1.8;
 }
 
-.links {
-  padding-top: var(--space-7);
-}
-
 .list {
   display: grid;
-  border-top: 1px solid var(--field-rule);
+  margin-top: var(--space-7);
+  border-top: 1px solid var(--ink);
 }
 
 .list li {
@@ -62,7 +55,7 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: var(--space-2) var(--space-5);
-  border-bottom: 1px solid var(--field-rule);
+  border-bottom: 1px solid var(--rule);
 }
 
 .list a,
@@ -70,30 +63,31 @@
   display: inline-flex;
   align-items: center;
   min-height: 52px;
-  color: #fff;
   font-family: var(--font-display);
   font-size: var(--step-1);
   font-weight: 600;
+  color: var(--ink);
 }
 
 .mlLink {
   font-family: 'Noto Sans Malayalam', 'Nirmala UI', sans-serif !important;
   font-size: var(--step-0) !important;
-  color: var(--field-ink-2) !important;
+  color: var(--ink-2) !important;
 }
 
 .call {
-  margin-top: var(--space-5);
+  margin-top: var(--space-3);
 }
 
 @media (min-width: 48rem) {
   .inner {
-    grid-template-columns: auto 1fr;
-    gap: var(--space-7);
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: end;
+    column-gap: var(--space-8);
   }
 
   .list {
     grid-template-columns: 1fr 1fr;
-    column-gap: var(--space-7);
+    column-gap: var(--space-8);
   }
 }
