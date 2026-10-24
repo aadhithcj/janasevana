@@ -8,7 +8,8 @@ import { Confirmed } from '@/components/ui/Unconfirmed';
 import s from './ContactDetails.module.css';
 
 /** Address, every number, WhatsApp, email, directions and hours. Used on the teal band and the contact page. */
-export function ContactDetails({ locale, tone = 'field' }: { locale: Locale; tone?: 'field' | 'paper' }) {
+/** mapNearby: the map's own caption already says the pin is a search, so the note is left out. */
+export function ContactDetails({ locale, tone = 'field', mapNearby = false }: { locale: Locale; tone?: 'field' | 'paper'; mapNearby?: boolean }) {
   const d = getDict(locale);
   const a = site.address[locale];
   return (
@@ -29,7 +30,7 @@ export function ContactDetails({ locale, tone = 'field' }: { locale: Locale; ton
           WhatsApp
         </ActionLink>
       </div>
-      <p className={s.note}>{d.common.directionsNote}</p>
+      {!mapNearby && <p className={s.note}>{d.common.directionsNote}</p>}
 
       <dl className={s.list}>
         {site.phones.map((p) => (

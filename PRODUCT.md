@@ -41,6 +41,7 @@ Confirmed:
 - Offers: Anniversary Special Cardiovascular Health Package, ₹1,299, 23 Oct to 15 Nov 2026 (Asia/Kolkata), with a mandatory risk notice; Royal Package, ₹2,000, 16 tests, no validity period.
 - ISO 9001:2015 certified (plain text only).
 - Lines confirmed by the owner's brief and safe to state plainly: rapid tests on modern automated machines with "results in minutes" (categories only: thyroid, hormone, cancer-marker, vitamin, allergy); "fully automated, imported laboratory equipment"; "experienced, qualified professionals". The Royal Package ad labels it "Special Offer".
+- Thyroid test results within an hour (owner's word via the site owner, 2026-10-24; given as "thyroid scan results", read as the lab's thyroid test).
 - Team: Ajmal Majeed (Chief Lab Tech, Paramed Reg. No. 2232\MLTn\15), Najeema Sathar (Lab In Charge), Remya Sajan (Sr. Lab Technician).
 
 Undecided (must render as "Call us to confirm" or stay hidden): opening hours, exact map pin, home-collection area and timings, report delivery method and timing, discount specifics, ISO certificate details, per-test fasting hours, per-test prices, all photographs, method/sample/prep for CRP and RA Factor.

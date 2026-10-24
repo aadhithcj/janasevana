@@ -44,10 +44,6 @@
   align-content: start;
 }
 
-.logo {
-  width: min(16rem, 70%);
-  height: auto;
-}
 
 .quality {
   font-family: var(--font-display);

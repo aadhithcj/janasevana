@@ -40,3 +40,12 @@
     align-items: start;
   }
 }
+
+/* The shopfront, so the lab is easy to recognise from the road. */
+.photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: var(--space-4);
+  border-radius: var(--radius-card);
+}

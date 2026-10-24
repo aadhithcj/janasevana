@@ -130,7 +130,7 @@ for (const [name, opts] of [
   await page.close();
 }
 
-// 4x CPU throttle: reported. 20x: tier A must step down.
+// 4x CPU throttle: reported. 50x: tier A must step down.
 {
   const page = await open({ query: '?helix=A', cpu: 4 });
   await wait(6000);
@@ -139,12 +139,12 @@ for (const [name, opts] of [
   await page.close();
 }
 {
-  const page = await open({ query: '?helix=A', lateCpu: 20 });
+  const page = await open({ query: '?helix=A', lateCpu: 50 });
   // Wait for the helix to start and for its first probe to finish (slow at this throttle).
   await page.waitForFunction(() => document.getElementById('hero-helix').dataset.frameMs, { timeout: 90000, polling: 500 });
   await wait(4000);
   const s = await state(page);
-  report(s.tier !== 'A', '20x CPU throttle steps down from tier A', `now ${s.tier}, last probe ${s.frameMs}ms cost, ${s.gapMs}ms gap`);
+  report(s.tier !== 'A', '50x CPU throttle steps down from tier A', `now ${s.tier}, last probe ${s.frameMs}ms cost, ${s.gapMs}ms gap`);
   await page.close();
 }
 

@@ -100,6 +100,33 @@
   letter-spacing: 0;
 }
 
+/* Equipment photo: on phones only in the open card; on wider screens on every card. */
+.photo {
+  grid-column: 1 / -1;
+  display: none;
+  overflow: hidden;
+  margin-top: var(--space-3);
+  border-radius: 16px;
+  background: #fff;
+}
+
+.photo img {
+  display: block;
+  width: 100%;
+  height: 11rem;
+  object-fit: cover;
+  object-position: 50% 40%;
+}
+
+.contain img {
+  padding: var(--space-2);
+  object-fit: contain;
+}
+
+.card[open] .photo {
+  display: block;
+}
+
 /* "Discover" with an outlined circle: on phones only the circle shows. */
 .discover {
   grid-area: circle;
@@ -197,6 +224,17 @@
   display: none;
 }
 
+/* Phones: the test list says what the summary sentence says; the photo is shorter. */
+@media (max-width: 47.99rem) {
+  .text {
+    display: none;
+  }
+
+  .photo img {
+    height: 8.5rem;
+  }
+}
+
 /* ---------- Wider screens: tall cards in a snapping row ---------- */
 @media (min-width: 48rem) {
   .row {
@@ -221,7 +259,7 @@
   .card {
     flex: none;
     width: 17.5rem;
-    min-height: 32rem;
+    min-height: 28rem;
     scroll-snap-align: start;
   }
 
@@ -235,24 +273,33 @@
     grid-template-areas:
       'count'
       'name'
-      '.'
+      'photo'
       'circle';
     align-items: start;
     gap: var(--space-2);
-    min-height: 32rem;
+    min-height: 28rem;
     padding: var(--space-6) var(--space-5) var(--space-5);
   }
 
   .card[open] .face {
-    grid-template-rows: auto auto;
+    grid-template-rows: auto auto auto;
     grid-template-areas:
       'count'
-      'name';
+      'name'
+      'photo';
     min-height: 0;
   }
 
+  .photo {
+    display: block;
+    grid-area: photo;
+  }
+
+  /* Whole words only: the longest name, "Biochemistry", fits the closed card. */
   .name {
-    font-size: var(--step-4);
+    font-size: clamp(1.6rem, 1.3rem + 0.9vw, 2.05rem);
+    overflow-wrap: normal;
+    hyphens: manual;
   }
 
   .discover {
@@ -351,5 +398,11 @@
 
   .circle {
     transition: none;
+  }
+}
+
+@media (max-width: 47.99rem) {
+  .head {
+    margin-bottom: var(--space-5);
   }
 }

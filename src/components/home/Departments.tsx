@@ -1,7 +1,11 @@
+import { confirmed } from '@config/confirm';
+import { photoFiles } from '@config/photos';
+import { site } from '@config/site';
 import { tests, type DepartmentId } from '@config/tests';
 import { getDict } from '@/i18n';
 import { href, type Locale } from '@/lib/paths';
 import { Icon } from '@/components/ui/Icon';
+import { Photo } from '@/components/ui/Photo';
 import { DeptControls } from './DeptControls';
 import s from './Departments.module.css';
 
@@ -11,7 +15,8 @@ const order: DepartmentId[] = ['haematology', 'biochemistry', 'serology', 'clini
  * The five departments as tall cards in a snapping row. Each is a native
  * <details name="dept">, so one opens at a time and it all works without
  * JavaScript; the open card turns pale and lists its tests. The numeral on
- * each card is its real test count, not a decorative index.
+ * each card is its real test count, not a decorative index. A card shows an
+ * equipment photo only where config supplies one.
  */
 export function Departments({ locale }: { locale: Locale }) {
   const d = getDict(locale);
@@ -38,11 +43,17 @@ export function Departments({ locale }: { locale: Locale }) {
         <div className={s.row} id="dept-row">
           {order.map((dep, i) => {
             const list = tests.filter((t) => t.department === dep);
+            const kit = site.equipment[dep] ? confirmed(site.equipment[dep]!) : null;
             return (
               <details key={dep} name="dept" className={s.card} open={i === 0}>
                 <summary className={s.face}>
                   <span className={`${s.count} num`}>{d.front.deptCount(list.length)}</span>
                   <span className={s.name}>{d.tests.departments[dep]}</span>
+                  {kit && (
+                    <span className={`${s.photo} ${photoFiles[kit.photo].fit === 'contain' ? s.contain : ''}`}>
+                      <Photo name={kit.photo} alt={d.common.photoAlt.equipment(kit.name)} sizes="(min-width: 48rem) 26rem, 90vw" />
+                    </span>
+                  )}
                   <span className={s.discover}>
                     <span>{d.front.discover}</span>
                     <span className={s.circle} aria-hidden="true">

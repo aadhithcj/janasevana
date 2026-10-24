@@ -5,8 +5,8 @@ import { usePathname } from 'next/navigation';
 import { href, type Locale, type PageId } from '@/lib/paths';
 import PillNav from './PillNav/PillNav';
 
-// No Home item: the logo beside the capsule links home.
-const order: PageId[] = ['packages', 'tests', 'homeCollection', 'about', 'contact'];
+// No Home or Contact item: the logo links home and the Contact arrow button sits beside the capsule.
+const order: PageId[] = ['packages', 'tests', 'homeCollection', 'about'];
 
 /**
  * React Bits PillNav with the requested settings (plain items, fill hover,

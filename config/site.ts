@@ -73,10 +73,21 @@ export const site = {
      * Until then the hero shows the current offer there instead.
      */
     hero: todo('Lab photo for the home hero') as Confirmable<string>,
-    storefront: todo('Photo of the lab front at Kaichoondy Jn.') as Confirmable<string>,
+    /** The lab's shopfront at Kaichoondy Jn., supplied by the owner on 2026-10-24. Built by scripts/build-photos.mjs. */
+    storefront: { status: 'confirmed', value: 'storefront' } as Confirmable<string>,
     team: todo('Photos of the team') as Confirmable<string>,
     collection: todo('Photo of a home collection visit') as Confirmable<string>,
   },
+  /**
+   * Equipment images per department, supplied by the owner on 2026-10-24. These are the
+   * manufacturers' photographs of the models, not photos taken in the lab: the owner is asked
+   * to confirm the models and replace them with their own photos when possible.
+   */
+  equipment: {
+    haematology: { status: 'confirmed', value: { photo: 'erba-h360', name: 'Erba H360' } },
+    biochemistry: { status: 'confirmed', value: { photo: 'erba-xl200', name: 'Erba XL-200' } },
+    other: { status: 'confirmed', value: { photo: 'vidas-kube', name: 'bioMérieux VIDAS KUBE' } },
+  } as Partial<Record<string, Confirmable<{ photo: string; name: string }>>>,
   /** Public address of the site. Placeholder domain until the owner confirms it. */
   siteUrl: todo('Live domain') as Confirmable<string>,
   siteUrlFallback: 'https://janasevana-lab.example',

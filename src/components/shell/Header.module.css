@@ -81,11 +81,13 @@
 }
 
 .nameLead {
-  color: var(--teal-500);
+  /* teal-600: the logo's teal one step darker, so the name passes 4.5:1 on white. */
+  color: var(--teal-600);
 }
 
 .nav {
-  min-width: 0;
+  /* No shrinking: a squeezed wrapper lets the capsule spill over the toggle unseen. */
+  flex: none;
   margin-right: auto;
   margin-left: var(--space-2);
 }
@@ -374,7 +376,10 @@
     position: sticky;
     top: 0;
   }
+}
 
+/* The full capsule once the logo, four links, toggle and Contact fit in one row. */
+@media (min-width: 64rem) {
   .nav :global(.pill-nav__bar) {
     display: flex;
   }
@@ -384,7 +389,7 @@
   }
 }
 
-/* Malayalam labels are longer: tighter pills from 80rem, the menu below that. */
+/* Malayalam labels are longer: tighter pills, and the menu until they fit. */
 @media (min-width: 80rem) {
   :lang(ml) .nav :global(.site-pill-nav) {
     --pn-x: 10px;

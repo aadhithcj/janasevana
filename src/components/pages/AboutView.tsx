@@ -4,7 +4,6 @@ import { getDict } from '@/i18n';
 import type { Locale } from '@/lib/paths';
 import { PageHead } from '@/components/page/PageHead';
 import { PhotoSlot } from '@/components/ui/PhotoSlot';
-import { LogoFull } from '@/components/shell/Logo';
 import { TeamQuality } from '@/components/home/TeamQuality';
 import { ReportGuide } from '@/components/about/ReportGuide';
 import s from './AboutView.module.css';
@@ -30,8 +29,7 @@ export function AboutView({ locale }: { locale: Locale }) {
           </ul>
         </section>
         <div className={s.side}>
-          <LogoFull className={s.logo} />
-          <PhotoSlot photo={site.photos.storefront} caption={d.common.photoSlot.storefront} alt="" ratio="4 / 3" />
+          <PhotoSlot photo={site.photos.storefront} caption={d.common.photoSlot.storefront} alt={d.common.photoAlt.storefront} ratio="1473 / 1068" />
         </div>
         <section aria-labelledby="quality-title" className={s.block} data-reveal>
           <h2 id="quality-title" className={s.heading}>

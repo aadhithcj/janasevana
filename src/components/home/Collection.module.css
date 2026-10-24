@@ -36,3 +36,13 @@
     column-gap: var(--space-8);
   }
 }
+
+@media (max-width: 47.99rem) {
+  .inner {
+    gap: var(--space-5);
+  }
+
+  .foot {
+    gap: var(--space-4);
+  }
+}

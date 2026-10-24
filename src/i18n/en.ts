@@ -61,6 +61,10 @@ export const en = {
     hours: 'Opening hours',
     iso: 'ISO 9001:2015 certified',
     heroPhotoAlt: 'Janasevana Lab at Kattungal Building, Kaichoondy Junction',
+    photoAlt: {
+      storefront: 'The Janasevana Lab shopfront at Kaichoondy Junction, with its sign',
+      equipment: (name: string) => `${name} analyser`,
+    },
     photoSlot: {
       storefront: 'Photo of the lab front, coming soon',
       team: 'Team photo, coming soon',
@@ -155,7 +159,7 @@ export const en = {
       biochemistry: 'Sugar, cholesterol, liver and kidney function, uric acid, electrolytes, thyroid (TSH), vitamin D and calcium.',
       serology: 'ASO titre, CRP and RA factor.',
       clinicalPathology: 'Urine routine and microscopic examination, and urine albumin creatinine ratio.',
-      rapid: 'Thyroid, hormone, cancer-marker, vitamin and allergy tests on modern automated machines, with results in minutes. Ask the lab which panels are available.',
+      rapid: 'Thyroid, hormone, cancer-marker, vitamin and allergy tests on modern automated machines, with results in minutes. Thyroid test results within an hour. Ask the lab which panels are available.',
       lungsHeart: 'Pulmonary function test (PFT) to check how well the lungs work, nebulisation, and ECG.',
     },
     serviceNames: {

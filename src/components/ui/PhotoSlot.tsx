@@ -1,4 +1,6 @@
 import { confirmed, type Confirmable } from '@config/confirm';
+import { photoFiles } from '@config/photos';
+import { Photo } from './Photo';
 import s from './PhotoSlot.module.css';
 
 /**
@@ -26,7 +28,9 @@ export function PhotoSlot({
   if (!src) return null;
   return (
     <figure className={`${s.slot} ${tone === 'field' ? s.field : ''} ${className ?? ''}`} style={{ aspectRatio: ratio }}>
-      {src ? (
+      {src && photoFiles[src] ? (
+        <Photo name={src} alt={alt} sizes="(min-width: 64rem) 40vw, 100vw" className={s.img} />
+      ) : src ? (
         // Static export: images are pre-optimised files, so a plain img is intended.
         // eslint-disable-next-line @next/next/no-img-element
         <img src={src} alt={alt} loading="lazy" decoding="async" className={s.img} />

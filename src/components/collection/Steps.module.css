@@ -52,7 +52,12 @@
 }
 
 @media (max-width: 47.99rem) {
+  .steps {
+    gap: var(--space-4);
+  }
+
   .step {
+    row-gap: 2px;
     grid-template-columns: 2.5rem minmax(0, 1fr);
     column-gap: var(--space-3);
   }

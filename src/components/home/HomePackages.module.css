@@ -164,3 +164,10 @@
 :global(html[data-offer='ended']) .grid {
   grid-template-columns: minmax(0, 1fr);
 }
+
+/* Phones: the hero's offer slip, one screen above, already carries the dated offer and its notice. */
+@media (max-width: 63.99rem) {
+  .cardio {
+    display: none;
+  }
+}

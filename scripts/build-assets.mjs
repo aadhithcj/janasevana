@@ -1,5 +1,5 @@
 // Builds web-ready logo files and icons.
-// Mark: assets-src/logo-final.png, the owner's original logo artwork (trimmed, 144px for the header at 3x).
+// Mark: assets-src/logo-final.png, the owner's original logo artwork (trimmed, charcoal parts restored, 144px for the header at 3x).
 // Wordmark and full logo: public/brand/logo-*.png, extracted from brand/ (the lab's printed logo).
 // Run: node scripts/build-assets.mjs
 import sharp from 'sharp';
@@ -8,7 +8,23 @@ import { mkdir } from 'node:fs/promises';
 const dir = 'public/brand';
 await mkdir('src/app', { recursive: true });
 
-await sharp('assets-src/logo-final.png').trim().resize({ width: 144, height: 144, fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } }).png({ compressionLevel: 9 }).toFile(`${dir}/logo-mark.png`);
+// The artwork's neutral parts (white fills, black outlines and the greys between) are shown in the
+// logo's charcoal, as on the lab's printed logo; its teal is kept exactly.
+{
+  const { data, info } = await sharp('assets-src/logo-final.png').trim().ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  for (let i = 0; i < data.length; i += 4) {
+    const [r, g, b] = [data[i], data[i + 1], data[i + 2]];
+    if (Math.max(r, g, b) - Math.min(r, g, b) < 40) {
+      data[i] = 0x43;
+      data[i + 1] = 0x44;
+      data[i + 2] = 0x48;
+    }
+  }
+  await sharp(data, { raw: info })
+    .resize({ width: 144, height: 144, fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+    .png({ compressionLevel: 9 })
+    .toFile(`${dir}/logo-mark.png`);
+}
 
 for (const name of ['logo-mark', 'logo-wordmark', 'logo-full']) {
   await sharp(`${dir}/${name}.png`).webp({ quality: 92, alphaQuality: 100, effort: 6 }).toFile(`${dir}/${name}.webp`);
