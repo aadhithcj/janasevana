@@ -1,7 +1,6 @@
 .section {
   padding-block: var(--section);
   background: var(--paper-sunk);
-  border-top: 1px solid var(--rule);
   scroll-margin-top: 0;
 }
 

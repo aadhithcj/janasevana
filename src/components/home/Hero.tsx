@@ -20,15 +20,15 @@ export function Hero({ locale }: { locale: Locale }) {
   return (
     <section className={s.hero} aria-labelledby="hero-title">
       <div className={`wrap ${s.grid}`}>
-        <p className={s.meta} data-load style={{ '--i': 0 } as React.CSSProperties}>
-          <Icon name="pin" />
-          <span>{d.hero.meta}</span>
-        </p>
         <div className={s.left}>
         <h1 id="hero-title" className={s.promise} data-load style={{ '--i': 1 } as React.CSSProperties}>
           {d.hero.promise}
         </h1>
         <div className={s.lead} data-load style={{ '--i': 2 } as React.CSSProperties}>
+          <p className={s.meta}>
+            <Icon name="pin" />
+            <span>{d.hero.meta}</span>
+          </p>
           <p className={s.sub}>{d.hero.sub}</p>
           <div className={s.actions}>
             <ActionLink href={telHref(landline.tel)} size="lg" icon="phone" className={s.call}>
@@ -58,12 +58,13 @@ function Offer({ pkg, locale }: { pkg: HealthPackage; locale: Locale }) {
   const id = `hero-offer-${pkg.id}`;
   return (
     <article className={`${s.offer} ${pkg.id === 'royal' ? s.royal : ''}`} aria-labelledby={id}>
-      <p className={s.tag}>{pkg.label[locale]}</p>
       <h2 id={id} className={s.offerName}>
         {pkg.name[locale]}
       </h2>
       <p className={`${s.price} num`}>{formatInr(pkg.priceInr)}</p>
-      <p className={s.offerTests}>{d.hero.offerTests(pkg.tests.length)}</p>
+      <p className={s.offerTests}>
+        <span className={s.tag}>{pkg.label[locale]}.</span> {d.hero.offerTests(pkg.tests.length)}
+      </p>
       {pkg.window && (
         <p className={s.period}>
           {d.common.validity(formatDate(pkg.window.startDate, locale), formatDate(pkg.window.endDate, locale))}. {d.hero.callToConfirm}

@@ -1,6 +1,6 @@
 .head {
   padding-block: clamp(2.5rem, 1.5rem + 4vw, 6rem) clamp(2rem, 1.25rem + 3vw, 4rem);
-  border-bottom: 1px solid var(--rule);
+  background: var(--ice);
 }
 
 .inner {

@@ -1,7 +1,6 @@
 /* Full-bleed band 1 of 3: ice. The type is the design. */
 .hero {
   background: var(--ice);
-  border-bottom: 1px solid var(--rule);
   padding-block: clamp(1rem, 0.5rem + 2.5vw, 4rem) clamp(1.5rem, 1rem + 3vw, 5rem);
 }
 
@@ -82,7 +81,7 @@
 }
 
 .callNum {
-  font-size: 0.9375rem;
+  font-size: var(--step--1);
   font-weight: 600;
   opacity: 0.9;
 }
@@ -102,8 +101,8 @@
   border-top: 2px solid var(--ink);
 }
 
-.tag,
 .offerName,
+.offerTests,
 .period,
 .notice,
 .seePackage {
@@ -112,7 +111,6 @@
 
 .tag {
   color: var(--petrol-700);
-  font-size: var(--step--1);
   font-weight: 700;
 }
 
@@ -133,7 +131,6 @@
 }
 
 .offerTests {
-  grid-column: 2;
   color: var(--ink-2);
   font-size: var(--step--1);
   line-height: 1.35;
@@ -153,7 +150,6 @@
   padding: var(--space-3);
   border-radius: 8px;
   background: var(--amber-surface);
-  box-shadow: inset 0 0 0 1px var(--amber-rule);
   color: var(--ink);
   font-size: var(--step--1);
   line-height: 1.45;
@@ -203,10 +199,6 @@
     row-gap: var(--space-6);
   }
 
-  .meta {
-    grid-column: 1 / -1;
-  }
-
   .left {
     grid-column: 1 / span 8;
     align-self: center;
@@ -234,7 +226,6 @@
     align-self: center;
     margin-top: 0;
     padding-left: var(--space-6);
-    border-left: 1px solid var(--rule-strong);
   }
 
   .offer {

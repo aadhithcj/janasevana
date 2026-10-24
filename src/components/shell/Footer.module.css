@@ -1,7 +1,6 @@
 .footer {
   padding-top: var(--space-7);
-  border-top: 1px solid var(--rule);
-  background: var(--paper);
+  background: var(--ice);
   color: var(--ink-2);
 }
 
@@ -60,9 +59,8 @@
   gap: var(--space-1) var(--space-6);
   margin-top: var(--space-5);
   padding-block: var(--space-4) var(--space-5);
-  border-top: 1px solid var(--rule);
   color: var(--ink-3);
-  font-size: 0.9375rem;
+  font-size: var(--step--1);
 }
 
 .quality {

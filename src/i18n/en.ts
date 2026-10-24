@@ -89,7 +89,7 @@ export const en = {
   },
 
   sections: {
-    packages: 'Two packages. Free home sample collection with both.',
+    packages: 'Two packages, free home collection.',
     categories: 'What are you checking?',
     categoryTests: (n: number) => (n === 1 ? '1 item' : `${n} items`),
     capabilities: 'What the lab does',

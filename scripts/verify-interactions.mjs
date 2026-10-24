@@ -187,6 +187,19 @@ for (const [date, expect] of [['2026-10-20', 'upcoming'], ['2026-10-23T00:00', '
   await page.close();
 }
 
+// ---------- Sticky panels: pin only at >=1024 wide AND >=720 tall ----------
+for (const [route, sel] of [['/packages/', '#royal [class*="summary"]'], ['/', '[aria-labelledby="cap-title"] [class*="side"]']]) {
+  for (const [w, h, expect] of [[1280, 900, 'sticky'], [1280, 600, 'static'], [900, 900, 'static']]) {
+    const page = await browser.newPage();
+    await page.setViewport({ width: w, height: h });
+    await page.goto(BASE + route, { waitUntil: 'networkidle0' });
+    const r = await page.$eval(sel, (el) => ({ pos: getComputedStyle(el).position, h: el.getBoundingClientRect().height }));
+    const fits = r.pos !== 'sticky' || r.h <= h * 0.8 + 1;
+    check(`${route} panel at ${w}x${h} is ${expect}`, r.pos === expect && fits, `${r.pos}, ${Math.round(r.h)}px tall`);
+    await page.close();
+  }
+}
+
 // ---------- Language memory ----------
 {
   const page = await open('/tests/');

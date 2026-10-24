@@ -36,7 +36,7 @@
   left: 28px;
   right: 28px;
   bottom: 24px;
-  font-size: 0.9375rem;
+  font-size: var(--step--1);
   line-height: 1.4;
   color: var(--ink-3);
 }

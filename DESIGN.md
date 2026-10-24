@@ -95,4 +95,27 @@ Transform and opacity only, 150–500ms, `cubic-bezier(0.22, 1, 0.36, 1)`.
 
 ## Detector decisions
 
-Recorded as they come up.
+### design-taste-frontend (tasteskill v2) pass
+
+Run with its own `lint.mjs` and `inspect.mjs` against the served export (`.taste-skill/before`, `.taste-skill/after`). Fixed:
+- eyebrows: the place line now sits under the headline; offer labels are folded into each offer's meta line;
+- decorative hairlines (header, page heads, hero offer column, team, footer, booking): replaced by tone steps (ice) and space;
+- 1px outlined boxes (team cards, filters, Add buttons): replaced by filled ice surfaces;
+- inset amber rings on notices: removed, the amber fill alone carries them;
+- the English toggle no longer declares a Malayalam webfont;
+- over-long section headline: shortened;
+- the 15px size: folded into 16px.
+
+Kept, with reasons (the owner's brief outranks a skill):
+- **`hairline` on the Index and the category word list.** The brief asks for "ruled rows, hairlines" as the data-as-design language. These are the only remaining rules.
+- **`few-pictures` / `no-footage`.** The brief rules out stock photography and a photo hero, and the lab has supplied no photos. The address map is the one picture of the place. Owner photos render automatically once confirmed in config.
+- **`palette-cream` (#FFF4DC).** This is the amber the brief reserves for fasting, preparation and the cardiovascular notice.
+- **`covered-text` at 390px.** The fixed Call/WhatsApp bar the brief requires passes over headings while scrolling. Body padding and scroll padding keep focused fields and notices clear (WCAG 2.4.11).
+- **`card-rows`.** The three-person team is the one symmetric grid the brief allows.
+- **`font-fallback` (Noto Sans Malayalam on English pages).** It's the toggle's "മലയാളം" label, deliberately left to the phone's own Malayalam font so English pages download no Malayalam files.
+- **`headline-lines` on the contact address.** The address keeps the city on its own smaller line, so the inspector reads one 3-line block.
+- **`size-count` (10).** The Latin and Malayalam scales plus prices. Reduced from 11; further cuts would merge the price with the promise.
+
+### Impeccable
+- `low-contrast` "#ffffff on #eef5f4" was PillNav's hidden roll-over label; PillNav has since been removed.
+- `cramped-padding` on ruled Index rows: the rows carry their own vertical padding.

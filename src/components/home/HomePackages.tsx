@@ -33,19 +33,19 @@ function Panel({ pkg, locale }: { pkg: HealthPackage; locale: Locale }) {
   const dated = Boolean(pkg.window);
   return (
     <article className={`${s.panel} ${pkg.id === 'royal' ? s.royal : s.cardio}`} aria-labelledby={id} data-reveal>
-      <p className={s.label}>
-        <span data-when-offer={dated ? 'live upcoming' : undefined}>{pkg.label[locale]}</span>
-        {dated && (
-          <span className={s.ended} data-when-offer="ended">
-            {d.hero.ended}
-          </span>
-        )}
-      </p>
       <p className={`${s.price} num`}>{formatInr(pkg.priceInr)}</p>
       <h3 id={id} className={s.name}>
         {pkg.name[locale]}
       </h3>
       <p className={s.meta}>
+        <span className={s.label} data-when-offer={dated ? 'live upcoming' : undefined}>
+          {pkg.label[locale]}.
+        </span>
+        {dated && (
+          <span className={s.ended} data-when-offer="ended">
+            {d.hero.ended}.
+          </span>
+        )}{' '}
         {d.common.tests(pkg.tests.length)}. {d.common.freeHomeCollection}.
       </p>
       {pkg.window && (

@@ -16,8 +16,8 @@
 }
 
 .add {
-  border: 1px solid var(--rule-strong);
-  background: var(--paper);
+  border: 0;
+  background: var(--ice);
   color: var(--ink);
 }
 
@@ -26,8 +26,7 @@
 }
 
 .add:hover {
-  border-color: var(--teal-700);
-  background: var(--ice);
+  background: var(--ice-2);
 }
 
 .add:active,
@@ -36,7 +35,7 @@
 }
 
 .added {
-  border: 1px solid var(--teal-700);
+  border: 0;
   background: var(--teal-700);
   color: #fff;
   animation: added-in var(--dur-base) var(--ease-out);

@@ -2,7 +2,6 @@
   position: relative;
   z-index: 20;
   background: var(--paper);
-  border-bottom: 1px solid var(--rule);
   view-transition-name: site-header;
 }
 
@@ -89,7 +88,6 @@
   display: inline-flex;
   border-radius: var(--radius-pill);
   background: var(--ice);
-  box-shadow: inset 0 0 0 1px var(--rule);
 }
 
 .seg {
@@ -111,10 +109,14 @@
 
 .segMl {
   /* On English pages this renders in the phone's own Malayalam font; no webfont is fetched. */
-  font-family: 'Anek Malayalam', 'Noto Sans Malayalam', 'Nirmala UI', 'Kartika', sans-serif;
+  font-family: 'Noto Sans Malayalam', 'Nirmala UI', 'Kartika', sans-serif;
   font-size: 0.98rem;
   font-weight: 500;
   padding-top: 2px;
+}
+
+:lang(ml) .segMl {
+  font-family: var(--font-ml-display);
 }
 
 .seg:hover {

@@ -137,7 +137,7 @@
 }
 
 .quoteCaption {
-  font-size: 0.9375rem;
+  font-size: var(--step--1);
   color: var(--ink-3);
   margin-bottom: var(--space-1);
 }
@@ -198,7 +198,7 @@
 
 .copyStatus,
 .copyFailed {
-  font-size: 0.9375rem;
+  font-size: var(--step--1);
   color: var(--teal-800);
 }
 
@@ -212,7 +212,7 @@
 }
 
 .nothingSent {
-  font-size: 0.9375rem;
+  font-size: var(--step--1);
   color: var(--ink-3);
 }
 

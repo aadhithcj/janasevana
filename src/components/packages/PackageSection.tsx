@@ -27,19 +27,19 @@ export function PackageSection({ pkg, locale }: { pkg: HealthPackage; locale: Lo
       <div className={`wrap ${s.grid}`}>
         <div className={s.summary}>
           <div className={s.summaryInner}>
-            <p className={s.label}>
-              <span data-when-offer={dated ? 'live upcoming' : undefined}>{pkg.label[locale]}</span>
-              {dated && (
-                <span className={s.ended} data-when-offer="ended">
-                  {d.hero.ended}
-                </span>
-              )}
-            </p>
             <h2 id={titleId} className={s.name}>
               {pkg.name[locale]}
             </h2>
             <p className={`${s.price} num`}>{formatInr(pkg.priceInr)}</p>
             <ul role="list" className={s.facts}>
+              <li className={s.label}>
+                <span data-when-offer={dated ? 'live upcoming' : undefined}>{pkg.label[locale]}</span>
+                {dated && (
+                  <span className={s.ended} data-when-offer="ended">
+                    {d.hero.ended}
+                  </span>
+                )}
+              </li>
               <li>{d.common.freeHomeCollection}</li>
               <li>{d.common.tests(pkg.tests.length)}</li>
               {pkg.window && (
