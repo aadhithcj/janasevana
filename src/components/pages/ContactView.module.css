@@ -1,32 +1,9 @@
-.grid {
-  display: grid;
-  gap: var(--space-8);
-  padding-block: var(--space-7) var(--section);
-}
-
-.main {
-  display: grid;
-  align-content: start;
-  gap: var(--space-6);
-}
-
 .printLogo {
   display: none;
 }
 
-.side {
-  max-width: 36rem;
-}
-
-@media (min-width: 64rem) {
-  .grid {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    column-gap: var(--space-8);
-  }
-
-  .side {
-    max-width: none;
-  }
+.print {
+  margin-top: var(--space-2);
 }
 
 @media print {
@@ -34,19 +11,6 @@
     display: block;
     width: 200px;
     height: auto;
+    margin-bottom: var(--space-4);
   }
-
-  .grid {
-    display: block;
-    padding: 0;
-  }
-}
-
-/* The shopfront, so the lab is easy to recognise from the road. */
-.photo {
-  display: block;
-  width: 100%;
-  height: auto;
-  margin-bottom: var(--space-4);
-  border-radius: var(--radius-card);
 }

@@ -1,27 +1,39 @@
+/*
+ * One package as a rounded mist panel: a summary card (photo with a frosted count card, price
+ * first; petrol for the Royal Package, paper for the dated offer) and the tests in a white card.
+ */
 .section {
-  padding-block: var(--section);
-  scroll-margin-top: var(--space-5);
+  padding-block: calc(var(--section) * 0.5);
+  scroll-margin-top: calc(var(--header-h) + var(--space-4));
 }
 
-.grid {
+.panel {
   display: grid;
-  gap: var(--space-7);
+  gap: var(--space-4);
+  padding: clamp(0.75rem, 0.25rem + 1.6vw, 1.5rem);
+  border-radius: var(--radius-field);
+  background: var(--mist);
 }
 
-.grid > * {
+.panel > * {
   min-width: 0;
 }
 
-/* The summary: price first. Royal in petrol (one of two rounded panels); the dated offer on white. */
+/* ---------- The summary card ---------- */
 .summaryInner {
   display: grid;
   align-content: start;
   gap: var(--space-3);
+  padding: clamp(1rem, 0.5rem + 1.5vw, 1.75rem);
+  border-radius: var(--radius-card);
+  background: var(--paper);
+}
+
+.summaryInner > * {
+  min-width: 0;
 }
 
 .royal .summaryInner {
-  padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
-  border-radius: var(--radius-panel);
   background: var(--petrol-700);
   color: #fff;
 }
@@ -31,48 +43,169 @@
   box-shadow: 0 0 0 3px var(--petrol-900);
 }
 
-.cardio .summaryInner {
-  padding-top: var(--space-4);
-  border-top: 2px solid var(--ink);
+.stage {
+  position: relative;
+  overflow: hidden;
+  margin: 0 0 var(--space-2);
+  aspect-ratio: 16 / 8;
+  border-radius: 18px;
+  background: var(--deep);
 }
 
-.label {
-  color: var(--petrol-700);
+.photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1200ms var(--ease-out-quart);
+}
+
+.stockNote {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  background: rgb(0 0 0 / 0.45);
+  color: #fff;
+  font-size: 0.8rem;
+}
+
+.glass {
+  position: absolute;
+  bottom: var(--space-3);
+  left: var(--space-3);
+  display: grid;
+  padding: var(--space-2) var(--space-4);
+  border-radius: 14px;
+  color: #fff;
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgb(255 255 255 / 0.26), rgb(255 255 255 / 0) 55%),
+    rgb(3 40 42 / 0.32);
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.3),
+    inset 0 1px 0 rgb(255 255 255 / 0.4);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5) brightness(0.62);
+  backdrop-filter: blur(20px) saturate(1.5) brightness(0.62);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass {
+    background: rgb(3 60 62 / 0.88);
+  }
+}
+
+.glassBig {
+  font-size: 2.4rem;
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.glassSmall {
+  color: rgb(255 255 255 / 0.88);
+  font-size: 1rem;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .stage:hover .photo {
+    transform: scale(1.045);
+  }
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 100%;
+  min-height: 32px;
+  padding: 2px var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--petrol-700);
+  color: #fff;
+  font-size: 1rem;
   font-weight: 700;
 }
 
-.royal .label {
+.royal .chip {
+  background: var(--petrol-900);
+}
+
+.chipSoft {
+  background: var(--mist);
+  color: var(--ink);
+}
+
+.chipSoft svg {
+  width: 18px;
+  height: 18px;
+  color: var(--teal-700);
+}
+
+.royal .chipSoft {
+  background: var(--petrol-800);
+  color: #fff;
+}
+
+.royal .chipSoft svg {
   color: var(--petrol-100);
 }
 
 .ended {
-  padding: 0 8px;
-  border-radius: 4px;
   background: var(--charcoal-100);
   color: var(--ink);
 }
 
 .name {
+  overflow-wrap: break-word;
+  font-size: var(--step-4);
+  font-weight: var(--hero-weight);
+  line-height: 1.06;
+  letter-spacing: var(--hero-track);
+}
+
+:lang(ml) .name {
   font-size: var(--step-3);
-  font-weight: 560;
-  line-height: 1.1;
+  line-height: 1.32;
 }
 
 .royal .name {
   color: #fff;
 }
 
+.priceRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-3);
+}
+
 .price {
   font-family: var(--font-display);
   font-size: var(--t-price);
-  font-weight: 520;
-  line-height: 1;
-  letter-spacing: -0.02em;
+  font-weight: 440;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
   color: var(--petrol-800);
 }
 
 .royal .price {
   color: #fff;
+}
+
+.priceFor {
+  color: var(--ink-3);
+  font-weight: 600;
+}
+
+.royal .priceFor {
+  color: var(--petrol-100);
 }
 
 /* An ended offer keeps its price visible but loses the emphasis. */
@@ -81,22 +214,9 @@
   color: var(--ink-3);
 }
 
-.facts {
-  margin: 0;
-  border-top: 1px solid var(--rule);
-}
-
-.royal .facts {
-  border-color: rgb(255 255 255 / 0.3);
-}
-
-.facts li {
-  padding: 0.5rem 0;
-  border-bottom: 1px solid var(--rule);
-}
-
-.royal .facts li {
-  border-color: rgb(255 255 255 / 0.2);
+.period {
+  color: var(--ink-2);
+  font-size: var(--step-0);
 }
 
 .notice {
@@ -104,8 +224,9 @@
   grid-template-columns: auto 1fr;
   gap: var(--space-3);
   padding: var(--space-4);
-  border-radius: 8px;
+  border-radius: 12px;
   background: var(--amber-surface);
+  color: var(--ink);
   font-size: var(--step-0);
   line-height: 1.5;
   max-width: none;
@@ -120,16 +241,24 @@
 }
 
 .actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-2) var(--space-4);
-  margin-top: var(--space-2);
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
+.royal .actions :global(button) {
+  background: #fff;
+  color: var(--petrol-800);
+}
+
+.royal .actions :global(button svg) {
+  color: var(--petrol-700);
 }
 
 .wa {
   display: inline-flex;
   align-items: center;
+  justify-self: center;
   gap: var(--space-2);
   min-height: var(--target);
   font-weight: 700;
@@ -139,12 +268,24 @@
   color: #fff;
 }
 
+.royal .wa:hover {
+  color: var(--petrol-100);
+}
+
+/* ---------- The tests, in a white card ---------- */
+.list {
+  padding: clamp(1rem, 0.5rem + 1.5vw, 1.75rem);
+  border-radius: var(--radius-card);
+  background: var(--paper);
+}
+
 .listTitle {
   display: flex;
   align-items: baseline;
   gap: var(--space-3);
   margin-bottom: var(--space-3);
-  font-size: var(--step-2);
+  font-size: var(--step-3);
+  font-weight: var(--hero-weight);
 }
 
 .listTitle :global(.num) {
@@ -152,11 +293,10 @@
   font-size: var(--step-1);
 }
 
-/* Pin the summary only on screens wide AND tall enough; otherwise the panels stack. */
+/* Pin the summary only on screens wide AND tall enough; otherwise the cards stack. */
 @media (min-width: 64rem) {
-  .grid {
+  .panel {
     grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-    column-gap: var(--space-8);
     align-items: start;
   }
 }
@@ -164,9 +304,12 @@
 @media (min-width: 64rem) and (min-height: 45rem) {
   .summary {
     position: sticky;
-    top: var(--space-5);
-    max-height: 80vh;
-    overflow-y: auto;
-    overscroll-behavior: contain;
+    top: calc(var(--header-h) + var(--space-3));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo {
+    transition: none;
   }
 }

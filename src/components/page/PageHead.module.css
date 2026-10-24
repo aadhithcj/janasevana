@@ -1,18 +1,21 @@
-/* Inner-page opening: the same rounded mist card as the home hero, compact. */
+/* Inner-page opening: the home hero's rounded mist card, compact and plain. */
 .head {
   margin-inline: var(--field-inset);
-  padding-block: clamp(2.25rem, 1.5rem + 3vw, 4.5rem) clamp(2.25rem, 1.5rem + 3vw, 4rem);
+  padding-block: clamp(2.25rem, 1.5rem + 3vw, 5rem) clamp(2.25rem, 1.5rem + 3vw, 4.5rem);
   border-radius: var(--radius-field);
   background: var(--mist);
 }
 
 .inner {
+  position: relative;
+  z-index: 1;
   display: grid;
   gap: var(--space-4);
 }
 
 .title {
   max-width: 16ch;
+  color: var(--charcoal-900);
   font-size: var(--t-statement);
   font-weight: var(--hero-weight);
   line-height: 1.04;
@@ -22,6 +25,20 @@
 
 :lang(ml) .title {
   line-height: 1.32;
+}
+
+/* The load moment, as on home: the heading's words rise in turn. */
+:global(.motion) .word {
+  display: inline-block;
+  animation: wordRise 720ms var(--ease-out-quart) both;
+  animation-delay: calc(60ms + var(--w) * 70ms);
+}
+
+@keyframes wordRise {
+  from {
+    opacity: 0;
+    transform: translateY(0.35em);
+  }
 }
 
 .lede {

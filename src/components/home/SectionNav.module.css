@@ -36,7 +36,9 @@
   border-radius: 18px;
   transition:
     background-color 300ms var(--ease-out),
-    box-shadow 300ms var(--ease-out);
+    box-shadow 300ms var(--ease-out),
+    backdrop-filter 300ms var(--ease-out),
+    -webkit-backdrop-filter 300ms var(--ease-out);
 }
 
 .list:hover .link,
@@ -64,6 +66,8 @@
   padding-right: var(--space-2);
   color: color-mix(in oklab, var(--deep) calc(var(--effect, 0) * 100%), var(--ink-3));
   text-decoration: none;
+  /* The colour follows the pointer every frame from script; only the gap eases here. */
+  transition: gap 300ms var(--ease-out-quart);
 }
 
 .link:focus-visible {

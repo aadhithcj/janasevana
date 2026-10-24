@@ -6,6 +6,10 @@
   padding-block: calc(var(--section) * 0.5) var(--section);
 }
 
+.onPage {
+  padding-block: calc(var(--section) * 0.5);
+}
+
 .panel {
   display: grid;
   gap: var(--space-6);
@@ -122,6 +126,10 @@
   color: #fff;
 }
 
+.book > * {
+  min-width: 0;
+}
+
 .book :focus-visible {
   outline-color: #fff;
 }
@@ -167,10 +175,10 @@
   color: var(--teal-200);
 }
 
-/* Phones: the bottom bar already carries Call and WhatsApp, and the steps say what the lede says. */
+/* Phones: the bottom bar already carries Call and WhatsApp, and on home the steps say what the lede says. */
 @media (max-width: 47.99rem) {
   .actions,
-  .lede {
+  .onHome .lede {
     display: none;
   }
 
@@ -272,15 +280,15 @@
 
 /* Phones keep the sequence short: the step titles carry it, and the Home collection page has the detail. */
 @media (max-width: 47.99rem) {
-  .body {
+  .onHome .body {
     display: none;
   }
 
-  .step {
+  .onHome .step {
     align-items: center;
   }
 
-  .foot :global(aside p + p) {
+  .onHome .foot :global(aside p + p) {
     display: none;
   }
 }

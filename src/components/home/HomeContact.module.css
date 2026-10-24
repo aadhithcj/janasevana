@@ -137,6 +137,13 @@ a.tile:hover .tileLabel {
   transition: color var(--dur-base) var(--ease-out-quart);
 }
 
+/* Outranks the site-wide trailing-arrow rule, which would otherwise drop the colour easing. */
+a.tile .tileIcon {
+  transition:
+    color var(--dur-base) var(--ease-out-quart),
+    transform var(--dur-base) var(--ease-out-quart);
+}
+
 a.tile:hover .tileIcon {
   color: var(--teal-200);
 }
@@ -213,7 +220,7 @@ a.tile:hover .tileIcon {
 /* Phones: "Get directions" opens the maps app, which serves better than a small embedded map;
    the Contact page keeps the map. */
 @media (max-width: 47.99rem) {
-  .map {
+  .band:not(.onPage) .map {
     display: none;
   }
 

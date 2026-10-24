@@ -14,30 +14,34 @@ export function ReportGuide({ locale }: { locale: Locale }) {
   return (
     <section className={s.section} aria-labelledby="report-title">
       <div className="wrap">
-        <h2 id="report-title" className={s.heading}>
-          {d.reportTitle}
-        </h2>
-        <p className={s.intro}>{d.reportIntro}</p>
+        <div className={s.panel}>
+          <div className={s.head}>
+            <h2 id="report-title" className={s.heading}>
+              {d.reportTitle}
+            </h2>
+            <p className={s.intro}>{d.reportIntro}</p>
+          </div>
 
-        <ol className={s.sheet}>
-          {d.reportColumns.map((c, i) => (
-            <li key={c.name} className={s.col} data-reveal style={{ '--i': i } as React.CSSProperties}>
-              <span className={s.colName}>{c.name}</span>
-              <span className={s.colBody}>{c.body}</span>
-            </li>
-          ))}
-        </ol>
+          <ol className={s.sheet}>
+            {d.reportColumns.map((c, i) => (
+              <li key={c.name} className={s.col} data-reveal style={{ '--i': i } as React.CSSProperties}>
+                <span className={s.colName}>{c.name}</span>
+                <span className={s.colBody}>{c.body}</span>
+              </li>
+            ))}
+          </ol>
 
-        <p className={s.doctor}>
-          <Icon name="info" />
-          <span>{d.reportDoctor}</span>
-        </p>
-        <p className={s.delivery}>
-          <strong>{d.reportDelivery}: </strong>
-          <Confirmed fact={site.reportDelivery} locale={locale}>
-            {(v) => v[locale]}
-          </Confirmed>
-        </p>
+          <p className={s.doctor}>
+            <Icon name="info" />
+            <span>{d.reportDoctor}</span>
+          </p>
+          <p className={s.delivery}>
+            <strong>{d.reportDelivery}: </strong>
+            <Confirmed fact={site.reportDelivery} locale={locale}>
+              {(v) => v[locale]}
+            </Confirmed>
+          </p>
+        </div>
       </div>
     </section>
   );

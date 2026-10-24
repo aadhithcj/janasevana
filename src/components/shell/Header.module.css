@@ -117,7 +117,8 @@
   transition:
     width 520ms var(--ease-out-quart),
     margin 520ms var(--ease-out-quart),
-    opacity 260ms var(--ease-out);
+    opacity 260ms var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
 }
 
 /* The mark belongs to the top of the page; once the bar becomes a pill it eases away and the pill starts with the links. */

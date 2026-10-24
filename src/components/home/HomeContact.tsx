@@ -15,11 +15,11 @@ import s from './HomeContact.module.css';
  * directions and WhatsApp, every number and the email as tiles, then the
  * shopfront (with a frosted card naming the building) and the map.
  */
-export function HomeContact({ locale }: { locale: Locale }) {
+export function HomeContact({ locale, onPage = false, children }: { locale: Locale; onPage?: boolean; children?: React.ReactNode }) {
   const d = getDict(locale);
   const a = site.address[locale];
   return (
-    <section className={s.band} aria-labelledby="contact-title">
+    <section className={`${s.band} ${onPage ? s.onPage : ''}`} aria-labelledby="contact-title">
       <div className="wrap">
         <div className={s.panel}>
           <div className={s.info} data-reveal>
@@ -73,9 +73,10 @@ export function HomeContact({ locale }: { locale: Locale }) {
               </li>
             </ul>
             <CompactSelection locale={locale} bookHref={href(locale, 'homeCollection', 'book')} />
+            {children}
           </div>
 
-          <div className={s.place}>
+          <div className={s.place} data-print="hide">
             <figure className={s.stage}>
               <Photo name="storefront" alt={d.common.photoAlt.storefront} sizes="(min-width: 64rem) 44vw, 92vw" className={s.photo} />
               <figcaption className={s.glass}>

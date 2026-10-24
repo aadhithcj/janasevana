@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { confirmed } from '@config/confirm';
 import { site, telHref } from '@config/site';
 import { getDict } from '@/i18n';
 import { href, type Locale } from '@/lib/paths';
@@ -14,20 +15,24 @@ const stepIcons: IconName[] = ['chat', 'pin', 'note'];
 /**
  * How home collection works, as one mist panel: the title and the promise,
  * three numbered step cards on a line (a real sequence), then the fasting
- * notice beside a deep booking card with the honest area line.
+ * notice beside a deep booking card with the honest area line. On the Home
+ * collection page (`onPage`) it keeps every detail on phones, adds the timings
+ * once confirmed, and its link goes to the booking form below.
  */
-export function Collection({ locale }: { locale: Locale }) {
+export function Collection({ locale, onPage = false }: { locale: Locale; onPage?: boolean }) {
   const d = getDict(locale);
   const landline = site.phones[0];
+  const timings = onPage ? confirmed(site.homeCollectionTimings) : null;
   return (
-    <section className={s.section} aria-labelledby="collection-title">
+    <section className={`${s.section} ${onPage ? s.onPage : s.onHome}`} aria-labelledby="collection-title">
       <div className="wrap">
         <div className={s.panel}>
           <div className={s.head}>
             <h2 id="collection-title" className={s.title}>
               {d.steps.title}
             </h2>
-            <p className={s.lede}>{d.collection.lede}</p>
+            {/* On its own page the header already carries this line. */}
+            {!onPage && <p className={s.lede}>{d.collection.lede}</p>}
           </div>
 
           <ol className={s.steps}>
@@ -54,6 +59,7 @@ export function Collection({ locale }: { locale: Locale }) {
                   {(v) => v[locale]}
                 </Confirmed>
               </p>
+              {timings && <p className={s.area}>{timings[locale]}</p>}
               <div className={s.actions}>
                 <ArrowButton href={telHref(landline.tel)} variant="tint">
                   <span className="num">{d.common.callNumber(landline.display)}</span>
@@ -62,10 +68,17 @@ export function Collection({ locale }: { locale: Locale }) {
                   {d.home.whatsappCta}
                 </ArrowButton>
               </div>
-              <Link href={href(locale, 'homeCollection')} className={s.link}>
-                {d.home.collectionLink}
-                <Icon name="arrow" />
-              </Link>
+              {onPage ? (
+                <a href="#book" className={s.link}>
+                  {d.collection.bookingTitle}
+                  <Icon name="arrow" />
+                </a>
+              ) : (
+                <Link href={href(locale, 'homeCollection')} className={s.link}>
+                  {d.home.collectionLink}
+                  <Icon name="arrow" />
+                </Link>
+              )}
             </div>
           </div>
         </div>

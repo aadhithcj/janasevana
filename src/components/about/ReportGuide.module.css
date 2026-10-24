@@ -1,40 +1,60 @@
+/* How to read a report: a mist panel whose five white cards follow the report's own columns. */
 .section {
-  padding-block: var(--section);
-  background: var(--paper-raised);
-  border-block: 1px solid var(--rule);
+  padding-block: calc(var(--section) * 0.5) var(--section);
+}
+
+.panel {
+  display: grid;
+  gap: var(--space-5);
+  padding: clamp(1.25rem, 0.75rem + 2.5vw, 3.5rem);
+  border-radius: var(--radius-field);
+  background: var(--mist);
+}
+
+/* Long Malayalam words must wrap inside the panel instead of widening it. */
+.panel > * {
+  min-width: 0;
+  overflow-wrap: break-word;
+}
+
+.head {
+  display: grid;
+  gap: var(--space-3);
 }
 
 .heading {
-  font-size: var(--step-4);
-  font-weight: var(--display-weight);
-  font-stretch: var(--display-stretch);
-  line-height: 1.02;
+  font-size: var(--t-statement);
+  font-weight: var(--hero-weight);
+  line-height: 1.04;
+  letter-spacing: var(--hero-track);
 }
 
 :lang(ml) .heading {
-  font-stretch: var(--display-stretch);
-  line-height: 1.3;
+  line-height: 1.32;
 }
 
 .intro {
-  margin-top: var(--space-3);
-  color: var(--ink-2);
+  max-width: 52ch;
+  color: var(--mist-ink-2);
 }
 
-/* Read like the report's own header row: five columns under one heavy rule. */
+/* Read like the report's header row: one card per column, in the report's order. */
 .sheet {
-  margin: var(--space-6) 0 0;
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
   padding: 0;
   list-style: none;
-  display: grid;
-  border-top: 2px solid var(--ink);
 }
 
 .col {
   display: grid;
+  align-content: start;
   gap: var(--space-2);
-  padding: var(--space-4) 0;
-  border-bottom: 1px solid var(--rule);
+  padding: var(--space-4);
+  border-radius: 18px;
+  background: var(--paper);
+  transition: transform var(--dur-base) var(--ease-out-quart);
 }
 
 .colName {
@@ -56,44 +76,48 @@
   line-height: 1.5;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .col:hover {
+    transform: scale(1.02);
+  }
+}
+
 .doctor {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: var(--space-3);
-  margin-top: var(--space-6);
   padding: var(--space-4) var(--space-5);
-  border: 1.5px solid var(--teal-500);
-  border-radius: 6px;
-  background: var(--teal-50);
-  max-width: 60ch;
+  border-radius: 18px;
+  background: var(--deep);
+  color: #fff;
 }
 
 .doctor svg {
-  color: var(--teal-700);
+  color: var(--deep-ink-2);
 }
 
 .delivery {
-  margin-top: var(--space-4);
+  color: var(--mist-ink-2);
 }
 
-@media (min-width: 56rem) {
+.delivery strong {
+  color: var(--ink);
+}
+
+@media (min-width: 40rem) {
+  .sheet {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 64rem) {
   .sheet {
     grid-template-columns: 1.3fr 1.1fr 1.4fr 1fr 0.9fr;
   }
+}
 
+@media (prefers-reduced-motion: reduce) {
   .col {
-    align-content: start;
-    padding: var(--space-4) var(--space-4) var(--space-5) 0;
-    border-bottom: 0;
-  }
-
-  .col + .col {
-    padding-left: var(--space-4);
-    border-left: 1px solid var(--rule);
-  }
-
-  .colName {
-    padding-bottom: var(--space-3);
-    border-bottom: 1px solid var(--rule-strong);
+    transition: none;
   }
 }

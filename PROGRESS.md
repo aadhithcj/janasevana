@@ -89,3 +89,15 @@ Skills: `impeccable` loaded as a skill. `frontend-design` is not visible to this
 - [ ] 5. Remaining home sections, Home Collection, About, Contact (map), 404, footer, Malayalam pass
 - [ ] 6. Typeset, polish, motion, print, metadata
 - [ ] 7. Verification
+
+# v4: inner pages in the landing page's language (2026-10-25)
+- [x] Page head: the home hero's inset mist card, compact; the title rises word by word. No helix on inner pages (owner: keep it simple).
+- [x] Packages: each package is a mist panel. The summary card (photo with a frosted test-count card, chips, name, price, dates, notice, Add to booking, WhatsApp) is petrol for Royal and white for the cardiovascular offer, and pins beside the tests on wide, tall screens. The tests sit in a white card.
+- [x] Tests: one mist panel holding the home search pill, white filter pills (deep when active) and one white card per department.
+- [x] Home collection: reuses the home Collection panel (`onPage`: full detail on phones, the link goes to the form). The booking form is a mist panel with the form and the live message as white cards; fields keep their rounded shape on focus with a faint halo.
+- [x] About: the equipment as a mist panel (three white tiles, analyser photo cards); quality as a mist card beside the shopfront; team; the report guide as a mist panel of five white column cards.
+- [x] Contact: reuses the home "Find the lab" panel (`onPage`: the map stays on phones), with Print this page; the logo prints.
+- [x] 404: every page as a white tile (English and Malayalam), and a Call arrow button.
+- [x] Removed the now-unused `Steps` and `ContactDetails` components.
+- [x] Final check: tsc, lint and build pass; `verify-interactions`, `verify-pages` (axe, overflow at 320–1280, targets, both languages), `content-guard` (16 pages) and `verify-helix` all pass; no console or hydration errors on the dev server for any page.
+- [x] Easing sweep: every transition and animation names an easing curve; a script hovers every control and found no colour or background that changed instantly (fixed the header mark, Copy message, contact tile icons and the section-nav gap).

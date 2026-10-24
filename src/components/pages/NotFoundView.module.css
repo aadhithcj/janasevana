@@ -1,6 +1,6 @@
 .page {
   margin-inline: var(--field-inset);
-  padding-block: clamp(3rem, 2rem + 4vw, 6rem) var(--section);
+  padding-block: clamp(3rem, 2rem + 4vw, 6rem);
   border-radius: var(--radius-field);
   background: var(--mist);
 }
@@ -28,7 +28,9 @@
 
 .title {
   font-size: var(--t-statement);
+  font-weight: var(--hero-weight);
   line-height: 1.04;
+  letter-spacing: var(--hero-track);
 }
 
 .titleMl {
@@ -39,7 +41,7 @@
 }
 
 .body {
-  color: var(--ink-2);
+  color: var(--mist-ink-2);
 }
 
 .body:lang(ml) {
@@ -47,39 +49,63 @@
   line-height: 1.8;
 }
 
+/* Every page as a white tile: the English name large, the Malayalam one beneath. */
 .list {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-2);
   margin-top: var(--space-7);
-  border-top: 1px solid var(--ink);
 }
 
-.list li {
+.tile {
+  display: grid;
+  align-content: start;
+  padding: var(--space-2) var(--space-4);
+  border-radius: 18px;
+  background: var(--paper);
+  transition: transform var(--dur-base) var(--ease-out-quart);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tile:hover {
+    transform: scale(1.02);
+  }
+}
+
+.enLink,
+.mlLink {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: var(--space-2) var(--space-5);
-  border-bottom: 1px solid var(--rule);
+  align-items: center;
+  min-height: var(--target);
+  color: var(--ink);
+  transition: color var(--dur-fast) var(--ease-out);
 }
 
-.list a,
-.call a {
-  display: inline-flex;
-  align-items: center;
-  min-height: 52px;
+.enLink {
   font-family: var(--font-display);
   font-size: var(--step-1);
   font-weight: 600;
-  color: var(--ink);
 }
 
 .mlLink {
-  font-family: 'Noto Sans Malayalam', 'Nirmala UI', sans-serif !important;
-  font-size: var(--step-0) !important;
-  color: var(--ink-2) !important;
+  font-family: 'Noto Sans Malayalam', 'Nirmala UI', sans-serif;
+  font-size: var(--step-0);
+  color: var(--ink-2);
+}
+
+.enLink:hover,
+.mlLink:hover {
+  color: var(--teal-700);
 }
 
 .call {
-  margin-top: var(--space-3);
+  margin-top: var(--space-5);
+}
+
+@media (min-width: 30rem) {
+  .list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (min-width: 48rem) {
@@ -90,7 +116,12 @@
   }
 
   .list {
-    grid-template-columns: 1fr 1fr;
-    column-gap: var(--space-8);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile {
+    transition: none;
   }
 }
