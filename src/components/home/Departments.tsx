@@ -49,6 +49,13 @@ export function Departments({ locale }: { locale: Locale }) {
                 <summary className={s.face}>
                   <span className={`${s.count} num`}>{d.front.deptCount(list.length)}</span>
                   <span className={s.name}>{d.tests.departments[dep]}</span>
+                  {!kit && (
+                    <span className={s.preview} aria-hidden="true">
+                      {list.slice(0, 4).map((t) => (
+                        <span key={t.id}>{t.name}</span>
+                      ))}
+                    </span>
+                  )}
                   {kit && (
                     <span className={`${s.photo} ${photoFiles[kit.photo].fit === 'contain' ? s.contain : ''}`}>
                       <Photo name={kit.photo} alt={d.common.photoAlt.equipment(kit.name)} sizes="(min-width: 48rem) 26rem, 90vw" />

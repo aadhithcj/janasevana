@@ -54,6 +54,7 @@ function Panel({ pkg, locale, when }: { pkg: HealthPackage; locale: Locale; when
         )}{' '}
         {d.common.tests(pkg.tests.length)}. {d.common.freeHomeCollection}.
       </p>
+      <p className={s.summary}>{pkg.id === 'royal' ? d.home.royalSummary : d.home.cardioSummary}</p>
       {pkg.window && (
         <p className={s.period}>
           {d.common.validity(formatDate(pkg.window.startDate, locale), formatDate(pkg.window.endDate, locale))}. {d.hero.callToConfirm}
