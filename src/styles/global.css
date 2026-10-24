@@ -253,10 +253,6 @@ html[data-offer='upcoming'] [data-when-offer]:not([data-when-offer~='upcoming'])
   animation-timing-function: var(--ease-swap);
 }
 
-::view-transition-group(site-header) {
-  animation: none;
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

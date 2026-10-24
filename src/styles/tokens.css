@@ -141,8 +141,8 @@
 
   /* Mobile action bar height, used to keep content clear of it */
   --bar-h: 0px;
-  /* The sticky header: the 56px bar with 10px above and below */
-  --header-h: 76px;
+  /* The sticky header: the 60px bar with 10px above and below */
+  --header-h: 80px;
   /* The opening field of every page sits inset from the window as a rounded card. */
   --field-inset: clamp(8px, 1.2vw, 16px);
   --radius-field: clamp(22px, 2.6vw, 36px);

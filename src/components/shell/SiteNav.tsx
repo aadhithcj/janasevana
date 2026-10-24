@@ -47,8 +47,8 @@ export function SiteNav({
       ariaLabel={ariaLabel}
       className="site-pill-nav"
       style={{
-        '--pn-h': '56px',
-        '--pn-pad': '4px',
+        '--pn-h': '48px',
+        '--pn-pad': '0px',
         '--pn-inner': '48px',
         '--pn-x': '15px',
         '--pn-font': '16px',
