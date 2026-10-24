@@ -56,7 +56,10 @@ for (const route of all) {
       // Keyboard: tab through the page; every focus must be visible and not under the fixed bar.
       const issues = await page.evaluate(async () => {
         const out = [];
-        const focusables = [...document.querySelectorAll('a[href], button, input, summary, [tabindex="0"]')].filter((el) => el.offsetParent !== null);
+        // Content of a closed <details> cannot take focus (Chrome still reports a box for it): skip it.
+        const focusables = [...document.querySelectorAll('a[href], button, input, summary, [tabindex="0"]')].filter(
+          (el) => el.offsetParent !== null && (el.matches('summary') || !el.closest('details:not([open])')),
+        );
         const bar = [...document.querySelectorAll('nav')].find((n) => getComputedStyle(n).position === 'fixed');
         for (const el of focusables.slice(0, 80)) {
           el.focus({ preventScroll: false });

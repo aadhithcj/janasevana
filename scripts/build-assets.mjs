@@ -12,6 +12,9 @@ for (const name of ['logo-mark', 'logo-wordmark', 'logo-full']) {
   await sharp(`${dir}/${name}.png`).avif({ quality: 70, effort: 7 }).toFile(`${dir}/${name}.avif`);
 }
 
+// The header mark shows at 40px: a 120px cut covers 3x screens at a fraction of the full file.
+await sharp(`${dir}/logo-mark.png`).resize({ width: 120 }).webp({ quality: 90, alphaQuality: 100, effort: 6 }).toFile(`${dir}/logo-mark-120.webp`);
+
 // Square icons: the mark centred with breathing room, on white.
 async function squareIcon(size, out, pad = 0.12, background = { r: 255, g: 255, b: 255, alpha: 1 }) {
   const inner = Math.round(size * (1 - pad * 2));

@@ -5,7 +5,7 @@ out
 next-env.d.ts
 
 # Brand source files (contain a real patient report). Never commit or publish.
-brand/
+/brand/
 
 # Local tool state
 .impeccable/config.local.json

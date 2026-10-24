@@ -1,0 +1,355 @@
+.section {
+  padding-block: var(--section);
+  timeline-scope: --dept;
+}
+
+.head {
+  display: grid;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.title {
+  font-size: var(--t-statement);
+  font-weight: var(--hero-weight);
+  line-height: 1.04;
+  letter-spacing: var(--hero-track);
+}
+
+:lang(ml) .title {
+  line-height: 1.32;
+}
+
+.lede {
+  max-width: 52ch;
+  color: var(--ink-2);
+  font-size: var(--step-0);
+}
+
+/* ---------- The row (phones: a stack, first card open) ---------- */
+.row {
+  display: grid;
+  gap: var(--space-3);
+  padding-inline: var(--gutter);
+}
+
+.card {
+  border-radius: var(--radius-card);
+  background: var(--deep);
+  color: #fff;
+}
+
+.card[open] {
+  background: var(--mist);
+  color: var(--ink);
+}
+
+.face {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'count circle'
+    'name circle';
+  align-items: center;
+  gap: var(--space-1) var(--space-3);
+  min-height: var(--target);
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius-card);
+  cursor: pointer;
+  list-style: none;
+}
+
+.face::-webkit-details-marker {
+  display: none;
+}
+
+.face:focus-visible {
+  outline: 3px solid var(--teal-300);
+  outline-offset: 3px;
+}
+
+.card[open] .face:focus-visible {
+  outline-color: var(--teal-700);
+}
+
+.count {
+  grid-area: count;
+  color: var(--deep-ink-2);
+  font-family: var(--font-display);
+  font-size: var(--step-0);
+  font-weight: 600;
+}
+
+.card[open] .count {
+  color: var(--teal-700);
+}
+
+.name {
+  grid-area: name;
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  font-weight: 460;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+}
+
+:lang(ml) .name {
+  font-family: var(--font-ml-display);
+  font-weight: 560;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+
+/* "Discover" with an outlined circle: on phones only the circle shows. */
+.discover {
+  grid-area: circle;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-weight: 700;
+}
+
+.discover > span:first-child {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.circle {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 1.5px solid rgb(255 255 255 / 0.55);
+  border-radius: 50%;
+  transform: rotate(-45deg);
+  transition: transform var(--dur-base) var(--ease-out-quart);
+}
+
+.card[open] .circle {
+  border-color: var(--teal-700);
+  color: var(--teal-700);
+  transform: rotate(90deg);
+}
+
+.body {
+  display: grid;
+  gap: var(--space-4);
+  padding: 0 var(--space-5) var(--space-5);
+}
+
+.card[open] .body {
+  animation: bodyIn 380ms var(--ease-out-quart) both;
+}
+
+@keyframes bodyIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.text {
+  color: var(--ink-2);
+  font-size: var(--step-0);
+}
+
+.list {
+  border-top: 1px solid var(--rule-strong);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  min-height: var(--target);
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--rule-strong);
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.item svg {
+  flex: none;
+  color: var(--teal-700);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.item:hover svg {
+  transform: translateX(3px);
+}
+
+.all {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  min-height: var(--target);
+  color: var(--teal-700);
+  font-weight: 700;
+}
+
+.foot {
+  display: none;
+}
+
+/* ---------- Wider screens: tall cards in a snapping row ---------- */
+@media (min-width: 48rem) {
+  .row {
+    --edge: max(var(--gutter), calc((100vw - var(--page-max)) / 2));
+    display: flex;
+    align-items: stretch;
+    gap: var(--space-4);
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--edge);
+    padding-inline: var(--edge);
+    padding-bottom: var(--space-2);
+    scrollbar-width: none;
+    scroll-timeline: --dept inline;
+  }
+
+  .row::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card {
+    flex: none;
+    width: 17.5rem;
+    min-height: 32rem;
+    scroll-snap-align: start;
+  }
+
+  .card[open] {
+    width: 26rem;
+  }
+
+  .face {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas:
+      'count'
+      'name'
+      '.'
+      'circle';
+    align-items: start;
+    gap: var(--space-2);
+    min-height: 32rem;
+    padding: var(--space-6) var(--space-5) var(--space-5);
+  }
+
+  .card[open] .face {
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      'count'
+      'name';
+    min-height: 0;
+  }
+
+  .name {
+    font-size: var(--step-4);
+  }
+
+  .discover {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .discover > span:first-child {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip: auto;
+  }
+
+  .card[open] .discover {
+    display: none;
+  }
+
+  .foot {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    margin-top: var(--space-5);
+  }
+}
+
+/* A thin progress line driven by the row's own scroll; hidden where unsupported. */
+.progress {
+  display: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  .progress {
+    display: block;
+    flex: 1;
+    height: 2px;
+    overflow: hidden;
+    background: var(--rule);
+  }
+
+  .progress > span {
+    display: block;
+    height: 100%;
+    background: var(--deep);
+    transform-origin: left center;
+    animation: grow linear both;
+    animation-timeline: --dept;
+  }
+}
+
+@keyframes grow {
+  from {
+    transform: scaleX(0.12);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.controls {
+  display: flex;
+  gap: var(--space-2);
+  margin-left: auto;
+}
+
+.control {
+  display: grid;
+  place-items: center;
+  width: var(--target-lg);
+  height: var(--target-lg);
+  border: 0;
+  border-radius: 50%;
+  background: var(--mist);
+  color: var(--ink);
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.control:hover {
+  background: var(--teal-100);
+}
+
+.control:focus-visible {
+  outline: 3px solid var(--teal-700);
+  outline-offset: 3px;
+}
+
+.back {
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card[open] .body {
+    animation: none;
+  }
+
+  .circle {
+    transition: none;
+  }
+}

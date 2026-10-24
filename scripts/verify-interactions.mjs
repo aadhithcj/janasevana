@@ -187,8 +187,8 @@ for (const [date, expect] of [['2026-10-20', 'upcoming'], ['2026-10-23T00:00', '
   await page.close();
 }
 
-// ---------- Sticky panels: pin only at >=1024 wide AND >=720 tall ----------
-for (const [route, sel] of [['/packages/', '#royal [class*="summary"]'], ['/', '[aria-labelledby="cap-title"] [class*="side"]']]) {
+// ---------- Sticky panels: pin only at >=1024 wide AND >=720 tall (Packages is the one sticky place) ----------
+for (const [route, sel] of [['/packages/', '#royal [class*="summary"]']]) {
   for (const [w, h, expect] of [[1280, 900, 'sticky'], [1280, 600, 'static'], [900, 900, 'static']]) {
     const page = await browser.newPage();
     await page.setViewport({ width: w, height: h });
@@ -198,6 +198,31 @@ for (const [route, sel] of [['/packages/', '#royal [class*="summary"]'], ['/', '
     check(`${route} panel at ${w}x${h} is ${expect}`, r.pos === expect && fits, `${r.pos}, ${Math.round(r.h)}px tall`);
     await page.close();
   }
+}
+
+// ---------- Home departments: one card open at a time, deep links into the directory ----------
+{
+  const page = await open('/');
+  const before = await page.$$eval('details[name="dept"]', (els) => els.map((e) => e.open));
+  await page.click('details[name="dept"]:nth-of-type(3) summary');
+  const after = await page.$$eval('details[name="dept"]', (els) => els.map((e) => e.open));
+  check('first department card starts open', before[0] === true && before.filter(Boolean).length === 1, JSON.stringify(before));
+  check('opening another department closes the first', after[2] === true && after.filter(Boolean).length === 1, JSON.stringify(after));
+  await page.close();
+}
+{
+  const page = await open('/tests/?dept=serology');
+  await new Promise((r) => setTimeout(r, 400));
+  const groups = await page.$$eval('main h2[id^="dep-"]', (els) => els.map((e) => e.id));
+  check('?dept=serology shows only Serology', groups.length === 1 && groups[0] === 'dep-serology', groups.join(','));
+  await page.close();
+}
+{
+  const page = await open('/');
+  await page.type('#home-q', 'sugar');
+  await Promise.all([page.waitForNavigation({ waitUntil: 'networkidle0' }), page.keyboard.press('Enter')]);
+  check('home search goes to the directory with the query', page.url().includes('/tests/?q=sugar'), page.url());
+  await page.close();
 }
 
 // ---------- Language memory ----------

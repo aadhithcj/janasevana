@@ -1,6 +1,8 @@
+/* Inner-page opening: the same mist field as the home hero, compact, with the one soft lower edge. */
 .head {
-  padding-block: clamp(2.5rem, 1.5rem + 4vw, 6rem) clamp(2rem, 1.25rem + 3vw, 4rem);
-  background: var(--ice);
+  padding-block: calc(var(--header-h) + clamp(2.25rem, 1.5rem + 3vw, 4.5rem)) clamp(2.25rem, 1.5rem + 3vw, 4rem);
+  border-radius: 0 0 var(--radius-edge) var(--radius-edge);
+  background: var(--mist);
 }
 
 .inner {
@@ -9,33 +11,27 @@
 }
 
 .title {
-  max-width: 18ch;
+  max-width: 16ch;
   font-size: var(--t-statement);
-  font-weight: 540;
-  line-height: 1.02;
+  font-weight: var(--hero-weight);
+  line-height: 1.04;
+  letter-spacing: var(--hero-track);
+  text-wrap: balance;
 }
 
 :lang(ml) .title {
-  font-weight: 600;
   line-height: 1.32;
 }
 
 .lede {
-  max-width: 50ch;
-  color: var(--ink-2);
+  max-width: 52ch;
+  color: var(--mist-ink-2);
   font-size: var(--step-1);
   line-height: 1.5;
+  text-wrap: pretty;
 }
 
 :lang(ml) .lede {
   font-size: var(--step-0);
   line-height: 1.8;
-}
-
-@media (min-width: 64rem) {
-  .inner {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    align-items: end;
-    column-gap: var(--space-8);
-  }
 }

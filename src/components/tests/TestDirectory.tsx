@@ -39,14 +39,16 @@ export function TestDirectory({ locale, packagesHref, bookHref }: { locale: Loca
   const [category, setCategory] = useState<CategoryId | null>(null);
   const searchId = useId();
 
-  // Deep links from the home page: /tests/?cat=heart or /tests/?q=sugar
+  // Deep links from the home page: /tests/?cat=heart, /tests/?q=sugar or /tests/?dept=serology
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const cat = params.get('cat');
     const q = params.get('q');
+    const dept = params.get('dept');
     // eslint-disable-next-line react-hooks/set-state-in-effect -- reading the URL once after mount keeps the static HTML identical
     if (cat && categories.some((c) => c.id === cat)) setCategory(cat as CategoryId);
     if (q) setQuery(q.slice(0, 60));
+    if (dept && departments.includes(dept as DepartmentId)) setFilter(dept as DepartmentId);
   }, []);
 
   const hits = useMemo(() => searchTests(tests, query), [query]);

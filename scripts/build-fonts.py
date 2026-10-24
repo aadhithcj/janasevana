@@ -53,12 +53,12 @@ def parse(ranges):
     return cps
 
 
-build('AnekLatin-latin-var.woff2', 'anek-latin.woff2', {'wght': (500, 780), 'wdth': (75, 100)}, LATIN)
+build('AnekLatin-latin-var.woff2', 'anek-latin.woff2', {'wght': (380, 780), 'wdth': 100}, LATIN)
 build('AtkinsonHyperlegibleNext-latin-var.woff2', 'atkinson.woff2', {'wght': (400, 700)}, LATIN)
 build('AnekMalayalam-malayalam-var.woff2', 'anek-malayalam.woff2', {'wght': (500, 760), 'wdth': (80, 100)}, MALAYALAM)
 build('NotoSansMalayalam-malayalam-var.woff2', 'noto-sans-malayalam.woff2', {'wght': (400, 700)}, MALAYALAM)
 # The Latin faces have no rupee sign; borrow it from the matching Malayalam designs.
-build('AnekMalayalam-malayalam-var.woff2', 'anek-rupee.woff2', {'wght': (500, 780), 'wdth': (75, 100)}, RUPEE)
+build('AnekMalayalam-malayalam-var.woff2', 'anek-rupee.woff2', {'wght': (380, 780), 'wdth': 100}, RUPEE)
 build('NotoSansMalayalam-malayalam-var.woff2', 'noto-rupee.woff2', {'wght': (400, 700)}, RUPEE)
 
 

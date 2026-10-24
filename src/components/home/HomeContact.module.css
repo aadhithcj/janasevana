@@ -1,8 +1,6 @@
-/* Full-bleed band 3 of 3: teal. */
+/* The page's single contact block, on paper: the address set large, the numbers, and the map. */
 .band {
-  padding-block: var(--section);
-  background: var(--field);
-  color: #fff;
+  padding-block: calc(var(--section) * 0.5) var(--section);
 }
 
 .grid {
@@ -21,17 +19,18 @@
 }
 
 .title {
-  color: #fff;
   font-size: var(--t-statement);
+  font-weight: var(--hero-weight);
   line-height: 1.04;
+  letter-spacing: var(--hero-track);
 }
 
-.map :global(figcaption) {
-  color: var(--field-ink-2);
+:lang(ml) .title {
+  line-height: 1.32;
 }
 
-.map :global(figcaption a) {
-  color: #fff;
+.map :global(iframe) {
+  border-radius: var(--radius-card);
 }
 
 @media (min-width: 64rem) {

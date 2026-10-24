@@ -1,0 +1,123 @@
+.section {
+  padding-block: calc(var(--section) * 0.8) calc(var(--section) * 0.4);
+}
+
+.inner {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-4);
+}
+
+.title {
+  font-size: var(--t-statement);
+  font-weight: var(--hero-weight);
+  line-height: 1.04;
+  letter-spacing: var(--hero-track);
+}
+
+:lang(ml) .title {
+  line-height: 1.32;
+}
+
+/* One large pill: icon, field, and a round submit inside it. */
+.form {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: min(100%, 44rem);
+  margin-top: var(--space-2);
+}
+
+.icon {
+  position: absolute;
+  left: 1.25rem;
+  color: var(--teal-700);
+  pointer-events: none;
+}
+
+.input {
+  width: 100%;
+  min-height: 64px;
+  padding: 0 4.5rem 0 3.4rem;
+  border: 2px solid var(--charcoal-500);
+  border-radius: var(--radius-pill);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--step-0);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.input::placeholder {
+  color: var(--ink-3);
+  opacity: 1;
+}
+
+.input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.input:focus-visible {
+  outline: none;
+  border-color: var(--teal-700);
+  box-shadow: 0 0 0 4px var(--teal-200);
+}
+
+.submit {
+  position: absolute;
+  right: 6px;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--deep);
+  color: #fff;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.submit:hover {
+  background: var(--teal-900);
+}
+
+.submit:focus-visible {
+  outline: 3px solid var(--teal-700);
+  outline-offset: 3px;
+}
+
+.catsLabel {
+  margin-top: var(--space-3);
+  color: var(--ink-3);
+  font-size: var(--step-0);
+}
+
+.cats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.cat {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target);
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--mist);
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.cat:hover {
+  background: var(--teal-100);
+}
+
+/* Leave room on the right for the hero's overhanging offer slip. */
+@media (min-width: 64rem) {
+  .inner {
+    max-width: calc(100% - 27rem);
+  }
+}

@@ -5,16 +5,17 @@
 @font-face {
   font-family: 'Anek Latin';
   src: url('/fonts/anek-latin.woff2') format('woff2');
-  font-weight: 500 780;
-  font-stretch: 75% 100%;
+  font-weight: 380 780;
+  font-stretch: 100%;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Anek Latin';
   src: url('/fonts/anek-rupee.woff2') format('woff2');
-  font-weight: 500 780;
-  font-stretch: 75% 100%;
+  /* Same descriptors as the Latin face, so the two join as one face; otherwise one hides the other. */
+  font-weight: 380 780;
+  font-stretch: 100%;
   font-display: swap;
   unicode-range: U+20B9;
 }

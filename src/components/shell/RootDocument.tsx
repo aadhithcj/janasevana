@@ -30,6 +30,8 @@ export function RootDocument({ locale, children }: { locale: Locale; children: R
         <script dangerouslySetInnerHTML={{ __html: headScript(locale) }} />
         <link rel="preload" href="/fonts/atkinson.woff2" as="font" type="font/woff2" crossOrigin="" />
         <link rel="preload" href="/fonts/anek-latin.woff2" as="font" type="font/woff2" crossOrigin="" />
+        {/* The header's logo mark is the first image on every page: fetch it with the fonts. */}
+        <link rel="preload" href="/brand/logo-mark-120.webp" as="image" type="image/webp" fetchPriority="high" />
         {locale === 'ml' && (
           <>
             <link rel="preload" href="/fonts/noto-sans-malayalam.woff2" as="font" type="font/woff2" crossOrigin="" />

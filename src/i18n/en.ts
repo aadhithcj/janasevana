@@ -78,6 +78,24 @@ export const en = {
     nothingSent: 'Nothing is sent until you press send in WhatsApp.',
   },
 
+  front: {
+    isoLine: 'ISO 9001:2015 certified',
+    searchTitle: 'What do you need?',
+    searchLabel: 'Search tests',
+    searchPlaceholder: 'Try: sugar, thyroid',
+    searchSubmit: 'Search',
+    searchCats: 'Or start from what you are checking',
+    deptTitle: 'What the lab does',
+    discover: 'Discover',
+    deptCount: (n: number) => (n === 1 ? '1 test' : `${n} tests`),
+    deptAll: (n: number) => `All ${n} in the test list`,
+    deptPrev: 'Previous department',
+    deptNext: 'Next department',
+    teamTitle: 'The team behind your report',
+    request: 'Your request',
+    requestCount: (n: number) => (n === 1 ? '1 item in your request' : `${n} items in your request`),
+  },
+
   hero: {
     promise: 'The lab comes to your home.',
     meta: 'Janasevana Lab, Kaichoondy Jn., Alappuzha',
@@ -89,8 +107,7 @@ export const en = {
   },
 
   sections: {
-    packages: 'Two packages, free home collection.',
-    packagesOther: 'The other package.',
+    packages: 'Health packages, with free home collection.',
     categories: 'What are you checking?',
     categoryTests: (n: number) => (n === 1 ? '1 item' : `${n} items`),
     capabilities: 'What the lab does',

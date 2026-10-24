@@ -1,7 +1,12 @@
+/* The quiet charcoal close. */
 .footer {
   padding-top: var(--space-7);
-  background: var(--ice);
-  color: var(--ink-2);
+  background: var(--charcoal-900);
+  color: var(--charcoal-200);
+}
+
+.footer :focus-visible {
+  outline-color: #fff;
 }
 
 .grid {
@@ -10,8 +15,12 @@
 }
 
 .logo {
-  width: 132px;
+  width: 156px;
   height: auto;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: var(--paper);
+  box-sizing: content-box;
 }
 
 .address {
@@ -25,7 +34,7 @@
   display: inline-flex;
   align-items: center;
   min-height: var(--target);
-  color: var(--ink);
+  color: #fff;
 }
 
 .address .email {
@@ -46,7 +55,7 @@
   align-items: center;
   min-width: var(--target);
   min-height: var(--target);
-  color: var(--ink);
+  color: #fff;
 }
 
 .list a[aria-current='page'] {
@@ -59,7 +68,8 @@
   gap: var(--space-1) var(--space-6);
   margin-top: var(--space-5);
   padding-block: var(--space-4) var(--space-5);
-  color: var(--ink-3);
+  border-top: 1px solid rgb(255 255 255 / 0.14);
+  color: var(--charcoal-300);
   font-size: var(--step--1);
 }
 

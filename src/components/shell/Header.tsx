@@ -1,30 +1,31 @@
-import Link from 'next/link';
 import { getDict } from '@/i18n';
 import { href, type Locale } from '@/lib/paths';
-import { ActionLink } from '@/components/ui/Action';
-import { LogoLockup } from './Logo';
+import { ArrowButton } from '@/components/ui/ArrowButton';
 import { LangToggle } from './LangToggle';
-import { NavLinks } from './NavLinks';
+import { SiteNav } from './SiteNav';
+import { RequestLink } from './RequestLink';
 import { MenuTrigger } from './Menu';
 import s from './Header.module.css';
 
-/** Real logo, a calm text nav, the language toggle (visible on phones) and one primary action. */
+/**
+ * A floating header over each page's mist field: the circular mark and the
+ * PillNav capsule at the left; the language toggle, "Your request" (only
+ * with a selection) and the Contact arrow button at the right.
+ */
 export function Header({ locale }: { locale: Locale }) {
   const t = getDict(locale).shell;
   return (
     <header className={s.header}>
-      <div className={`wrap ${s.bar}`}>
-        <Link href={href(locale, 'home')} className={s.home} aria-label={t.homeLink}>
-          <LogoLockup />
-        </Link>
-        <nav className={s.nav} aria-label={t.navLabel}>
-          <NavLinks locale={locale} labels={t.nav} className={s.navList} linkClassName={s.navLink} />
-        </nav>
+      <div className={s.bar}>
+        <div className={s.nav}>
+          <SiteNav locale={locale} labels={t.nav} ariaLabel={t.navLabel} homeLabel={t.homeLink} />
+        </div>
         <div className={s.end}>
           <LangToggle locale={locale} label={t.language} />
-          <ActionLink href={href(locale, 'homeCollection', 'book')} className={s.book}>
-            {locale === 'ml' ? t.bookShort : t.book}
-          </ActionLink>
+          <RequestLink locale={locale} />
+          <ArrowButton href={href(locale, 'contact')} className={s.contact}>
+            {t.nav.contact}
+          </ArrowButton>
           <MenuTrigger label={t.menu} className={s.menuTrigger} />
         </div>
       </div>

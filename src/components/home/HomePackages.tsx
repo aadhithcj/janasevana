@@ -8,19 +8,15 @@ import { Icon } from '@/components/ui/Icon';
 import { AddToBooking } from '@/components/index/AddToBooking';
 import s from './HomePackages.module.css';
 
-/**
- * The hero already carries one package (the offer while it runs, Royal after),
- * so this section shows the other one. Without the head script both show.
- */
+/** A large petrol panel for the Royal Package, with the dated offer beside it while it runs. */
 export function HomePackages({ locale }: { locale: Locale }) {
   const d = getDict(locale);
   return (
     <section className={s.section} aria-labelledby="pk-title">
-      <div className={`wrap ${s.layout}`}>
+      <div className="wrap">
         <div className={s.intro}>
           <h2 id="pk-title" className={s.title}>
-            <span data-when-offer="none">{d.sections.packages}</span>
-            <span data-when-offer="live upcoming ended">{d.sections.packagesOther}</span>
+            {d.sections.packages}
           </h2>
           <Link href={href(locale, 'packages')} className={s.compare}>
             {d.home.packagesLink}
@@ -28,15 +24,15 @@ export function HomePackages({ locale }: { locale: Locale }) {
           </Link>
         </div>
         <div className={s.grid}>
-          <Panel pkg={royalPackage} locale={locale} when="live upcoming" />
-          <Panel pkg={cardioPackage} locale={locale} when="ended" />
+          <Panel pkg={royalPackage} locale={locale} />
+          <Panel pkg={cardioPackage} locale={locale} when="live upcoming" />
         </div>
       </div>
     </section>
   );
 }
 
-function Panel({ pkg, locale, when }: { pkg: HealthPackage; locale: Locale; when: string }) {
+function Panel({ pkg, locale, when }: { pkg: HealthPackage; locale: Locale; when?: string }) {
   const d = getDict(locale);
   const item = packageItem(pkg);
   const id = `home-pk-${pkg.id}`;

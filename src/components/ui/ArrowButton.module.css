@@ -1,0 +1,150 @@
+/*
+ * Arrow button. Hover and keyboard focus slide the circle in; touch shows it at rest.
+ * Ink: white on deep teal (10.6:1), arrow on teal-100 (12:1).
+ */
+.button {
+  --ab-h: var(--target);
+  --ab-bg: var(--deep);
+  --ab-fg: #fff;
+  --ab-circle: var(--teal-100);
+  --ab-circle-fg: var(--ink);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: var(--ab-h);
+  max-width: 100%;
+  border-radius: var(--radius-pill);
+  color: var(--ab-fg);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  font-weight: 700;
+  line-height: 1.1;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.lg {
+  --ab-h: var(--target-lg);
+}
+
+.tint {
+  --ab-bg: var(--teal-100);
+  --ab-fg: var(--ink);
+  --ab-circle: var(--deep);
+  --ab-circle-fg: #fff;
+}
+
+.whatsapp {
+  --ab-bg: var(--whatsapp);
+  --ab-fg: var(--whatsapp-ink);
+  --ab-circle: var(--whatsapp-ink);
+  --ab-circle-fg: #fff;
+}
+
+.inner,
+.circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background-color: var(--ab-bg);
+  white-space: nowrap;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  min-width: 0;
+  padding-inline: 2.25rem;
+  transition:
+    width 500ms var(--ease-out-quart),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.circle {
+  position: absolute;
+  right: 0;
+  aspect-ratio: 1;
+  background-color: var(--ab-circle);
+  color: var(--ab-circle-fg);
+  scale: 0;
+  transform-origin: left center;
+  transition: scale 500ms var(--ease-out-quart);
+}
+
+.circle > span {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  transform: translateX(-100%);
+  transition: transform 300ms var(--ease-out-quart) 100ms;
+}
+
+.button:focus-visible {
+  outline: 3px solid var(--teal-700);
+  outline-offset: 3px;
+}
+
+.button:active .inner {
+  background-color: color-mix(in oklab, var(--ab-bg), #000 10%);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover .inner,
+  .button:focus-visible .inner {
+    width: calc(100% - var(--ab-h) - 4px);
+  }
+
+  .button:hover .circle,
+  .button:focus-visible .circle {
+    scale: 1;
+  }
+
+  .button:hover .circle > span,
+  .button:focus-visible .circle > span {
+    transform: none;
+  }
+}
+
+/* Touch has no hover: the circle sits beside the label at rest, in the flow, so a long label never clips. */
+@media (hover: none), (pointer: coarse) {
+  .inner {
+    width: auto;
+    padding-inline: 1.5rem;
+  }
+
+  .circle {
+    position: static;
+    flex: none;
+    height: 100%;
+    margin-left: 4px;
+    scale: 1;
+  }
+
+  .circle > span {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .inner,
+  .circle,
+  .circle > span {
+    transition: none;
+  }
+}
+
+/* Malayalam labels are longer: a little less side room. */
+:lang(ml) .inner {
+  padding-inline: 1.5rem;
+  font-family: var(--font-ml-body);
+}
+
+@media print {
+  .circle {
+    display: none;
+  }
+}

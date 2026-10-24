@@ -14,14 +14,15 @@ function initials(name: string): string {
 }
 
 /**
- * The three people printed on every report, as credential cards: the
- * only symmetric grid on the site. A monogram stands in until the owner
- * confirms photos; there is never an empty frame.
+ * The three people printed on every report, as tall cards with a name plate
+ * at the foot. Large initials stand in until the owner confirms photos;
+ * there is never an empty frame or a stock portrait.
  */
-export function TeamCards({ locale }: { locale: Locale }) {
+export function TeamCards({ locale, label }: { locale: Locale; label: string }) {
   const photo = confirmed(site.photos.team);
   return (
-    <ul role="list" className={s.grid}>
+    // On phones the list scrolls sideways, so it takes focus for keyboard scrolling.
+    <ul role="list" className={s.grid} tabIndex={0} aria-label={label}>
       {team.map((m, i) => (
         <li key={m.id} className={s.card} data-reveal style={{ '--i': i } as React.CSSProperties}>
           {photo ? (
@@ -33,13 +34,15 @@ export function TeamCards({ locale }: { locale: Locale }) {
               {initials(m.name.en)}
             </span>
           )}
-          <p className={s.name}>{m.name[locale]}</p>
-          <p className={s.role}>{m.role[locale]}</p>
-          {m.registration && (
-            <p className={s.reg} lang="en">
-              {m.registration}
-            </p>
-          )}
+          <div className={s.plate}>
+            <p className={s.name}>{m.name[locale]}</p>
+            <p className={s.role}>{m.role[locale]}</p>
+            {m.registration && (
+              <p className={s.reg} lang="en">
+                {m.registration}
+              </p>
+            )}
+          </div>
         </li>
       ))}
     </ul>

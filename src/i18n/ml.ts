@@ -86,6 +86,24 @@ export const ml: Dict = {
     nothingSent: 'WhatsApp-ൽ നിങ്ങൾ “Send” അമർത്തുന്നതുവരെ ഒന്നും അയയ്ക്കില്ല.',
   },
 
+  front: {
+    isoLine: 'ISO 9001:2015 സർട്ടിഫൈഡ്',
+    searchTitle: 'എന്താണ് വേണ്ടത്?',
+    searchLabel: 'ടെസ്റ്റ് തിരയുക',
+    searchPlaceholder: 'ഉദാ: ഷുഗർ',
+    searchSubmit: 'തിരയുക',
+    searchCats: 'അല്ലെങ്കിൽ എന്താണ് പരിശോധിക്കേണ്ടത് എന്നതിൽ നിന്ന് തുടങ്ങുക',
+    deptTitle: 'ലാബിൽ എന്തെല്ലാം ചെയ്യുന്നു',
+    discover: 'കൂടുതൽ കാണുക',
+    deptCount: (n: number) => `${n} ടെസ്റ്റുകൾ`,
+    deptAll: (n: number) => `${n} എണ്ണവും ടെസ്റ്റ് ലിസ്റ്റിൽ`,
+    deptPrev: 'മുമ്പത്തെ വിഭാഗം',
+    deptNext: 'അടുത്ത വിഭാഗം',
+    teamTitle: 'നിങ്ങളുടെ റിപ്പോർട്ടിന് പിന്നിലെ ടീം',
+    request: 'നിങ്ങളുടെ അപേക്ഷ',
+    requestCount: (n: number) => `അപേക്ഷയിൽ ${n} എണ്ണം`,
+  },
+
   hero: {
     promise: 'ലാബ് നിങ്ങളുടെ വീട്ടിലേക്ക് വരും.',
     meta: 'ജനസേവന ലാബ്, കൈചൂണ്ടി ജം., ആലപ്പുഴ',
@@ -97,8 +115,7 @@ export const ml: Dict = {
   },
 
   sections: {
-    packages: 'രണ്ട് പാക്കേജുകൾ, സൗജന്യ ഹോം കളക്ഷൻ.',
-    packagesOther: 'മറ്റൊരു പാക്കേജ്.',
+    packages: 'ഹെൽത്ത് പാക്കേജുകൾ, സൗജന്യ ഹോം കളക്ഷനോടെ.',
     categories: 'എന്താണ് പരിശോധിക്കേണ്ടത്?',
     categoryTests: (n: number) => `${n} എണ്ണം`,
     capabilities: 'ലാബിൽ എന്തെല്ലാം ചെയ്യുന്നു',

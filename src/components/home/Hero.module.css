@@ -1,59 +1,59 @@
-/* Full-bleed band 1 of 3: ice. The type is the design. */
+/*
+ * The mist field with one soft lower edge. The offer slip is opaque paper and,
+ * on wide screens, overhangs the edge into the next section by --overhang.
+ */
 .hero {
-  background: var(--ice);
-  padding-block: clamp(1rem, 0.5rem + 2.5vw, 4rem) clamp(1.5rem, 1rem + 3vw, 5rem);
+  --field-pb: clamp(2.5rem, 1.5rem + 4vw, 5.5rem);
+  --overhang: 60px;
+  position: relative;
+  z-index: 1;
+}
+
+.field {
+  position: relative;
+  padding-block: calc(var(--header-h) + clamp(1.75rem, 1rem + 3vw, 4rem)) var(--field-pb);
+  border-radius: 0 0 var(--radius-edge) var(--radius-edge);
+  background: var(--mist);
 }
 
 .grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    'copy'
+    'slip'
+    'actions'
+    'meta';
+  gap: var(--space-5);
+}
+
+.copy {
+  grid-area: copy;
   display: grid;
   gap: var(--space-4);
-}
-
-.grid > * {
-  min-width: 0;
-}
-
-.meta {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  color: var(--ink-2);
-  font-size: var(--step--1);
-  font-weight: 700;
-}
-
-.meta svg {
-  flex: none;
-  color: var(--teal-600);
 }
 
 .promise {
-  font-size: var(--t-promise);
-  font-weight: 520;
-  line-height: 0.98;
-  letter-spacing: var(--display-track);
+  max-width: 12ch;
+  font-size: var(--t-hero);
+  font-weight: var(--hero-weight);
+  line-height: 1.04;
+  letter-spacing: var(--hero-track);
+  text-wrap: balance;
 }
 
 :lang(ml) .promise {
-  font-weight: 600;
-  line-height: 1.28;
-}
-
-.left {
-  display: grid;
-  gap: var(--space-4);
-}
-
-.lead {
-  display: grid;
-  gap: var(--space-4);
+  max-width: 14ch;
+  line-height: 1.3;
 }
 
 .sub {
-  color: var(--ink-2);
-  font-size: var(--step-1);
-  line-height: 1.4;
   max-width: 34ch;
+  color: var(--mist-ink-2);
+  font-size: var(--step-1);
+  line-height: 1.45;
+  text-wrap: pretty;
 }
 
 :lang(ml) .sub {
@@ -62,51 +62,75 @@
 }
 
 .actions {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-area: actions;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.meta {
+  grid-area: meta;
+  align-self: start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  color: var(--mist-ink-2);
+  font-size: var(--step-0);
+}
+
+.meta li {
+  display: inline-flex;
+  align-items: center;
   gap: var(--space-2);
 }
 
-.actions > * {
+.meta svg {
+  flex: none;
+  color: var(--teal-700);
+}
+
+/* ---------- The paper offer slip ---------- */
+.slipCol {
+  grid-area: slip;
+  position: relative;
+  z-index: 2;
   min-width: 0;
-  padding-inline: 0.85em;
-  gap: 0.5em;
 }
 
-/* Call shows the number too: on a phone, on its own smaller line. */
-.call > span {
+.slip {
   display: grid;
-  justify-items: start;
-  line-height: 1.1;
+  gap: var(--space-2);
+  padding: var(--space-5);
+  border-radius: 20px;
+  background: var(--paper);
+  box-shadow:
+    0 1px 2px rgb(3 73 76 / 0.06),
+    0 24px 48px -28px rgb(3 73 76 / 0.45);
 }
 
-.callNum {
-  font-size: var(--step--1);
-  font-weight: 600;
-  opacity: 0.9;
+.slipName {
+  font-size: var(--step-2);
+  font-weight: 560;
+  line-height: 1.15;
 }
 
-/* The offer, set like a column of the lab's report. */
-.offerCol {
-  margin-top: var(--space-2);
+:lang(ml) .slipName {
+  line-height: 1.4;
 }
 
-.offer {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: baseline;
-  column-gap: var(--space-4);
-  row-gap: var(--space-1);
-  padding-top: var(--space-3);
-  border-top: 2px solid var(--ink);
+.price {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 2.2rem + 2vw, 3.75rem);
+  font-weight: 460;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--petrol-800);
 }
 
-.offerName,
-.offerTests,
-.period,
-.notice,
-.seePackage {
-  grid-column: 1 / -1;
+.slipFacts {
+  color: var(--ink-2);
+  font-size: var(--step-0);
+  line-height: 1.45;
 }
 
 .tag {
@@ -114,49 +138,22 @@
   font-weight: 700;
 }
 
-.offerName {
-  font-size: var(--step-1);
-  font-weight: 600;
-  line-height: 1.2;
-}
-
-.price {
-  grid-column: 1;
-  font-family: var(--font-display);
-  font-size: var(--t-price);
-  font-weight: 520;
-  line-height: 1;
-  letter-spacing: -0.02em;
-  color: var(--petrol-800);
-}
-
-.offerTests {
-  color: var(--ink-2);
-  font-size: var(--step-0);
-  line-height: 1.35;
-}
-
-.period {
-  color: var(--ink-2);
-  font-size: var(--step-0);
-}
-
 /* Amber carries the cardiovascular notice. */
 .notice {
   display: grid;
   grid-template-columns: auto 1fr;
   gap: var(--space-2);
-  margin-top: var(--space-2);
+  margin-top: var(--space-1);
   padding: var(--space-3);
-  border-radius: 8px;
+  border-radius: 12px;
   background: var(--amber-surface);
   color: var(--ink);
   font-size: var(--step-0);
   line-height: 1.45;
-  max-width: none;
 }
 
 .notice svg {
+  margin-top: 0.15em;
   color: var(--amber-ink);
 }
 
@@ -165,71 +162,43 @@
 }
 
 .seePackage {
-  justify-self: start;
   display: inline-flex;
   align-items: center;
+  gap: var(--space-2);
+  justify-self: start;
   min-height: var(--target);
+  color: var(--teal-700);
   font-weight: 700;
 }
 
-.royal .price {
-  color: var(--petrol-700);
-}
-
-@media (min-width: 30rem) {
-  .actions {
-    display: flex;
-    flex-wrap: wrap;
-  }
-
-  .call > span {
-    display: inline;
-  }
-
-  .callNum {
-    font-size: inherit;
-  }
-}
-
-/* Desktop: the promise across two thirds; the offer column stands to the right behind a hairline. */
+/* ---------- Wide screens: copy left, slip bottom right, overhanging the edge ---------- */
 @media (min-width: 64rem) {
+  .field {
+    display: grid;
+    align-content: end;
+    min-height: clamp(36rem, 90svh, 56rem);
+  }
+
   .grid {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 6fr) minmax(0, 1fr) minmax(0, 5fr);
+    grid-template-areas:
+      'copy . slip'
+      'actions . slip'
+      'meta . slip';
+    grid-template-rows: 1fr auto auto;
     column-gap: var(--space-6);
-    row-gap: var(--space-6);
+    row-gap: var(--space-5);
   }
 
-  .left {
-    grid-column: 1 / span 8;
-    align-self: center;
-    gap: var(--space-6);
+  .copy {
+    gap: var(--space-5);
+    margin-bottom: var(--space-4);
   }
 
-  .promise {
-    font-size: clamp(4.5rem, 1.5rem + 5vw, 7rem);
-  }
-
-  :lang(ml) .promise {
-    font-size: clamp(3.2rem, 1.2rem + 3.4vw, 4.8rem);
-  }
-
-  .lead {
-    max-width: 36rem;
-  }
-
-  .actions > * {
-    padding-inline: 1.5em;
-  }
-
-  .offerCol {
-    grid-column: 9 / -1;
-    align-self: center;
-    margin-top: 0;
-    padding-left: var(--space-6);
-  }
-
-  .offer {
-    border-top: 0;
-    padding-top: 0;
+  .slipCol {
+    align-self: end;
+    justify-self: end;
+    width: min(100%, 25rem);
+    margin-bottom: calc(-1 * (var(--field-pb) + var(--overhang)));
   }
 }
