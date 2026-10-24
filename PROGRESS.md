@@ -53,3 +53,39 @@ Rebuilt from scratch on 2026-10-23. Product truth: PRODUCT.md. Design: DESIGN.md
 - [x] Polish: selection colour, one focus ring (teal, white inner ring; inverted on teal), caret and accent colours, 48px targets (parameter toggles raised from 40px), favicon and apple icon from the real mark, Open Graph image, metadata with hreflang, sitemap, robots, print stylesheet.
 - [x] Detector: remaining findings triaged in DESIGN.md; one value-scoped ignore (vendored PillNav bounce curve).
 ## Phase 7: Verification
+
+---
+
+# Redesign: the Index (branch `redesign-index`, tag `pre-redesign`)
+
+Skills: `impeccable` loaded as a skill. `frontend-design` is not visible to this session as a skill (the Skill tool reports it unknown and it is not in `~/.claude/skills/`; skills load at session start); its SKILL.md from `~/.agents/skills/frontend-design` is read and followed.
+
+## Baseline (pre-redesign, 360×740)
+- Home 11,066px (15.0 viewport-heights) EN, 13,281px (17.9) ML. Tests 11,106 / 12,872. Packages 5,002 / 5,779.
+- JS (module scripts, gzip): home 144.7KB, tests 164.3KB, packages 144.3KB.
+- Screenshots: `before/` (every page, EN and ML, 360 / 768 / 1280).
+
+## Audit
+- **Repetitive middle sections: real.** Quick-action rows, the department index and the collection steps are three ruled lists in a row with the same rhythm.
+- **Request Slip overuse: real.** It appears in the hero, under each package (twice per package page) and beside the booking form; three quoted messages on home alone.
+- **Excessive mobile length: real.** 15 viewport-heights on home; the 16-test list, department rows and team cards each take more than a screen.
+- **Repeated CTAs and contact blocks: real.** Phone numbers appear in the hero (main plus "other numbers"), the contact band, the footer and the bottom bar; Book appears in header, hero slip, packages band and quick actions.
+- **Empty photo placeholders: real.** Home Collection, About and Contact show "coming soon" frames.
+- **Monotonous test rows: real.** 31 rows with identical anatomy; preparation repeats "Ask the lab" on almost every row; the add buttons dominate.
+- **Also found:**
+  - teal is used as a ground on every page head, so nothing feels like a special moment;
+  - heavy condensed display everywhere;
+  - the mobile basket strip stacks on top of the bottom bar (two fixed bars);
+  - the cardiovascular notice uses teal, not amber;
+  - an ended offer disappears from home entirely, where the brief wants it shown as "offer ended".
+- **Copy scan (Step 0.6):** no "phlebotomist", "premier", "best", "leading", "accurate", "guarantee", "trusted by", parameter counts or other accreditations in `en.ts`, `ml.ts` or `config/`. Prices found: ₹1,299 (config) and ₹2,000 only.
+- **Open conflict for the owner:** the cardiovascular notice wording in `config/packages.ts` ("These tests can help assess risk, but they cannot…") differs from this brief ("These tests help assess risk, but cannot…"). Config kept unchanged until the owner confirms.
+
+## Phases
+- [x] 1. Baseline, audit, reference study, DESIGN.md (concept, tokens, type scale, Index spec, sticky rules, offer behaviour)
+- [ ] 2. Design system and the Index component
+- [ ] 3. Header, hero, offer module, bottom bar
+- [ ] 4. Packages (sticky) and Tests (full Index)
+- [ ] 5. Remaining home sections, Home Collection, About, Contact (map), 404, footer, Malayalam pass
+- [ ] 6. Typeset, polish, motion, print, metadata
+- [ ] 7. Verification
