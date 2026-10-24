@@ -65,8 +65,9 @@ export function TestDirectory({ locale, packagesHref, bookHref }: { locale: Loca
 
   const action = (row: IndexRow) => {
     const test = tests.find((x) => x.id === row.testId)!;
-    if (test.kind === 'package') {
-      const anchor = test.id === 'pkg-cardio' ? 'cardio' : 'royal';
+    // hs-CRP exists only inside the Cardiovascular Health Package, so it links there instead of being added alone.
+    if (test.kind === 'package' || test.id === 'hscrp') {
+      const anchor = test.id === 'pkg-royal' ? 'royal' : 'cardio';
       return (
         <a href={`${packagesHref}#${anchor}`} className={s.pkgLink}>
           {d.tests.viewPackage}

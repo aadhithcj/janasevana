@@ -6,7 +6,8 @@ import path from 'node:path';
 
 const rules = [
   { name: 'unconfirmed placeholder', re: /TODO_CONFIRM/ },
-  { name: 'claim word', re: /\b(best|leading|premier|trusted|accredited|world-class|no\.?\s?1|number one)\b/i },
+  { name: 'claim word', re: /\b(best|leading|premier|trusted|accredited|accurate|accuracy|guaranteed?|world-class|no\.?\s?1|number one|phlebotomists?)\b/i },
+  { name: 'parameter count', re: /\b\d+\+?\s*parameters\b/i },
   { name: 'accreditation', re: /\b(NABL|CAP|JCI|NABH)\b/ },
   { name: 'AI wording', re: /\b(AI|A\.I\.|artificial intelligence|machine learning|chatbot)\b/i },
   { name: 'patient-like data', re: /\b(patient name\s*:|bill no|age\s*\/\s*sex|reg(istration)?\.?\s*no\.?\s*:\s*\d{5,}|sample id|collected on)\b/i },
@@ -31,9 +32,22 @@ function readable(html) {
 }
 
 const pages = walk('out');
+const ALLOWED_PRICES = new Set(['₹1,299', '₹2,000']);
+const hsCrp = [];
 let failures = 0;
 for (const file of pages) {
   const text = readable(readFileSync(file, 'utf8'));
+  for (const m of text.matchAll(/₹\s?[\d,]+/g)) {
+    const price = m[0].replace(/\s/g, '');
+    if (!ALLOWED_PRICES.has(price)) {
+      failures++;
+      console.log(`FAIL  ${path.relative('out', file)}  price not in config: ${price}`);
+    }
+  }
+  for (const m of text.matchAll(/hs-CRP/g)) {
+    const i = m.index ?? 0;
+    hsCrp.push(`${path.relative('out', file)}: …${text.slice(Math.max(0, i - 90), i + 50).trim()}…`);
+  }
   for (const rule of rules) {
     const m = text.match(rule.re);
     if (m) {
@@ -42,6 +56,11 @@ for (const file of pages) {
       console.log(`FAIL  ${path.relative('out', file)}  ${rule.name}: "…${text.slice(Math.max(0, i - 40), i + 40).trim()}…"`);
     }
   }
+}
+if (process.argv.includes('--review')) {
+  // Every hs-CRP mention, for a person to confirm it sits with the Cardiovascular Health Package.
+  console.log(`\nhs-CRP mentions (${hsCrp.length}):`);
+  hsCrp.forEach((h) => console.log('  ' + h));
 }
 console.log(failures ? `\n${failures} content problem(s) in ${pages.length} pages` : `Content guard: ${pages.length} pages clean`);
 process.exit(failures ? 1 : 0);
