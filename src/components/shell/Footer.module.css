@@ -92,3 +92,8 @@
 :global(#footer-nav):focus {
   outline: none;
 }
+
+.address a:hover,
+.list a:hover {
+  color: var(--teal-200);
+}

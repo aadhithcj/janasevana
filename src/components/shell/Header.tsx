@@ -19,8 +19,10 @@ export function Header({ locale }: { locale: Locale }) {
   return (
     <header className={s.header}>
       <div className={s.bar}>
-        <Link href={href(locale, 'home')} className={s.home} aria-label={t.homeLink}>
+        {/* The visible name leads the link's name (WCAG 2.5.3); "home page" is spoken after it. */}
+        <Link href={href(locale, 'home')} className={s.home}>
           <LogoLockup />
+          <span className="visually-hidden">{t.homeSuffix}</span>
         </Link>
         <div className={s.nav}>
           <SiteNav locale={locale} labels={t.nav} ariaLabel={t.navLabel} />

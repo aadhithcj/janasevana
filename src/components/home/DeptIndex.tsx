@@ -60,12 +60,35 @@ export function DeptIndex() {
       if (!frame) frame = requestAnimationFrame(update);
     };
 
+    // Index clicks: land a stacked card exactly in its sticky place (a plain anchor stops short,
+    // measured from the stuck position); on phones, slide the row instead of jumping the page.
+    const smooth = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+    const onClick = (e: MouseEvent) => {
+      const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[href^="#dept-"]');
+      const card = a && document.getElementById(a.getAttribute('href')!.slice(1));
+      if (!a || !card) return;
+      e.preventDefault();
+      history.replaceState(null, '', a.hash);
+      if (row.scrollWidth > row.clientWidth + 4) {
+        row.scrollTo({ left: card.offsetLeft - row.offsetLeft - parseFloat(getComputedStyle(row).paddingLeft), behavior: smooth });
+        return;
+      }
+      const stick = parseFloat(getComputedStyle(card).top) || 0;
+      const was = card.style.position;
+      card.style.position = 'static';
+      const natural = card.getBoundingClientRect().top + window.scrollY;
+      card.style.position = was;
+      window.scrollTo({ top: natural - (getComputedStyle(card).position === 'sticky' ? stick : 96), behavior: smooth });
+    };
+    index.addEventListener('click', onClick);
+
     update();
     window.addEventListener('scroll', queue, { passive: true });
     row.addEventListener('scroll', queue, { passive: true });
     window.addEventListener('resize', queue);
     return () => {
       cancelAnimationFrame(frame);
+      index.removeEventListener('click', onClick);
       window.removeEventListener('scroll', queue);
       row.removeEventListener('scroll', queue);
       window.removeEventListener('resize', queue);

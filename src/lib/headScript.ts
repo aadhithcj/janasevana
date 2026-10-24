@@ -8,6 +8,7 @@ import type { Locale } from './paths';
  *    the wrong language can paint. The toggle links store the choice.
  * 2. Sets the offer state on <html> from today's date in Asia/Kolkata.
  * 3. Marks motion as allowed, then reveals below-the-fold blocks once.
+ * 4. Marks the page as scrolled, for the header's lift.
  * Everything is optional: without JS the page renders complete.
  */
 export function headScript(locale: Locale): string {
@@ -16,5 +17,7 @@ export function headScript(locale: Locale): string {
   const motion = `(function(){var d=document.documentElement;if(!window.matchMedia||matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window))return;d.classList.add('motion');document.addEventListener('DOMContentLoaded',function(){var h=innerHeight,els=[].slice.call(document.querySelectorAll('[data-reveal]'));var io=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.setAttribute('data-reveal','in');io.unobserve(x.target)}})},{rootMargin:'0px 0px -8% 0px'});els.forEach(function(el){if(el.getBoundingClientRect().top>h*0.92){el.setAttribute('data-reveal','pending');io.observe(el)}});setTimeout(function(){els.forEach(function(el){if(el.getAttribute('data-reveal')==='pending'){el.setAttribute('data-reveal','in')}})},6000)})})();`;
 
   const js = `document.documentElement.classList.add('js');`;
-  return js + lang + offerScript(cardioPackage.window!) + motion;
+  // 4. html.scrolled once the page leaves the top, so the floating header can lift.
+  const scrolled = `(function(){var d=document.documentElement,f=0;function u(){f=0;d.classList.toggle('scrolled',scrollY>8)}addEventListener('scroll',function(){if(!f)f=requestAnimationFrame(u)},{passive:true});u()})();`;
+  return js + lang + offerScript(cardioPackage.window!) + motion + scrolled;
 }

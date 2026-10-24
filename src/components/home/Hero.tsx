@@ -24,15 +24,23 @@ export function Hero({ locale }: { locale: Locale }) {
         <Helix />
         <div className={`wrap ${s.grid}`}>
           <div className={s.copy}>
-            <h1 id="hero-title" className={s.promise} data-load style={{ '--i': 1 } as React.CSSProperties}>
-              {d.hero.promise}
+            {/* Each word rises in turn on load (motion only); the heading reads as one line of text. */}
+            <h1 id="hero-title" className={s.promise}>
+              {d.hero.promise.split(' ').map((w, i, all) => (
+                <span key={i}>
+                  <span className={s.word} style={{ '--w': i } as React.CSSProperties}>
+                    {w}
+                  </span>
+                  {i < all.length - 1 ? ' ' : ''}
+                </span>
+              ))}
             </h1>
-            <p className={s.sub} data-load style={{ '--i': 2 } as React.CSSProperties}>
+            <p className={s.sub} data-load style={{ '--i': 5 } as React.CSSProperties}>
               {d.hero.sub}
             </p>
           </div>
 
-          <div className={s.slipCol} data-load style={{ '--i': 3 } as React.CSSProperties}>
+          <div className={s.slipCol} data-load style={{ '--i': 6 } as React.CSSProperties}>
             <div data-when-offer="live upcoming">
               <Offer pkg={cardioPackage} locale={locale} />
             </div>
@@ -41,7 +49,7 @@ export function Hero({ locale }: { locale: Locale }) {
             </div>
           </div>
 
-          <div className={s.actions} data-load style={{ '--i': 3 } as React.CSSProperties}>
+          <div className={s.actions} data-load style={{ '--i': 6 } as React.CSSProperties}>
             <ArrowButton href={telHref(landline.tel)} size="lg">
               <span className="num">{d.common.callNumber(landline.display)}</span>
             </ArrowButton>
@@ -50,7 +58,7 @@ export function Hero({ locale }: { locale: Locale }) {
             </ArrowButton>
           </div>
 
-          <ul role="list" className={s.meta} data-load style={{ '--i': 4 } as React.CSSProperties}>
+          <ul role="list" className={s.meta} data-load style={{ '--i': 7 } as React.CSSProperties}>
             <li>
               <Icon name="check" />
               <span>{d.front.isoLine}</span>

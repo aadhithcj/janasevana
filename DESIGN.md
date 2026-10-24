@@ -40,6 +40,7 @@ About 80% of every page is paper or mist. Deep teal owns the department cards, t
   - `--t-price`: package prices.
 - **Header name:** "Janasevana Lab" is live text in Anek 700, teal-600 and charcoal, beside the mark.
 - No all-caps labels and no eyebrows; labels are folded into meta lines.
+- **Links:** no underlines anywhere. Links are teal; inside running text they are also bold, so they never rely on colour alone. Hover darkens them.
 
 ## Layout
 
@@ -53,7 +54,7 @@ About 80% of every page is paper or mist. Deep teal owns the department cards, t
 - **Header:** floats over the field and is sticky on desktop. Left: the full logo in a white pill (the owner's mark artwork in the printed logo's charcoal and teal, plus the live-text name); hovering fills it deep teal. Next: the React Bits PillNav capsule (plain items, fill hover, pill indicator, bounce 0.24, stretch 0.32), with Packages, Tests, Home collection and About; no Home item (the logo links home) and no Contact item. Right: EN | മലയാളം, "Your request (n)" only when something is selected, and the Contact arrow button. Phones show the logo, a one-language toggle and the menu. The capsule shows from 1024px in English and 1280px in Malayalam.
 - **ArrowButton:** CSS only. The circle scales in and the arrow slides on hover or keyboard focus; on touch it sits in the flow at rest. Variants are ink (deep teal), tint and WhatsApp.
 - **Hero:** light headline, lede, Call and WhatsApp arrow buttons, and an ISO and address line. The offer slip (cardiovascular until 15 Nov 2026, Royal after) sits bottom right and overhangs the edge by 60px. On phones the order is headline, lede, slip, buttons.
-- **Departments strip:** five native `<details name="dept">` cards in a snapping row, one open at a time, with a scroll-driven progress line and previous/next buttons (script only). The number on each card is its real test count. A card shows an equipment photo only where `config/site.ts` supplies one; others preview their first tests. Phones stack the cards with the first open.
+- **What the lab does (sticky scroll):** On screens at least 1024px wide and 720px tall, the title, lede and a department index (name and test count) pin on the left. The five department cards stack on the right: each sticks 20px below the last, so the next slides over it like a deck, and each card is one step lighter than the one beneath it. The index marks the card in place. Clicking an entry scrolls that card exactly into its sticky spot (script; a plain anchor without it). On phones, the index is a row of chips and the cards a swipeable snap row, and the active chip follows the swipe. Each card has its real test count, the summary (wide screens), up to five tests linking to the directory, an "All N in the test list" pill, and the equipment photo where `config/site.ts` supplies one.
 - **Photos:** AVIF and WebP at built widths (`scripts/build-photos.mjs`), loaded eagerly at low priority so they are ready when scrolled to. Product shots use `contain` on white.
 - **Team:** the one deep panel, with three tall initials cards and a white name plate, lifting 6px on hover. On phones they form a snapping row.
 
@@ -74,7 +75,11 @@ About 80% of every page is paper or mist. Deep teal owns the department cards, t
 ## Motion
 
 Transform and opacity only, 150–600ms, ease-out-quart `cubic-bezier(0.165, 0.84, 0.44, 1)`:
-- one staggered hero rise on load;
+- the hero headline rises word by word, then the lede, slip and buttons follow;
+- the home search placeholder cycles through everyday examples while the field is empty;
+- a 3px teal reading line along the top of the window follows the page scroll (CSS scroll timeline);
+- the floating header pills gain a soft shadow once the page scrolls;
+- hovers: arrows step forward on every link, category chips fill deep teal and reveal an arrow, the offer slip and package panels lift 4px, step numbers move forward, and team cards lift 6px;
 - section reveals once (opacity and a 12–16px rise, no blur);
 - the arrow buttons;
 - department cards cross-fade their contents (size does not animate);

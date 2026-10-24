@@ -418,3 +418,12 @@
     display: none;
   }
 }
+
+/* Once the page scrolls, the floating pills lift off it with a soft shadow. */
+:global(html.scrolled) .home,
+:global(html.scrolled) .toggle,
+:global(html.scrolled) .request,
+:global(html.scrolled) .menuTrigger,
+:global(html.scrolled) .nav :global(.pill-nav__surface) {
+  box-shadow: 0 10px 28px -14px rgb(3 73 76 / 0.45);
+}

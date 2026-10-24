@@ -188,3 +188,27 @@
     display: none;
   }
 }
+
+/* Panels lift a little under the pointer. */
+.panel {
+  transition:
+    transform var(--dur-base) var(--ease-out-quart),
+    box-shadow var(--dur-base) var(--ease-out-quart);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .panel:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 28px 56px -32px rgb(1 50 52 / 0.5);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    transition: none;
+  }
+
+  .panel:hover {
+    transform: none;
+  }
+}

@@ -2,6 +2,7 @@ import { categories } from '@config/tests';
 import { getDict } from '@/i18n';
 import { href, type Locale } from '@/lib/paths';
 import { Icon } from '@/components/ui/Icon';
+import { SearchHints } from './SearchHints';
 import s from './Search.module.css';
 
 /**
@@ -32,11 +33,13 @@ export function Search({ locale }: { locale: Locale }) {
         <p className={s.catsLabel} id="search-cats">
           {d.front.searchCats}
         </p>
+        <SearchHints target="home-q" prefix={d.front.searchHintPrefix} words={d.front.searchHints} />
         <ul role="list" className={s.cats} aria-labelledby="search-cats">
-          {categories.map((c) => (
-            <li key={c.id}>
+          {categories.map((c, i) => (
+            <li key={c.id} data-reveal style={{ '--i': i } as React.CSSProperties}>
               <a href={`${tests}?cat=${c.id}`} className={s.cat}>
                 {d.tests.categories[c.id]}
+                <Icon name="arrow" />
               </a>
             </li>
           ))}

@@ -200,14 +200,34 @@ for (const [route, sel] of [['/packages/', '#royal [class*="summary"]']]) {
   }
 }
 
-// ---------- Home departments: one card open at a time, deep links into the directory ----------
+// ---------- Home departments: a sticky scroll on wide screens, a swipe row on phones ----------
 {
-  const page = await open('/');
-  const before = await page.$$eval('details[name="dept"]', (els) => els.map((e) => e.open));
-  await page.click('details[name="dept"]:nth-of-type(3) summary');
-  const after = await page.$$eval('details[name="dept"]', (els) => els.map((e) => e.open));
-  check('first department card starts open', before[0] === true && before.filter(Boolean).length === 1, JSON.stringify(before));
-  check('opening another department closes the first', after[2] === true && after.filter(Boolean).length === 1, JSON.stringify(after));
+  const page = await browser.newPage();
+  await page.setViewport({ width: 1440, height: 900 });
+  await page.goto(BASE + '/', { waitUntil: 'networkidle0' });
+  const cardPos = await page.$eval('[data-dept-card]', (el) => getComputedStyle(el).position);
+  check('department cards stack (sticky) at 1440x900', cardPos === 'sticky', cardPos);
+  const active = async () => page.$$eval('[data-dept-index] a', (as) => as.findIndex((a) => a.getAttribute('aria-current') === 'true'));
+  const first = await active();
+  await page.click('[data-dept-index] a[href="#dept-serology"]');
+  await new Promise((r) => setTimeout(r, 1500));
+  const later = await active();
+  const top = await page.$eval('#dept-serology', (el) => Math.round(el.getBoundingClientRect().top - parseFloat(getComputedStyle(el).top)));
+  check('clicking the index brings that card into place and marks it', first === 0 && later === 2 && Math.abs(top) <= 2, `${first} then ${later}, offset ${top}px`);
+  await page.setViewport({ width: 1280, height: 600 });
+  await new Promise((r) => setTimeout(r, 200));
+  const shortPos = await page.$eval('[data-dept-card]', (el) => getComputedStyle(el).position);
+  check('department cards do not pin at 1280x600', shortPos !== 'sticky', shortPos);
+  await page.close();
+}
+{
+  const page = await open('/', 390);
+  await page.$eval('#dept-row', (row) => row.scrollTo({ left: row.scrollWidth, behavior: 'instant' }));
+  await new Promise((r) => setTimeout(r, 300));
+  const last = await page.$$eval('[data-dept-index] a', (as) => as.findIndex((a) => a.getAttribute('aria-current') === 'true'));
+  const overflow = await page.evaluate(() => document.documentElement.scrollWidth > innerWidth);
+  check('phone swipe row moves the active chip', last === 4, String(last));
+  check('phone page has no sideways scroll', !overflow);
   await page.close();
 }
 {

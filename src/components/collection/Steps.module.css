@@ -79,3 +79,15 @@
     column-gap: var(--space-6);
   }
 }
+
+/* The step number steps forward under the pointer. */
+.num {
+  transition: transform var(--dur-base) var(--ease-out-quart), color var(--dur-fast) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .step:hover .num {
+    transform: translateX(4px);
+    color: var(--deep);
+  }
+}

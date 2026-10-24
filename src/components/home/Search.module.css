@@ -101,6 +101,7 @@
 .cat {
   display: inline-flex;
   align-items: center;
+  gap: var(--space-2);
   min-height: var(--target);
   padding: 0 var(--space-4);
   border-radius: var(--radius-pill);
@@ -108,11 +109,37 @@
   color: var(--ink);
   font-weight: 600;
   text-decoration: none;
-  transition: background-color var(--dur-fast) var(--ease-out);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.cat svg {
+  width: 18px;
+  height: 18px;
+  margin-right: -4px;
+  color: var(--teal-700);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition:
+    opacity var(--dur-fast) var(--ease-out),
+    transform var(--dur-base) var(--ease-out-quart);
 }
 
 .cat:hover {
-  background: var(--teal-100);
+  background: var(--deep);
+  color: #fff;
+}
+
+.cat:hover svg {
+  opacity: 1;
+  transform: none;
+  color: #fff;
+}
+
+.cat:focus-visible svg {
+  opacity: 1;
+  transform: none;
 }
 
 /* Leave room on the right for the hero's overhanging offer slip. */

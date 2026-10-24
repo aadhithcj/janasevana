@@ -107,3 +107,11 @@
     display: none;
   }
 }
+
+.item {
+  transition: transform var(--dur-press) var(--ease-out);
+}
+
+.item:active {
+  transform: scale(0.97);
+}
