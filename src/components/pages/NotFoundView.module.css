@@ -15,8 +15,8 @@
 .code {
   font-family: var(--font-display);
   font-size: clamp(6rem, 3rem + 14vw, 13rem);
-  font-weight: 760;
-  font-stretch: 75%;
+  font-weight: var(--display-weight);
+  font-stretch: var(--display-stretch);
   line-height: 0.85;
   color: var(--teal-300);
   max-width: none;
@@ -25,8 +25,8 @@
 .title {
   color: #fff;
   font-size: var(--step-4);
-  font-weight: 700;
-  font-stretch: 85%;
+  font-weight: var(--display-weight);
+  font-stretch: var(--display-stretch);
   line-height: 1.05;
 }
 

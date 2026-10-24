@@ -202,6 +202,23 @@ export const en = {
     },
   },
 
+  index: {
+    parts: 'parts',
+    fastingTag: 'Fasting',
+    askLab: 'Ask the lab',
+    nameOnly: 'Ask the lab about the method, sample and preparation.',
+    category: 'Results in minutes on automated machines. Ask the lab which panels are available and about timing for specific tests.',
+    includes: 'What’s inside',
+    measures: 'What it measures',
+    method: 'Method',
+    sample: 'Sample',
+    prep: 'Preparation',
+    methodPerPart: 'Listed for each part above',
+    samples: { serum: 'Serum', urine: 'Urine' },
+    fasting: 'Fasting test. The lab confirms how long.',
+    viaPackages: 'Offered in our packages. Ask the lab about booking it on its own.',
+  },
+
   basket: {
     title: 'Your booking',
     empty: 'Nothing added yet. Add tests from the list, or book a package.',

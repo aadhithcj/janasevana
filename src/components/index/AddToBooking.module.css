@@ -1,0 +1,69 @@
+.add,
+.added {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--target);
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-pill);
+  font-size: var(--step--1);
+  font-weight: 700;
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-press) var(--ease-out);
+}
+
+.add {
+  border: 1px solid var(--rule-strong);
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.add svg {
+  color: var(--teal-700);
+}
+
+.add:hover {
+  border-color: var(--teal-700);
+  background: var(--ice);
+}
+
+.add:active,
+.added:active {
+  transform: scale(0.97);
+}
+
+.added {
+  border: 1px solid var(--teal-700);
+  background: var(--teal-700);
+  color: #fff;
+  animation: added-in var(--dur-base) var(--ease-out);
+}
+
+.check {
+  animation: check-in 300ms var(--ease-out);
+}
+
+.remove {
+  margin-left: var(--space-1);
+  padding-left: var(--space-3);
+  border-left: 1px solid rgb(255 255 255 / 0.4);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+@keyframes added-in {
+  from {
+    opacity: 0.6;
+    transform: scale(0.95);
+  }
+}
+
+@keyframes check-in {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}

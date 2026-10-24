@@ -19,15 +19,15 @@
 .title {
   color: #fff;
   font-size: var(--step-5);
-  font-weight: 720;
-  font-stretch: 78%;
+  font-weight: var(--display-weight);
+  font-stretch: var(--display-stretch);
   line-height: var(--lh-display);
   max-width: 16ch;
 }
 
 :lang(ml) .title {
-  font-weight: 680;
-  font-stretch: 88%;
+  font-weight: var(--display-weight);
+  font-stretch: var(--display-stretch);
   max-width: 18ch;
 }
 

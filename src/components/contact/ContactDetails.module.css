@@ -22,15 +22,15 @@
   font-style: normal;
   font-family: var(--font-display);
   font-size: var(--step-3);
-  font-weight: 680;
-  font-stretch: 86%;
+  font-weight: var(--display-weight);
+  font-stretch: var(--display-stretch);
   line-height: 1.08;
   color: var(--cd-ink);
 }
 
 :lang(ml) .address {
   font-family: var(--font-ml-display);
-  font-stretch: 92%;
+  font-stretch: var(--display-stretch);
   line-height: 1.35;
 }
 
@@ -90,7 +90,7 @@
   min-height: var(--target);
   font-family: var(--font-display);
   font-size: var(--step-2);
-  font-weight: 650;
+  font-weight: var(--display-weight);
   text-decoration-thickness: 1.5px;
 }
 
