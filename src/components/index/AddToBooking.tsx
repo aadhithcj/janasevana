@@ -8,9 +8,12 @@ import s from './AddToBooking.module.css';
 export function AddToBooking({
   item,
   labels,
+  size = 'md',
 }: {
   item: BasketItem;
   labels: { add: string; added: string; remove: string; addedLive: string; removedLive: string };
+  /** lg: the one full-width booking action of a package panel. */
+  size?: 'md' | 'lg';
 }) {
   const basket = useBasket();
   const added = basket.has(item.id);
@@ -18,7 +21,7 @@ export function AddToBooking({
     return (
       <button
         type="button"
-        className={s.added}
+        className={`${s.added} ${size === 'lg' ? s.lg : ''}`}
         onClick={() => {
           basket.remove(item.id);
           basket.announce(labels.removedLive);
@@ -36,7 +39,7 @@ export function AddToBooking({
   return (
     <button
       type="button"
-      className={s.add}
+      className={`${s.add} ${size === 'lg' ? s.lg : ''}`}
       onClick={() => {
         basket.add(item);
         basket.announce(labels.addedLive);

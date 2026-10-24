@@ -6,4 +6,7 @@ export const photoFiles: Record<string, { width: number; height: number; widths:
   'erba-xl200': { width: 900, height: 687, widths: [400, 700], fit: 'contain' },
   'erba-ec90': { width: 900, height: 598, widths: [400, 700] },
   'vidas-kube': { width: 1280, height: 853, widths: [400, 700] },
+  // Representative stock photos (Unsplash License); shown with a "Representative photo" caption.
+  'stock-blood-tube': { width: 2000, height: 1333, widths: [480, 900, 1400] },
+  'stock-blood-vials': { width: 2000, height: 1333, widths: [480, 900, 1400] },
 };

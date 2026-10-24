@@ -14,6 +14,9 @@ const photos = [
   { name: 'erba-xl200', src: 'erba-xl200.jpg', widths: [400, 700] },
   { name: 'erba-ec90', src: 'erba-ec90.jpg', widths: [400, 700] },
   { name: 'vidas-kube', src: 'vidas-kube.jpg', widths: [400, 700] },
+  // Representative stock photos (Unsplash License, free to use; credits in assets-src/photos/stock/CREDITS.md).
+  { name: 'stock-blood-tube', src: 'stock/unsplash-sulyok-blood-tube.jpg', widths: [480, 900, 1400] },
+  { name: 'stock-blood-vials', src: 'stock/unsplash-nci-blood-vials.jpg', widths: [480, 900, 1400] },
 ];
 
 await mkdir('public/photos', { recursive: true });

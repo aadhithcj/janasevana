@@ -66,3 +66,24 @@
     transform: scale(0.4);
   }
 }
+
+/* The large booking action: full width, deep teal, centred. */
+.lg {
+  justify-content: center;
+  width: 100%;
+  min-height: 60px;
+  font-size: var(--step-0);
+}
+
+.add.lg {
+  background: var(--deep);
+  color: #fff;
+}
+
+.add.lg svg {
+  color: #fff;
+}
+
+.add.lg:hover {
+  background: var(--teal-900);
+}

@@ -1,18 +1,354 @@
+/*
+ * Packages as a product page. Left: a large photo with frosted fact cards and
+ * a thumbnail strip. Right: the package switch, then the chosen package.
+ * Radios drive both (CSS :has), so nothing needs script.
+ */
 .section {
   padding-block: calc(var(--section) * 0.75) var(--section);
 }
 
-.intro {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: end;
-  justify-content: space-between;
-  gap: var(--space-3) var(--space-6);
-  margin-bottom: var(--space-6);
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-6);
 }
 
-.title {
-  max-width: 18ch;
+.grid > * {
+  min-width: 0;
+}
+
+.radio {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- The gallery ---------- */
+.gallery {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.stage {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-card);
+  background: var(--deep);
+}
+
+.shot {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  transform: scale(1.04);
+  transition:
+    opacity 520ms var(--ease-out-quart),
+    transform 900ms var(--ease-out-quart);
+}
+
+.shotImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.shot.contain {
+  background: #fff;
+}
+
+.shot.contain .shotImg {
+  padding: 8% 10% 22%;
+  object-fit: contain;
+}
+
+/* The chosen photo; the first one when nothing can be chosen. */
+.shot[data-shot='0'],
+.gallery:has([data-shot-radio='1']:checked) .shot[data-shot='1'],
+.gallery:has([data-shot-radio='2']:checked) .shot[data-shot='2'],
+.gallery:has([data-shot-radio='3']:checked) .shot[data-shot='3'],
+.gallery:has([data-shot-radio='4']:checked) .shot[data-shot='4'] {
+  opacity: 1;
+  transform: none;
+}
+
+.gallery:has([data-shot-radio]:not([data-shot-radio='0']):checked) .shot[data-shot='0'] {
+  opacity: 0;
+  transform: scale(1.04);
+}
+
+.stockNote {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  background: rgb(0 0 0 / 0.45);
+  color: #fff;
+  font-size: 0.875rem;
+}
+
+/* Frosted fact cards: heavy blur, a smoky fill, a thin bright edge, a soft sheen. */
+.glass {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  gap: 2px;
+  padding: var(--space-4) var(--space-5);
+  border-radius: 20px;
+  color: #fff;
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgb(255 255 255 / 0.26), rgb(255 255 255 / 0) 55%),
+    rgb(3 40 42 / 0.32);
+  box-shadow:
+    inset 0 0 0 1px rgb(255 255 255 / 0.3),
+    inset 0 1px 0 rgb(255 255 255 / 0.4),
+    0 20px 40px -24px rgb(0 0 0 / 0.5);
+  -webkit-backdrop-filter: blur(22px) saturate(1.5) brightness(0.62);
+  backdrop-filter: blur(22px) saturate(1.5) brightness(0.62);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass {
+    background: rgb(3 60 62 / 0.88);
+  }
+}
+
+.glassTop {
+  top: var(--space-4);
+  left: var(--space-4);
+}
+
+.glassBottom {
+  right: var(--space-4);
+  bottom: var(--space-4);
+  left: var(--space-4);
+}
+
+.glassBig {
+  font-size: clamp(2.6rem, 2rem + 2.5vw, 4.25rem);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+
+.glassSmall {
+  color: rgb(255 255 255 / 0.88);
+  font-size: var(--step-0);
+}
+
+.glassTitle {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+:lang(ml) .glassTitle {
+  font-family: var(--font-ml-display);
+  line-height: 1.4;
+}
+
+.glassText {
+  color: rgb(255 255 255 / 0.88);
+  font-size: var(--step-0);
+  line-height: 1.45;
+}
+
+/* The count follows the chosen package. */
+.glassBig [data-for='cardio'],
+.grid:has([data-pkg-radio='cardio']:checked) .glassBig [data-for='royal'] {
+  display: none;
+}
+
+.grid:has([data-pkg-radio='cardio']:checked) .glassBig [data-for='cardio'] {
+  display: inline;
+}
+
+/* Thumbnails: the strip that picks the photo. */
+.thumbs {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(64px, 1fr);
+  gap: var(--space-2);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.thumbs::-webkit-scrollbar {
+  display: none;
+}
+
+.thumb {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1;
+  border-radius: 14px;
+  background: var(--mist);
+  cursor: pointer;
+  opacity: 0.7;
+  transition:
+    opacity var(--dur-fast) var(--ease-out),
+    transform var(--dur-base) var(--ease-out-quart);
+}
+
+.thumb:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+.thumb:has(:checked) {
+  opacity: 1;
+  box-shadow: inset 0 0 0 3px var(--deep);
+}
+
+.thumb:has(:focus-visible) {
+  outline: 3px solid var(--teal-600);
+  outline-offset: 3px;
+}
+
+.thumbImg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.thumb.contain {
+  background: #fff;
+}
+
+.thumb.contain .thumbImg {
+  padding: 6px;
+  object-fit: contain;
+}
+
+/* ---------- The details ---------- */
+.details {
+  display: grid;
+  align-content: start;
+  gap: var(--space-5);
+}
+
+/* The package switch: two segments, the chosen one deep teal. */
+.switch {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px;
+  padding: 4px;
+  border-radius: 20px;
+  background: var(--mist);
+}
+
+.tab {
+  position: relative;
+  display: grid;
+  align-content: center;
+  gap: 2px;
+  min-height: 64px;
+  padding: var(--space-2) var(--space-4);
+  border-radius: 16px;
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    background-color var(--dur-base) var(--ease-out-quart),
+    color var(--dur-base) var(--ease-out-quart);
+}
+
+.tab:hover {
+  background: var(--teal-100);
+}
+
+.tab:has(:checked) {
+  background: var(--deep);
+  color: #fff;
+}
+
+.tab:has(:focus-visible) {
+  outline: 3px solid var(--teal-600);
+  outline-offset: 2px;
+}
+
+.tabName {
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.tabPrice {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+/* One package at a time where :has works; both, stacked, where it does not. */
+.panel {
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+}
+
+@supports selector(:has(*)) {
+  .panel[data-panel='cardio'],
+  .grid:has([data-pkg-radio='cardio']:checked) .panel[data-panel='royal'] {
+    display: none;
+  }
+
+  .grid:has([data-pkg-radio='cardio']:checked) .panel[data-panel='cardio'] {
+    display: grid;
+    animation: panelIn 420ms var(--ease-out-quart) both;
+  }
+
+  .grid:has([data-pkg-radio='royal']:checked) .panel[data-panel='royal'] {
+    animation: panelIn 420ms var(--ease-out-quart) both;
+  }
+}
+
+/* After the offer ends only the Royal Package remains, whatever was chosen. */
+:global(html[data-offer='ended']) .panel[data-panel='royal'] {
+  display: grid;
+}
+
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--petrol-700);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.chipSoft {
+  background: var(--mist);
+  color: var(--ink);
+}
+
+.chipSoft svg {
+  width: 18px;
+  height: 18px;
+  color: var(--teal-700);
+}
+
+.name {
   font-size: var(--t-statement);
   font-weight: var(--hero-weight);
   line-height: 1.04;
@@ -20,102 +356,15 @@
   text-wrap: balance;
 }
 
-:lang(ml) .title {
+:lang(ml) .name {
   line-height: 1.32;
 }
 
-.compare {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-2);
-  min-height: var(--target);
-  font-weight: 700;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--space-4);
-}
-
-.panel {
-  display: grid;
-  align-content: start;
-  gap: var(--space-3);
-  min-width: 0;
-  padding: clamp(1.5rem, 1rem + 2.5vw, 3rem);
-  border-radius: var(--radius-card);
-}
-
-/* Royal: the one large petrol panel. */
-.royal {
-  background: var(--petrol-700);
-  color: #fff;
-}
-
-.royal :focus-visible {
-  outline-color: #fff;
-}
-
-/* The dated offer beside it, on the mist. */
-.cardio {
-  background: var(--mist);
-}
-
-.label {
-  color: var(--petrol-700);
-  font-weight: 700;
-}
-
-.royal .label {
-  color: var(--petrol-100);
-}
-
-.ended {
-  color: var(--ink);
-  font-weight: 700;
-}
-
-.price {
-  font-family: var(--font-display);
-  font-size: var(--t-price);
-  font-weight: 440;
-  line-height: 0.95;
-  letter-spacing: -0.03em;
-  color: var(--petrol-800);
-}
-
-.royal .price {
-  color: #fff;
-}
-
-.name {
-  font-size: var(--step-2);
-  font-weight: 560;
-}
-
-.royal .name {
-  color: #fff;
-}
-
-.meta {
-  font-weight: 600;
-}
-
-.royal .meta {
-  color: var(--petrol-100);
-}
-
 .summary {
-  max-width: 40ch;
-  color: var(--ink-2);
+  max-width: 46ch;
+  color: var(--ink-3);
   font-size: var(--step-1);
   line-height: 1.45;
-  text-wrap: pretty;
-}
-
-.royal .summary {
-  color: #fff;
 }
 
 :lang(ml) .summary {
@@ -123,9 +372,69 @@
   line-height: 1.75;
 }
 
+.priceRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-3);
+}
+
+.price {
+  font-family: var(--font-display);
+  font-size: var(--t-price);
+  font-weight: 420;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.priceFor {
+  color: var(--ink-3);
+  font-weight: 600;
+}
+
 .period {
   color: var(--ink-2);
   font-size: var(--step-0);
+}
+
+/* What is in it: a check per test. */
+.checks {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.checks li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--step-0);
+  line-height: 1.35;
+}
+
+.tick {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--deep);
+  color: #fff;
+}
+
+.tick svg {
+  width: 15px;
+  height: 15px;
+}
+
+.more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  justify-self: start;
+  min-height: var(--target);
+  font-weight: 700;
 }
 
 .notice {
@@ -148,67 +457,132 @@
 }
 
 .actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: var(--space-2) var(--space-5);
   margin-top: var(--space-2);
 }
 
-.link {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--target);
-  font-weight: 700;
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2) var(--space-5);
+  color: var(--ink-2);
+  font-size: 1rem;
 }
 
-.royal .link {
-  color: #fff;
+.facts li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.facts svg {
+  width: 18px;
+  height: 18px;
+  color: var(--teal-700);
+}
+
+.factFasting svg {
+  color: var(--amber-ink);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 var(--space-5);
+}
+
+.links a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--target);
+  font-weight: 700;
 }
 
 @media (min-width: 64rem) {
   .grid {
     grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    align-items: stretch;
+    column-gap: clamp(2rem, 1rem + 3vw, 4.5rem);
+    align-items: start;
   }
 
-  .royal {
-    padding: clamp(2rem, 1rem + 3vw, 4rem);
+  .stage {
+    aspect-ratio: 1;
   }
-}
 
-/* After the offer ends the Royal Package stands alone. */
-:global(html[data-offer='ended']) .grid {
-  grid-template-columns: minmax(0, 1fr);
-}
-
-/* Phones: the hero's offer slip, one screen above, already carries the dated offer and its notice. */
-@media (max-width: 63.99rem) {
-  .cardio {
-    display: none;
-  }
-}
-
-/* Panels lift a little under the pointer. */
-.panel {
-  transition:
-    transform var(--dur-base) var(--ease-out-quart),
-    box-shadow var(--dur-base) var(--ease-out-quart);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .panel:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 28px 56px -32px rgb(1 50 52 / 0.5);
+  .gallery {
+    position: sticky;
+    top: calc(var(--header-h) + var(--space-4));
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .panel {
+  .shot,
+  .thumb,
+  .tab {
     transition: none;
   }
 
-  .panel:hover {
-    transform: none;
+  .panel {
+    animation: none !important;
+  }
+}
+
+/* Phones: smaller cards that leave the photo visible. */
+@media (max-width: 47.99rem) {
+  .glass {
+    padding: var(--space-2) var(--space-3);
+    border-radius: 14px;
+  }
+
+  .glassTop {
+    top: var(--space-3);
+    left: var(--space-3);
+  }
+
+  .glassBottom {
+    right: var(--space-3);
+    bottom: var(--space-3);
+    left: var(--space-3);
+  }
+
+  .glassBig {
+    font-size: 2.1rem;
+  }
+
+  .glassSmall {
+    font-size: 1rem;
+  }
+
+  .glassTitle {
+    font-size: var(--step-0);
+    font-weight: 600;
+  }
+
+  .glassText {
+    display: none;
+  }
+
+  .stockNote {
+    top: auto;
+    right: var(--space-3);
+    bottom: calc(var(--space-3) + 52px);
+    font-size: 0.8rem;
+  }
+}
+
+/* Long Malayalam package names: a little smaller on phones, and never wider than their half. */
+.tab {
+  min-width: 0;
+}
+
+.tabName {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 47.99rem) {
+  :lang(ml) .tabName {
+    font-size: 1rem;
   }
 }
