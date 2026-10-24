@@ -1,48 +1,278 @@
+/*
+ * How home collection works: one rounded mist panel. Three numbered step cards sit on a
+ * line that joins their markers; the fasting notice and a deep booking card close it.
+ */
 .section {
-  padding-block: var(--section);
+  padding-block: calc(var(--section) * 0.5) var(--section);
 }
 
-.inner {
+.panel {
   display: grid;
-  gap: var(--space-7);
+  gap: var(--space-6);
+  padding: clamp(1.25rem, 0.75rem + 2.5vw, 3.5rem);
+  border-radius: var(--radius-field);
+  background: var(--mist);
 }
 
-.foot {
+.head {
   display: grid;
-  gap: var(--space-5);
+  gap: var(--space-3);
 }
 
-.side {
+.title {
+  font-size: var(--t-statement);
+  font-weight: var(--hero-weight);
+  line-height: 1.04;
+  letter-spacing: var(--hero-track);
+}
+
+:lang(ml) .title {
+  line-height: 1.32;
+}
+
+.lede {
+  max-width: 44ch;
+  color: var(--mist-ink-2);
+  font-size: var(--step-0);
+}
+
+/* ---------- The steps: a real sequence, so numbered, joined by a line ---------- */
+.steps {
+  position: relative;
   display: grid;
-  align-content: start;
-  gap: var(--space-2);
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
-.area {
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    'marker title'
+    'marker body';
+  align-items: start;
+  column-gap: var(--space-4);
+  row-gap: 2px;
+  padding: var(--space-4);
+  border-radius: 20px;
+  background: var(--paper);
+}
+
+.marker {
+  grid-area: marker;
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--deep);
+  color: #fff;
+}
+
+.num {
+  font-size: 1.15rem;
   font-weight: 600;
 }
 
+.icon {
+  display: none;
+}
+
+.stepTitle {
+  grid-area: title;
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+:lang(ml) .stepTitle {
+  font-family: var(--font-ml-display);
+  line-height: 1.45;
+}
+
+.body {
+  grid-area: body;
+  color: var(--ink-2);
+  font-size: var(--step-0);
+  line-height: 1.5;
+}
+
+/* ---------- Fasting and booking ---------- */
+.foot {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.book {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  border-radius: 20px;
+  background: var(--deep);
+  color: #fff;
+}
+
+.book :focus-visible {
+  outline-color: #fff;
+}
+
+.bookTitle {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 500;
+  line-height: 1.15;
+}
+
+:lang(ml) .bookTitle {
+  font-family: var(--font-ml-display);
+  line-height: 1.4;
+}
+
+.area {
+  color: var(--deep-ink-2);
+}
+
+.area a {
+  color: #fff;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-1);
+}
+
 .link {
-  justify-self: start;
   display: inline-flex;
   align-items: center;
+  justify-self: start;
+  gap: var(--space-2);
   min-height: var(--target);
+  color: #fff;
   font-weight: 700;
 }
 
-@media (min-width: 64rem) {
-  .foot {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    column-gap: var(--space-8);
-  }
+.link:hover {
+  color: var(--teal-200);
 }
 
+/* Phones: the bottom bar already carries Call and WhatsApp, and the steps say what the lede says. */
 @media (max-width: 47.99rem) {
-  .inner {
+  .actions,
+  .lede {
+    display: none;
+  }
+
+  .panel {
     gap: var(--space-5);
   }
 
-  .foot {
+  .step {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .marker {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+/* ---------- Wider screens: three cards across on one line ---------- */
+@media (min-width: 48rem) {
+  .steps {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--space-4);
+  }
+
+  /* The line that joins the three markers. */
+  .steps::before {
+    content: '';
+    position: absolute;
+    top: calc(var(--space-5) + 22px);
+    right: 12%;
+    left: 12%;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, var(--teal-300) 0 8px, transparent 8px 14px);
+  }
+
+  .step {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'marker'
+      'title'
+      'body';
+    row-gap: var(--space-2);
+    padding: var(--space-5);
+    transition: transform var(--dur-base) var(--ease-out-quart);
+  }
+
+  .marker {
+    margin-bottom: var(--space-3);
+  }
+
+  /* The step's icon sits at the card's top right. */
+  .icon {
+    position: absolute;
+    top: var(--space-5);
+    right: var(--space-5);
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--mist);
+    color: var(--teal-700);
+  }
+
+  .foot {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: start;
+    gap: var(--space-4);
+  }
+}
+
+@media (min-width: 48rem) and (hover: hover) and (pointer: fine) {
+  .step:hover {
+    transform: translateY(-4px);
+  }
+}
+
+@media (min-width: 64rem) {
+  .head {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: end;
+    column-gap: var(--space-7);
+  }
+
+  .lede {
+    justify-self: end;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .step {
+    transition: none;
+  }
+}
+
+/* Phones keep the sequence short: the step titles carry it, and the Home collection page has the detail. */
+@media (max-width: 47.99rem) {
+  .body {
+    display: none;
+  }
+
+  .step {
+    align-items: center;
+  }
+
+  .foot :global(aside p + p) {
+    display: none;
   }
 }

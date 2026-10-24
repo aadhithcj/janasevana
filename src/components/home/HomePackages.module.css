@@ -548,3 +548,11 @@
     display: none;
   }
 }
+
+/* Phones: the photo card already says free home collection, and the checks say what the summary says. */
+@media (max-width: 47.99rem) {
+  .summary,
+  .chipSoft {
+    display: none;
+  }
+}

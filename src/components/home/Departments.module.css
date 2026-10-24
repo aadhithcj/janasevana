@@ -357,3 +357,14 @@
     transition: none;
   }
 }
+
+/* Phones: three tests per card (the link gives the full count) and a shorter photo. */
+@media (max-width: 63.99rem) {
+  .list li:nth-child(n + 4) {
+    display: none;
+  }
+
+  .photo img {
+    height: 7rem;
+  }
+}

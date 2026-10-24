@@ -282,3 +282,15 @@
     transition: none;
   }
 }
+
+/* Phones: the placeholder already shows how to search. */
+@media (max-width: 47.99rem) {
+  .lede {
+    display: none;
+  }
+
+  .tile {
+    min-height: 64px;
+    padding-block: var(--space-2);
+  }
+}

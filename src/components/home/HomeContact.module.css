@@ -49,3 +49,11 @@
   margin-bottom: var(--space-4);
   border-radius: var(--radius-card);
 }
+
+/* Phones: "Get directions" opens the maps app, which serves better than a small embedded map;
+   the Contact page keeps the map. */
+@media (max-width: 47.99rem) {
+  .map :global(figure) {
+    display: none;
+  }
+}
