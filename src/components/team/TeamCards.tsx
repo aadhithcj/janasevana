@@ -23,8 +23,8 @@ export function TeamCards({ locale, label }: { locale: Locale; label: string }) 
   return (
     // On phones the list scrolls sideways, so it takes focus for keyboard scrolling.
     <ul role="list" className={s.grid} tabIndex={0} aria-label={label}>
-      {team.map((m, i) => (
-        <li key={m.id} className={s.card} data-reveal style={{ '--i': i } as React.CSSProperties}>
+      {team.map((m) => (
+        <li key={m.id} className={s.card}>
           {photo ? (
             // Static export: the owner's photo is served as is.
             // eslint-disable-next-line @next/next/no-img-element

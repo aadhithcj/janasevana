@@ -31,7 +31,7 @@
   border-radius: 20px;
   background: var(--teal-700);
   scroll-snap-align: start;
-  transition: transform var(--dur-base) var(--ease-out-quart);
+  transition: flex-grow 560ms var(--ease-out-quart);
 }
 
 .monogram {
@@ -39,7 +39,8 @@
   justify-self: center;
   color: var(--teal-200);
   font-family: var(--font-display);
-  font-size: clamp(4.5rem, 3.5rem + 4vw, 6.5rem);
+  /* Sized to fit even a card that has given way to its hovered neighbour. */
+  font-size: clamp(3.75rem, 3rem + 2.5vw, 5rem);
   font-weight: 400;
   line-height: 1;
   letter-spacing: -0.04em;
@@ -81,26 +82,52 @@
   overflow-wrap: anywhere;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .card:hover {
-    transform: translateY(-6px);
-  }
-}
 
+
+/*
+ * Wider screens: three across; the card under the pointer widens and the others give way.
+ * The plate's width comes from the row (container units), never from its own card, so its
+ * text does not rewrap while widths animate; plates in the cards that give way fade out
+ * instead of squeezing, and come back when the pointer leaves.
+ */
 @media (min-width: 48rem) {
   .grid {
-    grid-auto-flow: row;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    display: flex;
     overflow: visible;
+    container-type: inline-size;
   }
 
   .card {
+    flex: 1 1 0;
+    min-width: 0;
     min-height: 24rem;
+    overflow: hidden;
+  }
+
+  .plate {
+    justify-self: center;
+    width: calc((100cqi - 2 * var(--space-3)) / 3 - 2 * var(--space-3));
+    transition: opacity 260ms var(--ease-out);
+  }
+}
+
+@media (min-width: 48rem) and (hover: hover) and (pointer: fine) {
+  .grid:hover .card {
+    flex-grow: 0.75;
+  }
+
+  .grid .card:hover {
+    flex-grow: 1.6;
+  }
+
+  .grid:hover .card:not(:hover) .plate {
+    opacity: 0;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card {
+  .card,
+  .plate {
     transition: none;
   }
 }

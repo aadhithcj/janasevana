@@ -228,19 +228,24 @@ html[data-offer='upcoming'] [data-when-offer]:not([data-when-offer~='upcoming'])
   animation-delay: calc(var(--i, 0) * 70ms);
 }
 
-/* Section reveal: only for blocks that started below the fold; runs once. */
-.motion [data-reveal='pending'] {
-  opacity: 0;
-  transform: translateY(16px);
+/*
+ * Section reveal, driven by the element's own entry into view (a CSS view timeline), so no script
+ * touches the markup before React hydrates. Elements already on screen are simply shown; staggered
+ * items enter a little later along the same scroll. Browsers without view timelines show everything.
+ */
+@supports (animation-timeline: view()) {
+  .motion [data-reveal] {
+    animation: reveal-in linear both;
+    animation-timeline: view();
+    animation-range: entry calc(var(--i, 0) * 5%) entry calc(40% + var(--i, 0) * 5%);
+  }
 }
 
-.motion [data-reveal='in'] {
-  opacity: 1;
-  transform: none;
-  transition:
-    opacity var(--dur-slow) var(--ease-out),
-    transform var(--dur-slow) var(--ease-out);
-  transition-delay: calc(var(--i, 0) * 90ms);
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
 }
 
 @view-transition {

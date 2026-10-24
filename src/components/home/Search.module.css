@@ -1,11 +1,22 @@
+/*
+ * "What do you need?": one rounded mist panel holding the question, a large white search,
+ * and the everyday entry points as tiles.
+ */
 .section {
-  padding-block: calc(var(--section) * 0.8) calc(var(--section) * 0.4);
+  padding-block: calc(var(--section) * 0.9) calc(var(--section) * 0.4);
 }
 
-.inner {
+.panel {
   display: grid;
-  justify-items: start;
-  gap: var(--space-4);
+  gap: var(--space-5);
+  padding: clamp(1.25rem, 0.75rem + 2.5vw, 3.5rem);
+  border-radius: var(--radius-field);
+  background: var(--mist);
+}
+
+.head {
+  display: grid;
+  gap: var(--space-3);
 }
 
 .title {
@@ -19,33 +30,41 @@
   line-height: 1.32;
 }
 
-/* One large pill: icon, field, and a round submit inside it. */
+.lede {
+  max-width: 40ch;
+  color: var(--mist-ink-2);
+  font-size: var(--step-0);
+}
+
+/* The search: a large white pill that lifts off the panel, with a labelled submit. */
 .form {
   position: relative;
   display: flex;
   align-items: center;
-  width: min(100%, 44rem);
-  margin-top: var(--space-2);
 }
 
 .icon {
   position: absolute;
-  left: 1.25rem;
+  left: 1.4rem;
   color: var(--teal-700);
   pointer-events: none;
 }
 
 .input {
   width: 100%;
-  min-height: 64px;
-  padding: 0 4.5rem 0 3.4rem;
-  border: 2px solid var(--charcoal-500);
+  min-height: 68px;
+  padding: 0 9rem 0 3.6rem;
+  border: 0;
   border-radius: var(--radius-pill);
   background: var(--paper);
   color: var(--ink);
   font-size: var(--step-0);
+  box-shadow:
+    0 1px 2px rgb(3 73 76 / 0.08),
+    0 18px 40px -26px rgb(3 73 76 / 0.45);
   -webkit-appearance: none;
   appearance: none;
+  transition: box-shadow var(--dur-base) var(--ease-out);
 }
 
 .input::placeholder {
@@ -59,26 +78,37 @@
 
 .input:focus-visible {
   outline: none;
-  border-color: var(--teal-700);
-  box-shadow: 0 0 0 4px var(--teal-200);
+  box-shadow:
+    0 0 0 3px var(--teal-600),
+    0 18px 40px -26px rgb(3 73 76 / 0.45);
 }
 
 .submit {
   position: absolute;
-  right: 6px;
-  display: grid;
-  place-items: center;
-  width: 52px;
+  right: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
   height: 52px;
+  padding: 0 var(--space-5);
   border: 0;
-  border-radius: 50%;
+  border-radius: var(--radius-pill);
   background: var(--deep);
   color: #fff;
+  font-weight: 700;
   transition: background-color var(--dur-fast) var(--ease-out);
 }
 
 .submit:hover {
   background: var(--teal-900);
+}
+
+.submit svg {
+  transition: transform var(--dur-base) var(--ease-out-quart);
+}
+
+.submit:hover svg {
+  transform: translateX(3px);
 }
 
 .submit:focus-visible {
@@ -87,64 +117,168 @@
 }
 
 .catsLabel {
-  margin-top: var(--space-3);
-  color: var(--ink-3);
-  font-size: var(--step-0);
+  margin-top: var(--space-2);
+  color: var(--mist-ink-2);
+  font-weight: 700;
 }
 
-.cats {
-  display: flex;
-  flex-wrap: wrap;
+/* The entry points: white tiles with the count beneath the name and an arrow that turns on hover. */
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-2);
 }
 
-.cat {
-  display: inline-flex;
-  align-items: center;
+.tile {
+  position: relative;
+  display: grid;
+  align-content: space-between;
   gap: var(--space-2);
-  min-height: var(--target);
-  padding: 0 var(--space-4);
-  border-radius: var(--radius-pill);
-  background: var(--mist);
+  min-height: 84px;
+  height: 100%;
+  padding: var(--space-3) var(--space-4);
+  border-radius: 18px;
+  background: var(--paper);
   color: var(--ink);
-  font-weight: 600;
-  text-decoration: none;
   transition:
-    background-color var(--dur-fast) var(--ease-out),
-    color var(--dur-fast) var(--ease-out);
-}
-
-.cat svg {
-  width: 18px;
-  height: 18px;
-  margin-right: -4px;
-  color: var(--teal-700);
-  opacity: 0;
-  transform: translateX(-6px);
-  transition:
-    opacity var(--dur-fast) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out-quart),
+    color var(--dur-base) var(--ease-out-quart),
     transform var(--dur-base) var(--ease-out-quart);
 }
 
-.cat:hover {
+.tile:hover {
   background: var(--deep);
   color: #fff;
 }
 
-.cat:hover svg {
-  opacity: 1;
-  transform: none;
+.tileName {
+  padding-right: 2.25rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.tileCount {
+  color: var(--ink-3);
+  font-size: 1rem;
+  transition: color var(--dur-base) var(--ease-out-quart);
+}
+
+.tile:hover .tileCount {
+  color: var(--deep-ink-2);
+}
+
+.tileArrow {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--mist);
+  color: var(--deep);
+  transform: rotate(-45deg);
+  transition:
+    transform var(--dur-base) var(--ease-out-quart),
+    background-color var(--dur-base) var(--ease-out-quart);
+}
+
+.tileArrow svg {
+  width: 18px;
+  height: 18px;
+}
+
+.tile:hover .tileArrow {
+  background: #fff;
+  transform: rotate(0deg);
+}
+
+/* "All tests": the way into the whole directory, in deep teal. */
+.tileAll {
+  background: var(--deep);
   color: #fff;
 }
 
-.cat:focus-visible svg {
-  opacity: 1;
-  transform: none;
+.tileAll .tileCount {
+  color: var(--deep-ink-2);
 }
 
-/* Leave room on the right for the hero's overhanging offer slip. */
+.tileAll .tileArrow {
+  background: rgb(255 255 255 / 0.16);
+  color: #fff;
+}
+
+.tileAll:hover {
+  background: var(--teal-900);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .tile:hover {
+    transform: translateY(-3px);
+  }
+}
+
+/* Phones: a shorter submit with the arrow only. */
+@media (max-width: 47.99rem) {
+  .input {
+    min-height: 60px;
+    padding-right: 4.5rem;
+  }
+
+  .submit {
+    width: 48px;
+    height: 48px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .submitLabel {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .tile {
+    min-height: 72px;
+  }
+
+  /* Two tiles across leave no room for an arrow beside long names; the whole tile is the tap target. */
+  .tileArrow {
+    display: none;
+  }
+
+  .tileName {
+    padding-right: 0;
+  }
+}
+
+/* Four across: seven entry points and "All tests" fill two even rows. */
+@media (min-width: 48rem) {
+  .tiles {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
 @media (min-width: 64rem) {
-  .inner {
-    max-width: calc(100% - 27rem);
+  .head {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: end;
+    column-gap: var(--space-7);
+  }
+
+  .lede {
+    justify-self: end;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile,
+  .tileArrow,
+  .submit svg {
+    transition: none;
   }
 }

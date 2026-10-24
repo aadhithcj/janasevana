@@ -1,7 +1,7 @@
 /*
- * Packages as a product page. Left: a large photo with frosted fact cards and
- * a thumbnail strip. Right: the package switch, then the chosen package.
- * Radios drive both (CSS :has), so nothing needs script.
+ * Packages as a product page. Left: a large photo with frosted fact cards,
+ * following the chosen package. Right: the package switch, then the chosen
+ * package. Radios drive it (CSS :has), so nothing needs script.
  */
 .section {
   padding-block: calc(var(--section) * 0.75) var(--section);
@@ -57,28 +57,26 @@
   object-fit: cover;
 }
 
-.shot.contain {
-  background: #fff;
-}
-
-.shot.contain .shotImg {
-  padding: 8% 10% 22%;
-  object-fit: contain;
-}
-
-/* The chosen photo; the first one when nothing can be chosen. */
-.shot[data-shot='0'],
-.gallery:has([data-shot-radio='1']:checked) .shot[data-shot='1'],
-.gallery:has([data-shot-radio='2']:checked) .shot[data-shot='2'],
-.gallery:has([data-shot-radio='3']:checked) .shot[data-shot='3'],
-.gallery:has([data-shot-radio='4']:checked) .shot[data-shot='4'] {
+/* The photo follows the chosen package; the Royal photo when nothing can be chosen. */
+.shot[data-shot='royal'],
+.grid:has([data-pkg-radio='cardio']:checked) .shot[data-shot='cardio'] {
   opacity: 1;
   transform: none;
 }
 
-.gallery:has([data-shot-radio]:not([data-shot-radio='0']):checked) .shot[data-shot='0'] {
+.grid:has([data-pkg-radio='cardio']:checked) .shot[data-shot='royal'] {
   opacity: 0;
   transform: scale(1.04);
+}
+
+/* After the offer ends only the Royal Package (and its photo) remains. */
+:global(html[data-offer='ended']) .shot[data-shot='royal'] {
+  opacity: 1;
+  transform: none;
+}
+
+:global(html[data-offer='ended']) .shot[data-shot='cardio'] {
+  opacity: 0;
 }
 
 .stockNote {
@@ -167,64 +165,6 @@
 
 .grid:has([data-pkg-radio='cardio']:checked) .glassBig [data-for='cardio'] {
   display: inline;
-}
-
-/* Thumbnails: the strip that picks the photo. */
-.thumbs {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(64px, 1fr);
-  gap: var(--space-2);
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.thumbs::-webkit-scrollbar {
-  display: none;
-}
-
-.thumb {
-  position: relative;
-  overflow: hidden;
-  aspect-ratio: 1;
-  border-radius: 14px;
-  background: var(--mist);
-  cursor: pointer;
-  opacity: 0.7;
-  transition:
-    opacity var(--dur-fast) var(--ease-out),
-    transform var(--dur-base) var(--ease-out-quart);
-}
-
-.thumb:hover {
-  opacity: 1;
-  transform: translateY(-2px);
-}
-
-.thumb:has(:checked) {
-  opacity: 1;
-  box-shadow: inset 0 0 0 3px var(--deep);
-}
-
-.thumb:has(:focus-visible) {
-  outline: 3px solid var(--teal-600);
-  outline-offset: 3px;
-}
-
-.thumbImg {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.thumb.contain {
-  background: #fff;
-}
-
-.thumb.contain .thumbImg {
-  padding: 6px;
-  object-fit: contain;
 }
 
 /* ---------- The details ---------- */
@@ -519,7 +459,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .shot,
-  .thumb,
   .tab {
     transition: none;
   }
@@ -584,5 +523,28 @@
 @media (max-width: 47.99rem) {
   :lang(ml) .tabName {
     font-size: 1rem;
+  }
+}
+
+.phoneOnly {
+  display: none;
+}
+
+/* Phones: four tests, then the button; the facts row repeats the chips and the photo card. */
+@media (max-width: 47.99rem) {
+  .phoneOnly {
+    display: inline;
+  }
+
+  .wideOnly {
+    display: none;
+  }
+
+  .checks li:nth-child(n + 5) {
+    display: none;
+  }
+
+  .facts {
+    display: none;
   }
 }

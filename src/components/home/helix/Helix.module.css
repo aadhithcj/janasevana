@@ -12,7 +12,8 @@
   aspect-ratio: 1;
   overflow: hidden;
   border-radius: 0 var(--radius-field) 0 0;
-  opacity: 0.42;
+  /* Faint enough that the headline holds 7:1 and the lede 4.5:1 over the densest strands. */
+  opacity: 0.32;
   pointer-events: none;
 }
 

@@ -1,5 +1,5 @@
 // The live helix. Loaded after idle only for tiers A and B; tier C keeps the poster.
-// A: about 6,000 particles at full rate with the pointer push. B: 2,500 at 30fps, drift only.
+// A: 8,000 particles at full rate with the pointer push. B: 3,200 at 30fps, drift only.
 // Drawing is one WebGL2 call per frame (gl.mjs); without WebGL2 the poster simply stays.
 // After a short warm-up, 30 frames are timed; a slow tier steps down and never steps back up.
 import { CONFIGS, build } from './geometry.mjs';
@@ -28,7 +28,7 @@ export function start(root, tier) {
     root.appendChild(canvas);
     size();
     const P = build(cfg);
-    n = Math.min(P.n, tier === 'A' ? 6000 : 2500);
+    n = Math.min(P.n, tier === 'A' ? P.n : 3200);
     draw = renderer(canvas, P, P.n, cfg, colors);
     if (!draw) {
       stop();
@@ -83,7 +83,7 @@ export function start(root, tier) {
     if (tier === 'A') {
       tier = 'B';
       root.dataset.tier = 'B';
-      n = Math.min(n, 2500);
+      n = Math.min(n, 3200);
       ptr.ts = 0;
       probe = [];
       gaps = [];

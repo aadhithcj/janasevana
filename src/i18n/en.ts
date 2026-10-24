@@ -92,6 +92,8 @@ export const en = {
     searchHintPrefix: 'Try: ',
     searchSubmit: 'Search',
     searchCats: 'Or start from what you are checking',
+    searchAll: 'All tests',
+    searchLede: 'Search every test by its name, or by an everyday word like sugar or thyroid.',
     pkgSwitch: 'Choose a package',
     pkgPhotos: 'Package photos',
     pkgFor: (n: number) => `for ${n} tests`,
@@ -104,7 +106,7 @@ export const en = {
     stockCaption: 'Representative photo',
     stockAlt: {
       tube: 'A gloved hand placing blood sample tubes in a rack',
-      vials: 'Blood sample tubes with coloured caps in a rack',
+      heart: 'An anatomical model of the heart on a stand',
     },
     deptTitle: 'What the lab does',
     discover: 'Discover',

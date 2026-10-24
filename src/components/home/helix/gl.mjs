@@ -4,6 +4,7 @@
 // canvas and the build-time poster, so the poster is exactly frame 0.
 
 const VERT = `#version 300 es
+#define GROOVE 2.45
 layout(location=0) in vec2 aCorner;
 layout(location=1) in vec4 aA;
 layout(location=2) in vec3 aJ;
@@ -15,13 +16,16 @@ out float vR, vSoft, vAlpha;
 out vec3 vColor;
 void main() {
   float th = aA.y + uPhase;
-  float z = uR * sin(th) * aA.z + aJ.z;
+  // Strands (aA.z = 2) sit on the circle; rung dots lie on the chord to the other strand.
+  vec2 cs = vec2(cos(th), sin(th));
+  if (aA.z < 1.5) cs = mix(cs, vec2(cos(th + GROOVE), sin(th + GROOVE)), aA.z);
+  float z = uR * cs.y + aJ.z;
   float p = 1.0 + 0.22 * z / uR;
-  float w = uR * cos(th) * aA.z * p;
+  float w = uR * cs.x * p;
   vec2 pos = (uC + aA.x * uAxis + w * uPerp + aJ.xy) * uK + uOff;
   float zn = z / uR;
-  float size = zn > 0.45 ? 4.2 : zn < -0.4 ? 1.0 : 1.62;
-  vAlpha = zn > 0.45 ? 0.34 : zn < -0.4 ? 0.55 : 0.85;
+  float size = zn > 0.45 ? 2.6 : zn < -0.4 ? 1.15 : 1.75;
+  vAlpha = zn > 0.45 ? 0.5 : zn < -0.4 ? 0.5 : 0.9;
   vSoft = zn > 0.45 ? 1.0 : 0.0;
   vec2 d = pos - uPointer.xy;
   float dist = length(d);

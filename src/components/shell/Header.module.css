@@ -111,8 +111,21 @@
   place-items: center;
   width: 48px;
   height: 48px;
+  overflow: hidden;
   border-radius: 50%;
   background: var(--paper);
+  transition:
+    width 520ms var(--ease-out-quart),
+    margin 520ms var(--ease-out-quart),
+    opacity 260ms var(--ease-out);
+}
+
+/* The mark belongs to the top of the page; once the bar becomes a pill it eases away and the pill starts with the links. */
+:global(html.scrolled) .markLink {
+  width: 0;
+  margin-right: calc(-1 * var(--space-2));
+  opacity: 0;
+  pointer-events: none;
 }
 
 .mark {
@@ -459,7 +472,8 @@
   .bar,
   .name,
   .nameLead,
-  .toggle {
+  .toggle,
+  .markLink {
     transition: none;
   }
 
