@@ -8,31 +8,41 @@ import { Icon } from '@/components/ui/Icon';
 import { AddToBooking } from '@/components/index/AddToBooking';
 import s from './HomePackages.module.css';
 
-/** Price first: the Royal Package as a petrol panel, the dated offer on white beside it. */
+/**
+ * The hero already carries one package (the offer while it runs, Royal after),
+ * so this section shows the other one. Without the head script both show.
+ */
 export function HomePackages({ locale }: { locale: Locale }) {
   const d = getDict(locale);
   return (
     <section className={s.section} aria-labelledby="pk-title">
-      <div className="wrap">
-        <h2 id="pk-title" className={s.title}>
-          {d.sections.packages}
-        </h2>
+      <div className={`wrap ${s.layout}`}>
+        <div className={s.intro}>
+          <h2 id="pk-title" className={s.title}>
+            <span data-when-offer="none">{d.sections.packages}</span>
+            <span data-when-offer="live upcoming ended">{d.sections.packagesOther}</span>
+          </h2>
+          <Link href={href(locale, 'packages')} className={s.compare}>
+            {d.home.packagesLink}
+            <Icon name="arrow" />
+          </Link>
+        </div>
         <div className={s.grid}>
-          <Panel pkg={royalPackage} locale={locale} />
-          <Panel pkg={cardioPackage} locale={locale} />
+          <Panel pkg={royalPackage} locale={locale} when="live upcoming" />
+          <Panel pkg={cardioPackage} locale={locale} when="ended" />
         </div>
       </div>
     </section>
   );
 }
 
-function Panel({ pkg, locale }: { pkg: HealthPackage; locale: Locale }) {
+function Panel({ pkg, locale, when }: { pkg: HealthPackage; locale: Locale; when: string }) {
   const d = getDict(locale);
   const item = packageItem(pkg);
   const id = `home-pk-${pkg.id}`;
   const dated = Boolean(pkg.window);
   return (
-    <article className={`${s.panel} ${pkg.id === 'royal' ? s.royal : s.cardio}`} aria-labelledby={id} data-reveal>
+    <article className={`${s.panel} ${pkg.id === 'royal' ? s.royal : s.cardio}`} aria-labelledby={id} data-when-offer={when} data-reveal>
       <p className={`${s.price} num`}>{formatInr(pkg.priceInr)}</p>
       <h3 id={id} className={s.name}>
         {pkg.name[locale]}

@@ -90,6 +90,7 @@ export const en = {
 
   sections: {
     packages: 'Two packages, free home collection.',
+    packagesOther: 'The other package.',
     categories: 'What are you checking?',
     categoryTests: (n: number) => (n === 1 ? '1 item' : `${n} items`),
     capabilities: 'What the lab does',
@@ -186,7 +187,7 @@ export const en = {
     testsHeading: 'Tests in this package',
     noticeLabel: 'Please read',
     bookThis: 'Book this package',
-    select: 'Select for booking',
+    select: 'Add to booking',
     selected: 'Selected',
     askWhatsapp: 'Ask about it on WhatsApp',
     contents: 'What’s in it',

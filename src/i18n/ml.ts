@@ -98,6 +98,7 @@ export const ml: Dict = {
 
   sections: {
     packages: 'രണ്ട് പാക്കേജുകൾ, സൗജന്യ ഹോം കളക്ഷൻ.',
+    packagesOther: 'മറ്റൊരു പാക്കേജ്.',
     categories: 'എന്താണ് പരിശോധിക്കേണ്ടത്?',
     categoryTests: (n: number) => `${n} എണ്ണം`,
     capabilities: 'ലാബിൽ എന്തെല്ലാം ചെയ്യുന്നു',
@@ -193,7 +194,7 @@ export const ml: Dict = {
     testsHeading: 'ഈ പാക്കേജിലെ ടെസ്റ്റുകൾ',
     noticeLabel: 'ശ്രദ്ധിക്കുക',
     bookThis: 'ഈ പാക്കേജ് ബുക്ക് ചെയ്യാം',
-    select: 'ബുക്കിങ്ങിനായി തിരഞ്ഞെടുക്കുക',
+    select: 'ബുക്കിങ്ങിൽ ചേർക്കുക',
     selected: 'തിരഞ്ഞെടുത്തു',
     askWhatsapp: 'WhatsApp-ൽ ചോദിക്കുക',
     contents: 'ഇതിൽ ഉള്ളത്',

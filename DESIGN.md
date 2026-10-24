@@ -66,7 +66,7 @@ Ramps (teal, charcoal, petrol 50–900) are derived in OKLCH from the seeds. Str
 
 ## Sticky rules
 
-Two places only. **Packages:** the package summary (name, price, "free home sample collection", test count, Select for booking) pins left while the Index and notice scroll right. **Home capabilities:** the department index pins left and highlights the department in view while its rows scroll right (IntersectionObserver only sets `aria-current`). Pin only when `min-width: 64rem` AND `min-height: 45rem` (1024×720); the pinned panel's `max-height` is 80vh with its own scroll; everywhere else the panels stack. Pure CSS `position: sticky`; content is complete if the script never runs.
+Two places only. **Packages:** the package summary (name, price, "free home sample collection", test count, Add to booking) pins left while the Index and notice scroll right. **Home capabilities:** the department index pins left and highlights the department in view while its rows scroll right (IntersectionObserver only sets `aria-current`). Pin only when `min-width: 64rem` AND `min-height: 45rem` (1024×720); the pinned panel's `max-height` is 80vh with its own scroll; everywhere else the panels stack. Pure CSS `position: sticky`; content is complete if the script never runs.
 
 ## Offer behaviour
 

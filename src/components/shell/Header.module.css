@@ -224,8 +224,22 @@
   }
 }
 
-/* Malayalam labels are longer: keep the menu until every link fits. */
-@media (min-width: 72rem) and (max-width: 87.99rem) {
+/* Malayalam labels are longer: tighter links from 80rem, the menu below that. */
+@media (min-width: 80rem) {
+  :lang(ml) .nav {
+    margin-left: var(--space-4);
+  }
+
+  :lang(ml) .navList {
+    gap: 0;
+  }
+
+  :lang(ml) .navLink {
+    padding: 0 9px;
+  }
+}
+
+@media (min-width: 72rem) and (max-width: 79.99rem) {
   :lang(ml) .nav {
     display: none;
   }
