@@ -7,11 +7,11 @@
  * (keyboard and screen readers reach every section), the section in view marked
  * as current, and no index numbers.
  *
- * Three forms, one set of links:
- * - wide screens whose margin fits the labels: the labels sit beside the markers, quiet at rest;
- * - wide screens without that room: markers only, and the hovered or focused marker shows its
- *   label as a small pill, so nothing covers the page's text;
- * - phones and tablets: a floating button naming the current section, which opens the list.
+ * One set of links in three forms:
+ * - screens with a mouse: marker lines only at rest, the section in view the brightest. On hover,
+ *   where the margin fits the labels they expand beside the lines; without that room only the
+ *   hovered or focused line shows its label as a small pill, so nothing covers the page's text;
+ * - touch screens: a floating button naming the current section, which opens the list.
  */
 import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import s from './SectionNav.module.css';
@@ -92,7 +92,7 @@ export function SectionNav({ items, label }: { items: Item[]; label: string }) {
       const widest = Math.max(0, ...labels.map((l) => l.scrollWidth));
       const content = wrap.getBoundingClientRect().left + parseFloat(getComputedStyle(wrap).paddingLeft);
       // nav offset + list padding + marker + gap + label + the current label's step + breathing room
-      setRoom(6 + 8 + 24 + 12 + widest + 8 + 24 <= content);
+      setRoom(2 + 4 + 16 + 12 + widest + 8 + 24 <= content);
     };
     const queue = () => {
       if (!pending) pending = requestAnimationFrame(spy);

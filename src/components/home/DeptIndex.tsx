@@ -25,9 +25,16 @@ export function DeptIndex() {
         const on = a.getAttribute('href') === `#${id}`;
         if (on) a.setAttribute('aria-current', 'true');
         else a.removeAttribute('aria-current');
-        // Keep the active chip in view on phones without moving the page.
+        // Keep the active chip in view on phones without moving the page: scroll only as far as it
+        // takes to clear the row's padding, so the first chip still lines up with the page edge.
         if (on && index.scrollWidth > index.clientWidth) {
-          index.scrollTo({ left: a.offsetLeft - index.clientWidth / 2 + a.offsetWidth / 2, behavior: 'smooth' });
+          const row = index.getBoundingClientRect();
+          const chip = a.getBoundingClientRect();
+          const pad = parseFloat(getComputedStyle(index).paddingLeft);
+          let left = index.scrollLeft;
+          if (chip.left < row.left + pad) left -= row.left + pad - chip.left;
+          else if (chip.right > row.right - pad) left += chip.right - (row.right - pad);
+          if (left !== index.scrollLeft) index.scrollTo({ left, behavior: 'smooth' });
         }
       });
     };

@@ -382,9 +382,9 @@
   white-space: nowrap;
 }
 
-/* Phones: the toggle offers only the other language, which is all a tap needs, and the
+/* Phones and tablets: the toggle offers only the other language, which is all a tap needs, and the
    name sits beside the mark (there is no room to centre it between the controls). */
-@media (max-width: 47.99rem) {
+@media (max-width: 63.99rem) {
   .seg[aria-current='true'] {
     display: none;
   }
@@ -412,6 +412,13 @@
 }
 
 @media (min-width: 48rem) {
+  .name {
+    font-size: 1.3rem;
+  }
+}
+
+/* Desktop: the links, Contact and the request label join the bar; the menu stays an icon. */
+@media (min-width: 64rem) {
   .contact {
     display: inline-flex;
   }
@@ -424,25 +431,6 @@
     clip: auto;
   }
 
-  .menuTrigger {
-    padding: 0 var(--space-4);
-  }
-
-  .menuTrigger span {
-    position: static;
-    width: auto;
-    height: auto;
-    overflow: visible;
-    clip: auto;
-  }
-
-  .name {
-    font-size: 1.3rem;
-  }
-}
-
-/* Desktop: the links join the bar. */
-@media (min-width: 64rem) {
   .nav {
     display: block;
   }

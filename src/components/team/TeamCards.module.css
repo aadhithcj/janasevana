@@ -1,4 +1,4 @@
-/* Phones: a snapping row with a peek of the next card. Wider: three across. */
+/* Phones: a snapping row with a peek of the next card. From 576px: three across. */
 .grid {
   display: grid;
   grid-auto-flow: column;
@@ -116,6 +116,25 @@
     justify-content: center;
     gap: 3px;
     transition: opacity 260ms var(--ease-out);
+  }
+}
+
+/* Large phones and small tablets: all three cards in one row, no swiping. */
+@media (min-width: 36rem) and (max-width: 47.99rem) {
+  .grid {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-2);
+    overflow: visible;
+  }
+
+  .card {
+    min-height: 16rem;
+    padding: var(--space-2);
+  }
+
+  .plate {
+    padding: var(--space-3) var(--space-2);
   }
 }
 

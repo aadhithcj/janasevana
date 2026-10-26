@@ -1,8 +1,9 @@
 /*
  * The home section index, shown once the search section is current and hidden near the footer.
- * Wide screens (80rem+): marker lines at the left edge. With margin room ([data-room]) the labels
- * sit beside them, quiet at rest; without it only the hovered or focused marker shows its label,
- * as a small pill. Phones and tablets: a floating button that opens the list.
+ * Screens with a mouse: marker lines at the left edge; the section in view has the brightest line.
+ * On hover, where the margin fits the labels ([data-room]) they expand beside the lines; without
+ * that room only the hovered or focused line shows its label, as a small pill.
+ * Touch screens: a floating button that opens the list.
  * --effect (0..1) is eased per item by script: pointer proximity, or 1 for the section in view.
  */
 /* Hidden means out of the tab order too: visibility follows the fade out, and leads the fade in. */
@@ -31,15 +32,15 @@
   display: none;
 }
 
-@media (min-width: 80rem) {
+@media (min-width: 48rem) and (hover: hover) and (pointer: fine) {
   .list {
     position: fixed;
     top: 50%;
-    left: 6px;
+    left: 2px;
     z-index: 15;
     display: grid;
     margin: 0;
-    padding: var(--space-2) var(--space-3) var(--space-2) var(--space-2);
+    padding: var(--space-2) var(--space-3) var(--space-2) var(--space-1);
     list-style: none;
     transform: translateY(-50%);
   }
@@ -65,14 +66,14 @@
   border-radius: 8px;
 }
 
+/* The line brightens toward the pointer and for the section in view; its length never changes. */
 .marker {
   flex: none;
-  width: 24px;
+  width: 16px;
   height: 2px;
   border-radius: 2px;
-  background: color-mix(in oklab, var(--teal-600) calc(var(--effect, 0) * 100%), var(--charcoal-300));
-  transform-origin: left center;
-  transform: scaleX(calc(0.45 + var(--effect, 0) * 0.55));
+  background: var(--deep);
+  opacity: calc(0.22 + var(--effect, 0) * 0.78);
 }
 
 .label {
@@ -85,20 +86,25 @@
   font-weight: 700;
 }
 
-/* With room: the labels beside the markers, half strength at rest, full while the rail is in use. */
-.nav[data-room] .link {
-  gap: var(--space-3);
-}
-
+/* With room: hovering the rail expands every label beside its line. */
 .nav[data-room] .label {
-  opacity: 0.5;
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
   transition:
     opacity 240ms var(--ease-out),
+    max-width 320ms var(--ease-out-quart),
     transform 360ms var(--ease-out-quart);
+}
+
+.nav[data-room] .list:hover .link,
+.nav[data-room] .list:has(:focus-visible) .link {
+  gap: var(--space-3);
 }
 
 .nav[data-room] .list:hover .label,
 .nav[data-room] .list:has(:focus-visible) .label {
+  max-width: 12rem;
   opacity: 1;
 }
 
@@ -112,7 +118,7 @@
 .nav:not([data-room]) .label {
   position: absolute;
   top: 50%;
-  left: 36px;
+  left: 28px;
   padding: 6px var(--space-3);
   border-radius: var(--radius-pill);
   background: var(--deep);
@@ -246,8 +252,8 @@
   background: var(--teal-600);
 }
 
-/* Wide screens use the rail instead (after the base rule, so it wins). */
-@media (min-width: 80rem) {
+/* Screens with a mouse use the rail instead (after the base rule, so it wins). */
+@media (min-width: 48rem) and (hover: hover) and (pointer: fine) {
   .jump {
     display: none;
   }

@@ -46,11 +46,13 @@
 }
 
 /* ---------- The index: chips on phones, a list beside the stack on wide screens ---------- */
-.index {
+/* [role] matches the global list reset's weight, so this padding is not zeroed by it. */
+.index[role='list'] {
   display: flex;
   gap: var(--space-2);
   margin-inline: calc(-1 * var(--gutter));
   padding: 2px var(--gutter) 6px;
+  scroll-padding-inline: var(--gutter);
   overflow-x: auto;
   scrollbar-width: none;
 }
@@ -287,7 +289,7 @@
     gap: var(--space-5);
   }
 
-  .index {
+  .index[role='list'] {
     display: grid;
     gap: 4px;
     margin: var(--space-2) 0 0;
