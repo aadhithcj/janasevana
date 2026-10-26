@@ -58,11 +58,12 @@ export function SectionNav({ items, label }: { items: Item[]; label: string }) {
       pending = 0;
       const foot = document.querySelector('footer')?.getBoundingClientRect();
       const footSeen = foot ? (innerHeight - foot.top) / foot.height : 0;
-      setShown(scrollY > innerHeight * 0.3 && footSeen < 0.4);
       let idx = 0;
       sections.forEach((sec, i) => {
         if (sec && sec.getBoundingClientRect().top <= innerHeight * 0.4) idx = i;
       });
+      // The index belongs to the sections below the hero: it shows once the search section is current.
+      setShown(idx >= 1 && footSeen < 0.4);
       if (idx !== activeRef.current) {
         activeRef.current = idx;
         setActive(idx);
