@@ -108,6 +108,9 @@ export function SectionNav({ items, label }: { items: Item[]; label: string }) {
       removeEventListener('resize', measure);
       cancelAnimationFrame(pending);
       cancelAnimationFrame(raf.current);
+      // Clear the handle too, or a remount (React's dev double-mount, fast refresh) finds a stale
+      // id, believes the loop is running, and never eases the lines again.
+      raf.current = 0;
     };
   }, [items, kick]);
 
