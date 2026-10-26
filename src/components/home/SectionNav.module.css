@@ -1,6 +1,6 @@
 /*
  * The home section index: marker lines fixed at the left edge on wide screens, shown once the
- * page has scrolled. Labels appear only while the index is hovered or focused, on a frosted panel.
+ * page has scrolled. Labels appear (or brighten) only while the index is hovered or focused, plain on the page.
  * --effect (0..1) is eased per item by script: pointer proximity, or 1 for the section in view.
  */
 .nav {
@@ -33,28 +33,11 @@
   margin: 0;
   padding: var(--space-2) var(--space-3) var(--space-2) var(--space-2);
   list-style: none;
-  border-radius: 18px;
-  transition:
-    background-color 300ms var(--ease-out),
-    box-shadow 300ms var(--ease-out),
-    backdrop-filter 300ms var(--ease-out),
-    -webkit-backdrop-filter 300ms var(--ease-out);
 }
 
 .list:hover .link,
 .list:has(:focus-visible) .link {
   gap: var(--space-3);
-}
-
-/* The frosted panel behind the labels while they show. */
-.list:hover,
-.list:has(:focus-visible) {
-  background: rgb(255 255 255 / 0.72);
-  box-shadow:
-    inset 0 0 0 1px rgb(255 255 255 / 0.8),
-    0 16px 36px -22px rgb(3 73 76 / 0.45);
-  -webkit-backdrop-filter: blur(16px) saturate(1.4);
-  backdrop-filter: blur(16px) saturate(1.4);
 }
 
 .link {
@@ -118,7 +101,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .nav,
-  .list,
+  .link,
   .label {
     transition: none;
   }
