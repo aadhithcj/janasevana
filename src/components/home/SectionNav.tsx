@@ -4,10 +4,16 @@
  * A quiet section index for the home page, adapted from React Bits' LineSidebar
  * (reactbits.dev): marker lines at the left edge that grow toward the pointer
  * through one eased --effect value per item. Changes for this site: real links
- * (keyboard and screen readers reach every section), labels that only appear on
- * hover or focus, the section in view marked as current, and no index numbers.
+ * (keyboard and screen readers reach every section), the section in view marked
+ * as current, and no index numbers.
+ *
+ * Three forms, one set of links:
+ * - wide screens whose margin fits the labels: the labels sit beside the markers, quiet at rest;
+ * - wide screens without that room: markers only, and the hovered or focused marker shows its
+ *   label as a small pill, so nothing covers the page's text;
+ * - phones and tablets: a floating button naming the current section, which opens the list.
  */
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useRef, useState } from 'react';
 import s from './SectionNav.module.css';
 
 type Item = { id: string; label: string };
@@ -15,6 +21,7 @@ type Item = { id: string; label: string };
 const smoothstep = (p: number) => p * p * (3 - 2 * p);
 
 export function SectionNav({ items, label }: { items: Item[]; label: string }) {
+  const navRef = useRef<HTMLElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
   const itemRefs = useRef<(HTMLLIElement | null)[]>([]);
   const targets = useRef<number[]>([]);
@@ -22,8 +29,12 @@ export function SectionNav({ items, label }: { items: Item[]; label: string }) {
   const raf = useRef(0);
   const last = useRef(0);
   const activeRef = useRef(0);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const [active, setActive] = useState(0);
   const [shown, setShown] = useState(false);
+  const [room, setRoom] = useState(false);
+  const [open, setOpen] = useState(false);
+  const sheetId = useId();
 
   // One rAF loop eases every item's --effect toward its target (pointer proximity, or 1 when current),
   // and stops itself once everything has settled.
@@ -63,25 +74,61 @@ export function SectionNav({ items, label }: { items: Item[]; label: string }) {
         if (sec && sec.getBoundingClientRect().top <= innerHeight * 0.4) idx = i;
       });
       // The index belongs to the sections below the hero: it shows once the search section is current.
-      setShown(idx >= 1 && footSeen < 0.4);
+      const show = idx >= 1 && footSeen < 0.4;
+      setShown(show);
+      if (!show) setOpen(false);
       if (idx !== activeRef.current) {
         activeRef.current = idx;
         setActive(idx);
         kick();
       }
     };
+    // Labels sit beside the markers only where the margin left of the content fits them.
+    const measure = () => {
+      const list = listRef.current;
+      const wrap = sections[1]?.querySelector('.wrap');
+      if (!list || !wrap) return;
+      const labels = [...list.querySelectorAll<HTMLElement>(`.${s.label}`)];
+      const widest = Math.max(0, ...labels.map((l) => l.scrollWidth));
+      const content = wrap.getBoundingClientRect().left + parseFloat(getComputedStyle(wrap).paddingLeft);
+      // nav offset + list padding + marker + gap + label + the current label's step + breathing room
+      setRoom(6 + 8 + 24 + 12 + widest + 8 + 24 <= content);
+    };
     const queue = () => {
       if (!pending) pending = requestAnimationFrame(spy);
     };
     spy();
+    measure();
+    document.fonts?.ready.then(measure);
     kick();
     addEventListener('scroll', queue, { passive: true });
+    addEventListener('resize', measure);
     return () => {
       removeEventListener('scroll', queue);
+      removeEventListener('resize', measure);
       cancelAnimationFrame(pending);
       cancelAnimationFrame(raf.current);
     };
   }, [items, kick]);
+
+  // The phone sheet closes on Escape (focus returns to its button) or a press outside it.
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      setOpen(false);
+      triggerRef.current?.focus();
+    };
+    const onDown = (e: PointerEvent) => {
+      if (!navRef.current?.contains(e.target as Node)) setOpen(false);
+    };
+    addEventListener('keydown', onKey);
+    addEventListener('pointerdown', onDown);
+    return () => {
+      removeEventListener('keydown', onKey);
+      removeEventListener('pointerdown', onDown);
+    };
+  }, [open]);
 
   const onMove = (e: React.PointerEvent) => {
     const list = listRef.current;
@@ -101,6 +148,7 @@ export function SectionNav({ items, label }: { items: Item[]; label: string }) {
   };
 
   const go = (e: React.MouseEvent, id: string) => {
+    setOpen(false);
     const section = document.getElementById(id)?.closest('section');
     if (!section) return;
     e.preventDefault();
@@ -110,7 +158,8 @@ export function SectionNav({ items, label }: { items: Item[]; label: string }) {
   };
 
   return (
-    <nav className={s.nav} aria-label={label} data-shown={shown ? '' : undefined}>
+    <nav ref={navRef} className={s.nav} aria-label={label} data-shown={shown ? '' : undefined} data-room={room ? '' : undefined}>
+      {/* Wide screens: the rail. */}
       <ul ref={listRef} className={s.list} onPointerMove={onMove} onPointerLeave={onLeave}>
         {items.map((it, i) => (
           <li
@@ -127,6 +176,27 @@ export function SectionNav({ items, label }: { items: Item[]; label: string }) {
           </li>
         ))}
       </ul>
+
+      {/* Phones and tablets: a button naming the current section, opening the list above it. */}
+      <div className={s.jump}>
+        <ul id={sheetId} className={s.sheet} data-open={open ? '' : undefined}>
+          {items.map((it, i) => (
+            <li key={it.id}>
+              <a href={`#${it.id}`} className={s.sheetLink} aria-current={active === i ? 'true' : undefined} tabIndex={open ? undefined : -1} onClick={(e) => go(e, it.id)}>
+                <span className={s.sheetMarker} aria-hidden="true" />
+                {it.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <button ref={triggerRef} type="button" className={s.trigger} aria-expanded={open} aria-controls={sheetId} onClick={() => setOpen((o) => !o)}>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+            <path d="M4 7h10M4 12h16M4 17h7" />
+          </svg>
+          <span className="visually-hidden">{label}: </span>
+          <span className={s.triggerLabel}>{items[active]?.label}</span>
+        </button>
+      </div>
     </nav>
   );
 }

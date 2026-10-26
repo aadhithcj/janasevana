@@ -1,46 +1,52 @@
 /*
- * The home section index: marker lines fixed at the left edge on wide screens, shown once the
- * page has scrolled. Labels appear (or brighten) only while the index is hovered or focused, plain on the page.
+ * The home section index, shown once the search section is current and hidden near the footer.
+ * Wide screens (80rem+): marker lines at the left edge. With margin room ([data-room]) the labels
+ * sit beside them, quiet at rest; without it only the hovered or focused marker shows its label,
+ * as a small pill. Phones and tablets: a floating button that opens the list.
  * --effect (0..1) is eased per item by script: pointer proximity, or 1 for the section in view.
  */
+/* Hidden means out of the tab order too: visibility follows the fade out, and leads the fade in. */
 .nav {
-  position: fixed;
-  top: 50%;
-  left: 6px;
-  z-index: 15;
+  position: relative;
+  z-index: 25;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 420ms var(--ease-out),
+    visibility 0s linear 420ms;
+}
+
+.nav[data-shown] {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transition:
+    opacity 420ms var(--ease-out),
+    visibility 0s;
+}
+
+/* ---------- The rail (wide screens) ---------- */
+.list {
   display: none;
-  transform: translateY(-50%);
 }
 
 @media (min-width: 80rem) {
-  .nav {
-    display: block;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 420ms var(--ease-out);
+  .list {
+    position: fixed;
+    top: 50%;
+    left: 6px;
+    z-index: 15;
+    display: grid;
+    margin: 0;
+    padding: var(--space-2) var(--space-3) var(--space-2) var(--space-2);
+    list-style: none;
+    transform: translateY(-50%);
   }
-
-  .nav[data-shown] {
-    opacity: 1;
-    pointer-events: auto;
-  }
-}
-
-.list {
-  position: relative;
-  display: grid;
-  gap: 0;
-  margin: 0;
-  padding: var(--space-2) var(--space-3) var(--space-2) var(--space-2);
-  list-style: none;
-}
-
-.list:hover .link,
-.list:has(:focus-visible) .link {
-  gap: var(--space-3);
 }
 
 .link {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 0;
@@ -73,36 +79,187 @@
   font-size: 0.95rem;
   font-weight: 600;
   white-space: nowrap;
-  /* No width at rest, so the index takes only its markers' room over the page. */
-  max-width: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition:
-    opacity 240ms var(--ease-out),
-    max-width 320ms var(--ease-out-quart),
-    transform 360ms var(--ease-out-quart);
-}
-
-/* The section in view: its label steps right and takes the teal. */
-.link[aria-current='true'] .label {
-  transform: translateX(8px);
-  color: var(--deep);
-}
-
-.list:hover .label,
-.list:has(:focus-visible) .label {
-  max-width: 12rem;
-  opacity: 1;
 }
 
 .link[aria-current='true'] .label {
   font-weight: 700;
 }
 
+/* With room: the labels beside the markers, half strength at rest, full while the rail is in use. */
+.nav[data-room] .link {
+  gap: var(--space-3);
+}
+
+.nav[data-room] .label {
+  opacity: 0.5;
+  transition:
+    opacity 240ms var(--ease-out),
+    transform 360ms var(--ease-out-quart);
+}
+
+.nav[data-room] .list:hover .label,
+.nav[data-room] .list:has(:focus-visible) .label {
+  opacity: 1;
+}
+
+/* The section in view: its label steps right and takes the teal. */
+.nav[data-room] .link[aria-current='true'] .label {
+  transform: translateX(8px);
+  color: var(--deep);
+}
+
+/* Without room: one label at a time, as a pill beside the marker under the pointer or focus. */
+.nav:not([data-room]) .label {
+  position: absolute;
+  top: 50%;
+  left: 36px;
+  padding: 6px var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--deep);
+  color: #fff;
+  box-shadow: 0 10px 24px -14px rgb(3 73 76 / 0.6);
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-6px, -50%);
+  transition:
+    opacity 200ms var(--ease-out),
+    transform 300ms var(--ease-out-quart);
+}
+
+.nav:not([data-room]) .link:hover .label,
+.nav:not([data-room]) .link:focus-visible .label {
+  opacity: 1;
+  transform: translate(0, -50%);
+}
+
+/* ---------- The floating button and its list (phones and tablets) ---------- */
+.jump {
+  position: fixed;
+  bottom: calc(var(--bar-h) + var(--space-3));
+  left: var(--space-3);
+  z-index: 25;
+  display: grid;
+  justify-items: start;
+  gap: var(--space-2);
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  max-width: calc(100vw - 2 * var(--space-3));
+  min-height: 44px;
+  padding: 0 var(--space-4) 0 var(--space-3);
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: rgb(255 255 255 / 0.9);
+  color: var(--deep);
+  font-size: 0.95rem;
+  font-weight: 700;
+  box-shadow:
+    inset 0 0 0 1px rgb(3 73 76 / 0.12),
+    0 12px 28px -16px rgb(3 73 76 / 0.55);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  backdrop-filter: blur(14px) saturate(1.4);
+  transition:
+    transform var(--dur-base) var(--ease-out-quart),
+    background-color var(--dur-base) var(--ease-out-quart);
+}
+
+.trigger:active {
+  transform: scale(0.96);
+}
+
+.trigger[aria-expanded='true'] {
+  background: var(--deep);
+  color: #fff;
+}
+
+.triggerLabel {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sheet {
+  display: grid;
+  min-width: 13rem;
+  margin: 0;
+  padding: var(--space-2);
+  list-style: none;
+  border-radius: 20px;
+  background: var(--paper);
+  box-shadow:
+    inset 0 0 0 1px rgb(3 73 76 / 0.1),
+    0 22px 48px -24px rgb(3 73 76 / 0.6);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px) scale(0.97);
+  transform-origin: bottom left;
+  transition:
+    opacity 220ms var(--ease-out),
+    transform 320ms var(--ease-out-quart),
+    visibility 0s linear 320ms;
+}
+
+.sheet[data-open] {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition:
+    opacity 220ms var(--ease-out),
+    transform 320ms var(--ease-out-quart),
+    visibility 0s;
+}
+
+.sheetLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  border-radius: 12px;
+  color: var(--ink-2);
+  font-weight: 600;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.sheetLink:hover {
+  background: var(--mist);
+}
+
+.sheetMarker {
+  flex: none;
+  width: 14px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--charcoal-300);
+}
+
+.sheetLink[aria-current='true'] {
+  color: var(--deep);
+  font-weight: 700;
+}
+
+.sheetLink[aria-current='true'] .sheetMarker {
+  width: 22px;
+  background: var(--teal-600);
+}
+
+/* Wide screens use the rail instead (after the base rule, so it wins). */
+@media (min-width: 80rem) {
+  .jump {
+    display: none;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .nav,
   .link,
-  .label {
+  .label,
+  .trigger,
+  .sheet,
+  .sheet[data-open] {
     transition: none;
   }
 }
@@ -110,22 +267,5 @@
 @media print {
   .nav {
     display: none;
-  }
-}
-
-/* Wide enough screens have room in the margin: the labels stay visible at rest, quietly. */
-@media (min-width: 96rem) {
-  .link {
-    gap: var(--space-3);
-  }
-
-  .label {
-    max-width: 12rem;
-    opacity: 0.5;
-  }
-
-  .list:hover .label,
-  .list:has(:focus-visible) .label {
-    opacity: 1;
   }
 }
