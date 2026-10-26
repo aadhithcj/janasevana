@@ -1,9 +1,9 @@
 /*
  * The home section index, shown once the search section is current and hidden near the footer.
- * Screens with a mouse: marker lines at the left edge; the section in view has the brightest line.
+ * Screens with a mouse from 1120px: marker lines at the left edge; the section in view has the brightest line.
  * On hover, where the margin fits the labels ([data-room]) they expand beside the lines; without
  * that room only the hovered or focused line shows its label, as a small pill.
- * Touch screens: a floating button that opens the list.
+ * Touch screens and narrower ones: a floating button that opens the list.
  * --effect (0..1) is eased per item by script: pointer proximity, or 1 for the section in view.
  */
 /* Hidden means out of the tab order too: visibility follows the fade out, and leads the fade in. */
@@ -32,7 +32,7 @@
   display: none;
 }
 
-@media (min-width: 48rem) and (hover: hover) and (pointer: fine) {
+@media (min-width: 70rem) and (hover: hover) and (pointer: fine) {
   .list {
     position: fixed;
     top: 50%;
@@ -253,7 +253,7 @@
 }
 
 /* Screens with a mouse use the rail instead (after the base rule, so it wins). */
-@media (min-width: 48rem) and (hover: hover) and (pointer: fine) {
+@media (min-width: 70rem) and (hover: hover) and (pointer: fine) {
   .jump {
     display: none;
   }
